@@ -1,0 +1,4 @@
+include 'network_specific', 'time_lapse'
+
+project(':network_specific').projectDir = 'plugins/network_specific' as File
+project(':time_lapse').projectDir = 'time_lapse' as File
