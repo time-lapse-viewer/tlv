@@ -11,13 +11,19 @@
 
 		<asset:stylesheet src = "index-bundle.css"/>
 		<asset:javascript src = "index-bundle.js"/>
+		<asset:script type = "text/javascript">
+			var tlv = ${raw(tlvParams)};
+			tlv.contextPath = "${request.contextPath}";
+		</asset:script>
 	</head>
 	<body>
 		<div class = "container-fluid">
-			<g:render template = "security-classification-header"/>
-			<g:render template = "navigationMenu"/>
-${grailsApplication.config.cheese}
-			<g:render template = "dialogs"/>
+			<g:render template = "/security-classification-header"/>
+			<g:render template = "/navigationMenu"/>
+
+			<g:render template = "/dialogs"/>
+
+			<asset:deferredScripts/>
 		</div>
 	</body>
 </html>

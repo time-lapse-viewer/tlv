@@ -8,7 +8,8 @@
 			</div>
 			<div class = "collapse navbar-collapse">
 				<ul class = "nav navbar-nav">
-					<%-- <g:render template = "menus/searchMenu"/>
+					<g:render template = "/menus/searchMenu"/>
+					<%--
 					<g:render template = "menus/timeLapseMenuControls"/>
 					<li>
 						<a href = javascript:void(0) onclick = buildSummaryTable();$("#summaryTableDialog").modal("show"); title = "Summary Table">
@@ -20,7 +21,8 @@
 					<g:render template = "menus/exportMenu"/>
 					<g:render template = "menus/imagePropertiesMenu"/>
 					<g:render template = "menus/layersMenu"/>
-					<g:render template = "menus/viewMenu"/> --%>
+					<g:render template = "menus/viewMenu"/> 
+					--%>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href = javascript:void(0) onclick = $("#helpDialog").modal("show")>Help</a></li>
