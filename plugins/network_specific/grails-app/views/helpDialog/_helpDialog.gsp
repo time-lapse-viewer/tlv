@@ -12,6 +12,6 @@ Need help? Let us know; we do this stuff for a living... literally!
 
 <div align = "right">
 	<small>
-		Or you can check out groovy <a href = "/docs" target = "_blank">documentation</a>.
+		Or you can check out our sweet <a href = "/docs" target = "_blank">documentation</a>.
 	</small>
 </div>
