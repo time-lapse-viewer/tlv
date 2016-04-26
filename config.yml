@@ -1,1 +1,16 @@
+libraries:
+    omar: 
+        baseUrl: "http://omar.ossim.org"
+        label: "OMAR"
+        relativeApplicationViewUrl: "/omar/mapView/index"
+        relativeWmsUrl: "/omar/ogc/wms"
+        sensors: 
+            - description: "Commercial: Multispectral"
+              name: "msi"
+            - description: "Commercial: Panchromatic"
+              name: "vis"
+        tailoredGeoint: []
+
 securityClassification: "UNCLASSIFIED"
+
+tempFileDir: new File(${System.getProperty("java.io.tmpdir")})
