@@ -20,14 +20,14 @@ function beginSearch() {
 				tlv.bbox = calculateInitialViewBbox();
 				setupTimeLapse(); 
 			},
-			url: tlv.contextPath + "/home/searchLibrary"
+			url: tlv.contextPath + "/search/searchLibrary"
 		});	
 	}
 	else { hideLoadingDialog(); }
 }
 
 function bookmarkSearchParams() {
-	var url = location.origin + tlv.contextPath + "/home?";
+	var url = location.origin + tlv.contextPath + "?";
 
 	var searchParams = getSearchParams();	
 	if (searchParams) {
@@ -147,7 +147,7 @@ function getSearchParams() {
 	var libraries = getSelectedLibraries();
 	if (libraries.length == 0) { 
 		alert("Please select a library, thanks."); 
-		$('#searchDialog').modal('show')
+		$('#searchDialog').modal('show');
 		return; 
 	}
 	searchObject.libraries = libraries;
