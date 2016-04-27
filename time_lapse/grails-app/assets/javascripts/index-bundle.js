@@ -3,13 +3,14 @@
 //= require moment.js
 //= require bootstrap-datetimepicker
 // //= require bootstrap-slider
-// //= require ol
+//= require ol-debug
 //= require spin
-//= require coordinateConversion
+//= require coordinate-conversion
 
 //= require prototype
-//= require pageLoad
+//= require page-load
 //= require index
 //= require menus/search
-//= require timeLapse
+//= require time-lapse
 //= require menus/search
+//= require menus/search-plugin

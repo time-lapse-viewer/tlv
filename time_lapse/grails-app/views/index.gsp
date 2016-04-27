@@ -19,7 +19,8 @@
 	<body>
 		<div class = "container-fluid">
 			<g:render template = "/security-classification-header"/>
-			<g:render template = "/navigationMenu"/>
+			<g:render template = "/navigation-menu"/>
+			<g:render template = "/time-lapse"/>
 
 			<g:render template = "/dialogs"/>
 

@@ -13,13 +13,13 @@
 	</div>
 </div>
 
+<g:render template = "/time-lapse-dialogs"/>
 <%--
-<g:render template = "timeLapseDialogs"/>
 <g:render template = "menus/exportMenuDialogs"/>
 <g:render template = "menus/imagePropertiesMenuDialogs"/>
 <g:if test = "${grailsApplication.config.networkSpecific.layers.enabled}"><g:render plugin = "networkSpecific" template = "menus/layers/layersMenuDialogs"/></g:if>
 --%>
-<g:render template = "/menus/searchMenuDialogs"/>
+<g:render template = "/menus/search-menu-dialogs"/>
 <%--
 <g:render template = "menus/timeLapseMenuFunctionsDialogs"/>
 --%>
@@ -28,7 +28,7 @@
 	<div class = "modal-dialog">
 		<div class = "modal-content">
 			<div class = "modal-header"><h4>Help!</h4></div>
-			<div class = "modal-body"><g:render plugin = "networkSpecific" template = "/helpDialog/helpDialog"/></div>
+			<div class = "modal-body"><g:render plugin = "networkSpecific" template = "/help_dialog/help-dialog"/></div>
 			<div class = "modal-footer"><button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button></div>
 		</div>
 	</div>
