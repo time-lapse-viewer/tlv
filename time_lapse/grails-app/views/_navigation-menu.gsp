@@ -8,15 +8,15 @@
 			</div>
 			<div class = "collapse navbar-collapse">
 				<ul class = "nav navbar-nav">
-					<g:render template = "/menus/searchMenu"/>
-					<%--
-					<g:render template = "menus/timeLapseMenuControls"/>
+					<g:render template = "/menus/search-menu"/>
+					<g:render template = "/menus/time-lapse-menu-controls"/>
 					<li>
 						<a href = javascript:void(0) onclick = buildSummaryTable();$("#summaryTableDialog").modal("show"); title = "Summary Table">
 							<span id = "tlvLayerCountSpan">0/0</span>
 							<span class = "glyphicon glyphicon-list-alt"></span>
 						</a>
 					</li>	
+					<%--
 					<g:render template = "menus/timeLapseMenuFunctions"/>
 					<g:render template = "menus/exportMenu"/>
 					<g:render template = "menus/imagePropertiesMenu"/>
