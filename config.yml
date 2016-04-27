@@ -1,3 +1,5 @@
+defaultLocation: "55GEN2119554510"
+
 libraries:
     omar: 
         baseUrl: "http://omar.ossim.org"
