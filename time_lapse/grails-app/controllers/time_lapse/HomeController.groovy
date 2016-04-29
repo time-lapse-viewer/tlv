@@ -13,6 +13,6 @@ class HomeController {
 		def model = restApiService.serviceMethod(params)
 
 
-		render(view: "../index.gsp", model: [tlvParams : JsonOutput.toJson(model)])
+		render(model: [tlvParams : JsonOutput.toJson(model)], view: "/index.gsp")
 	}
 }
