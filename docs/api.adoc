@@ -1,0 +1,44 @@
+== API
+
+The table below shows a list of parameters that can be added to the URL (in a "GET" fashion). 
+
+|===
+| URL Parameter | Description
+
+| _endDay_
+| Automatically set the search end day.
+
+| _endHour_
+| Automatically set the search end hour.
+
+| _endMinute_
+| Automatically set the search end minute.
+
+| _endMonth_
+| Automatically set the search end month.
+
+| _endSecond_
+| Automatically set the search end second.
+
+| _endYear_
+| Automatically set the search end year.
+ 
+| _startDay_
+| Automatically set the search start day.
+
+| _startHour_
+| Automatically set the search start hour.
+
+| _startMinute_
+| Automatically set the search start minute.
+
+| _startMonth_
+| Automatically set the search start month.
+
+| _startSecond_
+| Automatically set the search start second.
+
+| _startYear_
+| Automatically set the search start year.
+
+|===
