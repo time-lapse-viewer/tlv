@@ -3,7 +3,7 @@
 //= require moment.js
 //= require bootstrap-datetimepicker
 // //= require bootstrap-slider
-//= require ol-debug
+//= require ol
 //= require spin
 //= require coordinate-conversion
 
