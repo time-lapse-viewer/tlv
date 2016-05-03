@@ -32,6 +32,15 @@ class HttpDownloadService {
 		}
 
 		http.request(GET) { req ->
+			if (params.ursername && params.password) {
+				headers."Authorization" = "Basic " + "${params.username}:${params.password}".getBytes().encodeBase64()
+			}
+			response.failure = { response, reader ->
+				println reader
+
+			
+				return null
+			}
 			response.success = { response, reader ->
 				def contentType = response.allHeaders.find({ it.name =~ /(?i)Content-Type/})
 				if (contentType) { contentType = contentType.value }
