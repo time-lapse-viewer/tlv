@@ -1,10 +1,22 @@
 defaultLocation: "55GEN2119554510"
 
 libraries:
+    digitalGlobe:
+        baseUrl: "https://evwhs.digitalglobe.com"
+        connectId: "connect-id-from-digital-globe"
+        label: "DG"
+        password: "digital-globe-password"
+        relativeWmsUrl: "/mapservice/wmsaccess"
+        sensors: 
+            - description: "Commercial: Multispectral"
+              name: "msi"
+            - description: "Commercial: Panchromatic"
+              name: "vis"
+        tailoredGeoint: []
+        username: "digital-globe-username"
     omar: 
         baseUrl: "http://omar.ossim.org"
         label: "OMAR"
-        relativeApplicationViewUrl: "/omar/mapView/index"
         relativeWmsUrl: "/omar/ogc/wms"
         sensors: 
             - description: "Commercial: Multispectral"
