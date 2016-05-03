@@ -75,16 +75,16 @@ class SearchDigitalGlobeService {
 		def filter = ""
 
 		// acquisition date
-		def startDate = "${params.startYear}-${params.startMonth}-${params.startDay}T${params.startHour}:${params.startHour}:${params.startSecond}.000"
-		def endDate = "${params.endYear}-${params.endMonth}-${params.endDay}T${params.endHour}:${params.endHour}:${params.endSecond}.000"
-		filter += "(acquisitionDate > ${startDate} AND acquisitionDate < ${endDate})"
+//		def startDate = "${params.startYear}-${params.startMonth}-${params.startDay}T${params.startHour}:${params.startHour}:${params.startSecond}.000"
+//		def endDate = "${params.endYear}-${params.endMonth}-${params.endDay}T${params.endHour}:${params.endHour}:${params.endSecond}.000"
+//		filter += "(acquisitionDate > ${startDate} AND acquisitionDate < ${endDate})"
 
-		filter += " AND "
+//		filter += " AND "
 
 		// bbox
 		def deltaDeg = mathConversionService.convertRadiusToDeltaDegrees(params)
 		def location = params.location.collect({ it as Double })
-		filter += "BBOX=${location[0] - deltaDeg},${location[1] - deltaDeg},${location[0] + deltaDeg},${location[1] + deltaDeg}"
+		//filter += "BBOX=${location[0] - deltaDeg},${location[1] - deltaDeg},${location[0] + deltaDeg},${location[1] + deltaDeg}"
 
 		filter += " AND "
 
@@ -117,12 +117,14 @@ class SearchDigitalGlobeService {
 //			filter += "(${sensorFilters.join(" OR ")})"
 //		}
 
+		queryUrl += "?bbox=${location[0] - deltaDeg},${location[1] - deltaDeg},${location[0] + deltaDeg},${location[1] + deltaDeg}"
 		queryUrl += "&connectid=${library.connectId}"
-		queryUrl += "&filter=" + URLEncoder.encode(filter)
+//		queryUrl += "&filter=" + URLEncoder.encode(filter)
 
 		queryUrl += "&maxResults=${params.maxResults}"
 		queryUrl += "&request=GetFeature"
 		queryUrl += "&service=WFS"
+		queryUrl += "&sortby=acquisitionDate%20D"
 		queryUrl += "&typeName=DigitalGlobe:FinishedFeature"
 		queryUrl += "&version=1.0.0"
 println queryUrl

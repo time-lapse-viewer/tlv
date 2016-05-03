@@ -112,6 +112,7 @@ class SearchOmarService {
 		queryUrl += "&service=WFS"
 		queryUrl += "&typeName=omar:raster_entry"
 		queryUrl += "&version=1.0.0"
+println queryUrl
 
 		def xml = httpDownloadService.serviceMethod([url: queryUrl])
 
