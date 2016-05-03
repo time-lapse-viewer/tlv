@@ -93,10 +93,10 @@
 						<td align = "right">Library:</td>
 						<td>
 							<div class = "btn-group" data-toggle = "buttons">
-								<g:each in = "${params.availableResources.libraries}">
-									<label class = "btn btn-primary" id = "searchTabLibrary${it.capitalize()}Label" onchange = librarySensorCheck()>
-										<input id = "searchTabLibrary${it.capitalize()}Checkbox" type = "checkbox">
-										${it.toUpperCase()}
+								<g:each in = "${params.availableResources.complete}">
+									<label class = "btn btn-primary" id = "searchTabLibrary${it.key.capitalize()}Label" onchange = librarySensorCheck()>
+										<input id = "searchTabLibrary${it.key.capitalize()}Checkbox" type = "checkbox">
+										${it.value.label.toUpperCase()}
 									</label>
 								</g:each>
 							</div>
