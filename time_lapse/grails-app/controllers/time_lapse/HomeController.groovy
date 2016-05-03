@@ -7,7 +7,7 @@ import groovy.json.JsonOutput
 class HomeController {
 
 	def restApiService
-
+	
 
 	def index() {
 		def model = restApiService.serviceMethod(params)
