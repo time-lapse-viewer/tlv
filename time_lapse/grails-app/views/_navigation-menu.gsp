@@ -16,8 +16,8 @@
 							<span class = "glyphicon glyphicon-list-alt"></span>
 						</a>
 					</li>	
+					<g:render template = "/menus/time-lapse-menu-functions"/>
 					<%--
-					<g:render template = "menus/timeLapseMenuFunctions"/>
 					<g:render template = "menus/exportMenu"/>
 					<g:render template = "menus/imagePropertiesMenu"/>
 					<g:render template = "menus/layersMenu"/>
