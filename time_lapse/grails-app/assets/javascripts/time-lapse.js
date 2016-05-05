@@ -147,22 +147,6 @@ function createMousePositionControl() {
 	return mousePositionControl;
 }
 
-function createTmsMaps() {
-	$.each(
-		tlv.layers,
-		function(i, x)  {
-			if (!x.tmsMap) {
-				var tmsMap = document.createElement("div");
-				tmsMap.id = "tmsMap" + i;
-				$("#map").parent().prepend(tmsMap);
-				//x.tmsMap = new ol.layer.Image({
-				//	source: new ol.source.
-				//});
-			}
-		}
-	);
-}
-
 function deleteFrame() {
 	changeFrame("rewind");
 
@@ -382,7 +366,7 @@ function setupTimeLapse() {
 	tlv.layerZIndex = 0;
 	setupBaseLayers();
 
-	if (tlv.reverseChronological == "true") { tlv.layers.reverse(); }
+	if (tlv.chronological == "true") { tlv.layers.reverse(); }
 	addLayersToTheMap();
 
 	tlv.map.getView().fit(tlv.bbox, tlv.map.getSize());
@@ -395,25 +379,12 @@ function setupTimeLapse() {
 	enableMenuButtons();
 
 	updateScreenText();
+
+	// cycle through the stack to start downloading each frame
+	for (i in tlv.layers) { changeFrame("fastFOrward"); }
 }
 
 function stopTimeLapse() { clearTimeout(tlv.timeLapseAdvance); }
-
-function switchToOrthoMode() {
-	tlv.viewMode = "ortho";
-}
-
-function switchToRawMode() {
-	tlv.viewMode = "raw";
-
-	createTmsMaps();
-}
-
-function switchToUpMode() {
-	tlv.viewMode = "up";
-
-	createTmsMaps();
-}
 
 function theLayerHasFinishedLoading(layerSource) {
 	var currentLayerId = tlv.layers[tlv.currentLayer].mapLayer.getSource().getParams().IDENTIFIER;
