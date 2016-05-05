@@ -1,0 +1,33 @@
+== Map
+
+The following Q&A session describes all the functionality that is available as it relates to the map itself and the image stack. 
+
+[qanda]
+How do I advance to the next image?::
+There should be familiar movie play controls in the navigation menu.
+
+TIP: Cut down on the carpul tunnel by using the left and right arrwo keys on the keyboard.
+
+[qanda]
+How do I change the mouse-position coordinate format?::
+Just click the coordinate readout box to cycle through the endless possibilities. And by "endless", we mean, three - DD, DMS and MGRS.
+
+How do I rotate my image?::
+Simply use the navigation menu drop-down and select `Enable Map Rotation`.`
+
+How do I go to a specific location?::
+You can jump anywhere your heart desires using the `Geo-Jump` button.
+
+TIP: Right-click the map to present a context-menu, where you can easily copy the "clicked" coordinate.
+
+[qanda]
+How do I delete a specific frame?::
+Kick that image to the curb by clicking `Delete Frame` in the navigation menu drop-down.
+
+TIP: Get rids of things even faster by using the delete button on the keyboard.
+
+[qanda]
+How do I reverse the order of the image stack?::
+That good ol' navigation menu drop-down provides a `Reverse Order` button.
+
+TIP: If you prefer chronological order all the time, you can user `chronological=true` in the URL. 
