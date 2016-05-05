@@ -3,86 +3,108 @@
 The table below shows a list of parameters that can be added to the URL (in a "GET" fashion). 
 
 |===
-| URL Parameter | Description | Example | Possible Values
+| URL Parameter | Description | Example | Default | Possible Values
+
+| _chronological_
+| Present the image stack in chronological order.
+| chronological=true
+| true
+| false
 
 | _endDay_
 | Automatically set the search end day.
 | endDay=13
+| One month prior to today's date
 | [1 - 31]
 
 | _endHour_
 | Automatically set the search end hour.
 | endHour=17
+| One month prior to today's date
 | [0 - 23]
 
 | _endMinute_
 | Automatically set the search end minute.
 | endMinute=1
+| One month prior to today's date
 | [1 - 59]
 
 | _endMonth_
 | Automatically set the search end month.
 | endMonth=11
+| One month prior to today's date
 | [1 - 12]
 
 | _endSecond_
 | Automatically set the search end second.
 | endSecond=23
+| One month prior to today's date
 | [0 - 59]
 
 | _endYear_
 | Automatically set the search end year.
 | endYear=2017
+| One month prior to today's date
 | [1970 - ∞) 
 
 | _location_
 | Automatically fill in the search location AND kick off a search.
 | location=55GEN2119554510 
+| nothing
 | Any valid coordinate in DD, DMS or MGRS format.
 
 | _maxCloudCover_
 | Automatically set the search maximum cloud cover.
 | maxCloudCover=57
+| 100
 | [0 - 100]
 
 | _maxResults_
 | Automatically set the search maximum results.
 | maxResults=25
+| 10
 | [5, 10, 25, 50, 75, 100, 250, 500]
 
 | _minNiirs_
 | Automatically set the search minimum NIIRS.
 | minNiirs=3
+| 0
 | [0 - 9]
 
 | _startDay_
 | Automatically set the search start day.
 | startDay=19
+| Today's date
 | [1 - 31]
 
 | _startHour_
 | Automatically set the search start hour.
 | startHour=13
+| Today's date
 | [0 - 23]
 
 | _startMinute_
 | Automatically set the search start minute.
 | startMinute=31
+| Today's date
 | [0 - 59]
 
 | _startMonth_
 | Automatically set the search start month.
 | startMonth=05
+| Today's date
 | [1 - 12]
 
 | _startSecond_
 | Automatically set the search start second.
 | startSecond=27
+| Today's date
 | [0 - 59]
 
 | _startYear_
 | Automatically set the search start year.
 | startYear=2011
+| Today's date
 | [1970 - ∞)
 
 |===
