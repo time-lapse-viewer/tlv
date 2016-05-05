@@ -1,10 +1,15 @@
 :last-update-label!:
+
 = Time-Lapse Viewer (TLV) Documentation
+:icons: font
+:iconfont-remote!:
+:iconfont-name: /assets/font-awesome-4.6.2
 :toc: left
 
 TLV is an on-demand imagery flipbook, dedicated to searching, viewing and exporting imagery as fast as humanly possible... all within a single web-application.
 
 include::api.adoc[]
 
-== Map
+include::map.adoc[]
+
 :last-update-label!:
