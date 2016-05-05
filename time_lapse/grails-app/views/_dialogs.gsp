@@ -5,8 +5,8 @@
 			<div class = "modal-body">
 				<div id = "loadingDialogMessageDiv"></div>
 				<br>
-				<div class = "progress">
-					<div class = "progress-bar progress-bar-striped" role = "progressbar" style = "width: 100%"></div>
+				<div class = "progress progress-striped">
+					<div class = "progress-bar progress-bar-info" role = "progressbar" style = "width: 100%"></div>
 				</div>
 			</div>
 		</div>
