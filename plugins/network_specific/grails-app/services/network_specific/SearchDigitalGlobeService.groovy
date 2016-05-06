@@ -15,12 +15,58 @@ class SearchDigitalGlobeService {
 	def extractMetadata(xml) {
 		def metadata = [
 			acquisitionDate: xml.acquisitionDate?.text() ?: null,
+			acquisitionType: xml.acquisitionType?.text() ?: null,
+			ageDyas: xml.ageDays?.text().isNumber() ? xml.ageDays.text() as Integer : null,
+			antenaLookDirection: xml.antenaLookDirection?.text() ?: null,
+			assetName: xml.assetName?.text() ?: null,
+			assetType: xml.assetType?.text() ?: null,
+			beamMode: xml.beamMode?.text() ?: null,
+			ce90Accuracy: xml.CE90Accuracy?.text() ?: null,
 			cloudCover: xml.cloudCover?.text().isNumber() ? xml.cloudCover.text() as Double : null,
-			filename: xml.filename.text() ?: null,
-			imageId: xml.imageId?.text() ?: null,
-			indexId: xml.featureId?.text() ?: null,
-			numberOfBands: xml.colorBandOrder?.text().toCharArray().size() > 0 ? xml.colorBandOrder?.text().toCharArray().size() : null,
-			title: xml.title?.text() ?: null
+			colorBandOrder: xml.colorBandOrder?.text() ?: null,
+			companyName: xml.companyName?.text() ?: null,
+			copyright: xml.copyright?.text() ?: null,
+			crsFromPixels: xml.crsFromPixels?.text() ?: null,
+			dataLayer: xml.dataLayer?.text() ?: null,
+			earliestAcquisitionDate: xml.earliestAcquisitionDate?.text() ?: null,
+			factoryOrderNumber: xml.factoryOrderNumber?.text() ?: null,
+			featureId: xml.featureId?.text() ?: null,
+			formattedDate: xml.formattedDate?.text() ?: null,
+			groundSampleDistance: xml.groundSampleDistance?.text().isNumber() ? xml.groundSampleDistance?.text() as Double : null,
+			groundSampleDistanceUnit: xml.groundSampleDistanceUnit?.text() ?: null,
+			incidenceAngleVariation: xml.incidenceAngleVariation?.text().isNumber() ? xml.incidenceAngleVariation?.text() as Double : null,
+			ingestDate: xml.ingestDate?.text() ?: null,
+			isBrowse: xml.isBrowse?.text() ?: null,
+			isMirrored: xml.isMirrored?.text() ?: null,
+			isMultipleWkb: xml.isMultipleWKB?.text() ?: null,
+			latestAcquisitionDate: xml.latestAcquisitionDate?.text() ?: null,
+			legacyDescription: xml.legacyDescription?.text() ?: null,
+			legacyId: xml.legacyId?.text() ?: null,
+			licenseType: xml.licenseType?.text() ?: null,
+			maximumIncidenceAngle: xml.maximumIncidenceAngle?.text().isNumber() ? xml.maximumIncidenceAngle?.text() as Double : null,
+			minimumIncidenceAngle: xml.minimumIncidenceAngle?.text().isNumber() ? xml.minimumIncidenceAngle?.text() as Double : null,
+			niirs: xml.niirs?.text().isNumber() ? xml.niirs?.text() as Double : null,
+			offNadirAngle: xml.offNadirAngle?.text().isNumber() ? xml.offNadirAngle?.text() as Double : null,
+			orbitDirection: xml.orbitDirection?.text() ?: null,
+			outputMosaic: xml.outputMosaic?.text() ?: null,
+			perPixelX: xml.perPixelX?.text().isNumber() ? xml.perPixelX?.text() as Double : null,
+			perPixelY:xml.perPixelY?.text().isNumber() ? xml.perPixelY?.text() as Double : null,
+			perciseGeometry: xml.perciseGeometry?.text() ?: null,
+			pixelsIngested: xml.pixelsIngested?.text() ?: null,
+			polarisationChannel: xml.polarisationChannel?.text() ?: null,
+			polarisationMode: xml.polarisationMode?.text() ?: null,
+			productType: xml.productType?.text() ?: null,
+			rmseAccuracy: xml.RMSEAccuracy?.text() ?: null,
+			sensorType: xml.sensorType?.text() ?: null,
+			spatialAccuracy: xml.spatialAccuracy?.text() ?: null,
+			source: xml.source?.text() ?: null,
+			sourceUnit: xml.sourceUnit?.text() ?: null,
+			sunAzimuth: xml.sunAzimuth?.text().isNumber() ? xml.sunAzimuth?.text() as Double : null,
+			sunElevation: xml.sunElevation?.text().isNumber() ? xml.sunElevation?.text() as Double : null,
+			url: xml.url?.text() ?: null,
+			vendorName: xml.vendorName?.text() ?: null,
+			vendorReference: xml.vendorReference?.text() ?: null,
+			verticalAccuracy: xml.verticalAccuracy?.text().isNumber() ? xml.verticalAccuracy?.text() as Double : null
 		]
 
 		def footprint = xml.geometry?.Polygon?.outerBoundaryIs?.LinearRing?.coordinates?.text()
@@ -36,8 +82,8 @@ class SearchDigitalGlobeService {
 			def metadata = extractMetadata(it.FinishedFeature)
 
 			def image = [:]
-			image.indexId = metadata.indexId
-			image.imageId = metadata.indexId
+			image.indexId = metadata.featureId
+			image.imageId = metadata.featureId
 			image.library = "digitalGlobe"
 			image.metadata = metadata
 			images.push(image)
