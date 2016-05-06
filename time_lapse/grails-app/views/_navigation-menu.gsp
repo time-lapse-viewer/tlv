@@ -17,8 +17,8 @@
 						</a>
 					</li>	
 					<g:render template = "/menus/time-lapse-menu-functions"/>
+					<g:render template = "/menus/export-menu"/>
 					<%--
-					<g:render template = "menus/exportMenu"/>
 					<g:render template = "menus/imagePropertiesMenu"/>
 					<g:render template = "menus/layersMenu"/>
 					<g:render template = "menus/viewMenu"/> 

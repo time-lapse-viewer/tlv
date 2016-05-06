@@ -14,3 +14,4 @@
 //= require time-lapse
 //= require menus/search
 //= require menus/search-plugin
+//= require menus/export
