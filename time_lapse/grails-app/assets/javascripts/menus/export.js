@@ -203,15 +203,12 @@ function exportMetadata() {
 	if (link.download !== undefined) { // feature detection
 		$(link).attr("href", window.URL.createObjectURL(blob));
 		$(link).attr("download", fileName);
-		$(link).html("cheese");
+		//$(link).html("cheese");
 		$("body").append(link);
 		link.click();
-		link.remove();
 	}	
-	else {
-		// it needs to implement server side export
-		alert("This browser doesn't support client-side downloading, specifically the 'a.download' attribute.");
-	}
+	else { alert("This browser doesn't support client-side downloading, :("); }
+	link.remove();
 }
 
 function exportScreenshot() {	
