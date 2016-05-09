@@ -381,7 +381,7 @@ function setupTimeLapse() {
 	updateScreenText();
 
 	// cycle through the stack to start downloading each frame
-	for (i in tlv.layers) { changeFrame("fastFOrward"); }
+	$.each(tlv.layers, function(i, x) { changeFrame("fastForward"); });
 }
 
 function stopTimeLapse() { clearTimeout(tlv.timeLapseAdvance); }
