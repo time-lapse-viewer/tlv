@@ -58,7 +58,7 @@ function createForm() {
 
 	var input = document.createElement("input");
 	input.type = "hidden";
-               
+
 	form.appendChild(input);
 
 
@@ -75,14 +75,14 @@ function exportFrames() {
 				prepareExportFrameParams();
 				setupProxyMap();
 
-				var exportCanvas = function(canvasData) { 
-					tlv.exportAnimationFrames[tlv.currentLayer] = $.extend(getExportFrameParams(), { imageData: canvasData });  
+				var exportCanvas = function(canvasData) {
+					tlv.exportAnimationFrames[tlv.currentLayer] = $.extend(getExportFrameParams(), { imageData: canvasData });
 					hideLoadingDialog();
 					exportFrames();
 				}
 				checkProxyMapLoadStatus(exportCanvas);
 
-				
+
 				return false;
 			}
 			else if (i == tlv.exportAnimationFrames.length - 1) {
@@ -93,7 +93,7 @@ function exportFrames() {
 				form.action = tlv.contextPath + "/export/export" + $("#exportAnimationFileTypeSelect").val().capitalize();
 				input.name = "frames";
 				input.value = JSON.stringify(tlv.exportAnimationFrames);
-	
+
 				form.submit();
 				form.remove();
 			}
@@ -104,7 +104,7 @@ function exportFrames() {
 function exportImage() {
 	displayLoadingDialog("We're taking a snapshot of the map... this may take a sec.");
 	setupProxyMap();
-	
+
 	var exportParams = getExportFrameParams();
 	var exportCanvas = function(canvasData) {
 		var elements = createForm();
@@ -187,6 +187,10 @@ function exportMetadata() {
 				keys,
 				function(j, y) {
 					var value = x.metadata[y] || "";
+
+					// maintain formatting for objects
+					if (typeof value === "object") { value = JSON.stringify(value); }
+
 					// handle commas
 					values.push(value.toString().match(/,/g) ? '"' + value + '"' : value);
 				}
@@ -199,20 +203,20 @@ function exportMetadata() {
 	var fileName = "tlv_metadata_" + Date.now() + ".csv";
 	var buffer = csvData.join("\n");
 	var blob = new Blob([buffer], { "type": "text/csv;charset=utf8;" });
-	var link = document.createElement("a");			
+	var link = document.createElement("a");
 	if (link.download !== undefined) { // feature detection
 		$(link).attr("href", window.URL.createObjectURL(blob));
 		$(link).attr("download", fileName);
 		//$(link).html("cheese");
 		$("body").append(link);
 		link.click();
-	}	
+	}
 	else { alert("This browser doesn't support client-side downloading, :("); }
 	link.remove();
 }
 
-function exportScreenshot() {	
-	displayLoadingDialog("We're taking a snapshot of the map... this may take a sec.");	
+function exportScreenshot() {
+	displayLoadingDialog("We're taking a snapshot of the map... this may take a sec.");
 	setupProxyMap();
 
 	var exportCanvas = function(canvasData) {
@@ -245,7 +249,7 @@ function getExportFrameParams() {
 			params["line" + x + "Text"] = text;
 		}
 	);
-	
+
 
 	return params;
 }
@@ -277,9 +281,9 @@ function getImageProperties(layerIndex) {
 
 function getProxyMapCanvasData(callbackFunction) {
 	tlv.proxyMap.once(
-		"postcompose", 
+		"postcompose",
 		function(event) {
-			var canvasData = event.context.canvas.toDataURL().replace(/\S+,/, ""); 		
+			var canvasData = event.context.canvas.toDataURL().replace(/\S+,/, "");
 			$("#proxyMap").hide();
 			callbackFunction(canvasData);
 		}
@@ -306,7 +310,7 @@ function prepareAnimationExport() {
 				line2Text: x.imageId,
 				line3Text: x.metadata.countryCode || "N/A",
 				line4Text: x.metadata.securityClassification || "N/A",
-				line5Text: "DMS: " + dms + " MGRS: " + mgrs, 
+				line5Text: "DMS: " + dms + " MGRS: " + mgrs,
 				line6Text: x.metadata.acquisitionDate || "N/A"
 			});
 		}
@@ -332,7 +336,7 @@ function prepareExportFrameParams() {
 
 		var coordinateConversion = new CoordinateConversion();
 		var center = tlv.map.getView().getCenter();
-		var dms = coordinateConversion.ddToDms(center[1], "lat") + " " + coordinateConversion.ddToDms(center[0], "lon");	
+		var dms = coordinateConversion.ddToDms(center[1], "lat") + " " + coordinateConversion.ddToDms(center[0], "lon");
 		var mgrs = coordinateConversion.ddToMgrs(center[1], center[0]);
 		$("#exportFrameLine5Input").val("DMS: " + dms + " MGRS: " + mgrs);
 
@@ -368,7 +372,7 @@ function setupProxyMap() {
 		view: tlv.map.getView()
 	});
 
-	addLayersToProxyMap();		
+	addLayersToProxyMap();
 }
 
 function updateAnimationFrameParams() { tlv.exportAnimationFrames[tlv.currentLayer] = getExportFrameParams(); }
