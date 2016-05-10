@@ -1,29 +1,38 @@
-defaultLocation: "55GEN2119554510"
+defaultLocation: "37.45, -122.12"
 
 libraries:
     digitalGlobe:
-        baseUrl: "https://evwhs.digitalglobe.com"
         connectId: "connect-id-from-digital-globe"
         label: "DG"
         password: "digital-globe-password"
-        relativeWmsUrl: "/mapservice/wmsaccess"
-        sensors: 
-            - description: "Commercial: Multispectral"
-              name: "msi"
-            - description: "Commercial: Panchromatic"
-              name: "vis"
+        sensors: []
+        queryUrl: "http://evwhs.digitalglobe.com/catalogservice/wfsaccess"
         tailoredGeoint: []
         username: "digital-globe-username"
-    omar: 
-        baseUrl: "http://omar.ossim.org"
+        viewUrl: "http://evwhs.digitalglobe.com/mapservice/wmsaccess"
+    omar:
         label: "OMAR"
-        relativeWmsUrl: "/omar/ogc/wms"
-        sensors: 
+        sensors:
             - description: "Commercial: Multispectral"
               name: "msi"
             - description: "Commercial: Panchromatic"
               name: "vis"
+        queryUrl: "http://omar.ossim.org/omar/ogs/wfs"
         tailoredGeoint: []
+        viewUrl: "http://omar.ossim.org/omar/ogc/wms"
+    planetLabs:
+        apiKey: "api-key-from-planet-labs"
+        label: "PLANET"
+        password: "planet-labs-password"
+        queryUrl: "https://api.planet.com" 
+        sensors: []
+        tailoredGeoint: []
+        username: "planet-labs-username"
+        viewUrls:
+            - "https://tiles0.planet.com/v0/scenes/ortho"
+            - "https://tiles1.planet.com/v0/scenes/ortho"
+            - "https://tiles2.planet.com/v0/scenes/ortho"
+            - "https://tiles3.planet.com/v0/scenes/ortho"
 
 securityClassification: "UNCLASSIFIED"
 
