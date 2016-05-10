@@ -70,6 +70,7 @@ class SearchOmarService {
 			def metadata = extractMetadata(it.raster_entry)
 
 			def image = [:]
+			image.acquisitionDate = metadata.acquisitionDate
 			image.indexId = metadata.indexId
 			image.imageId = metadata.imageId ?: (metadata.title ?: metadata.filename)
 			image.library = "omar"
@@ -81,24 +82,10 @@ class SearchOmarService {
 		return images
 	}
 
-	def searchImageId(image) {
-		def queryUrl = grailsApplication.config.libraries["${image.library}"].baseUrl + "/omar/wfs"
-		queryUrl += "?filter=" + URLEncoder.encode("image_id LIKE '${image.imageId}%' OR title LIKE '${image.imageId}%'")
-		queryUrl += "&maxResults=1&request=getFeature&service=WFS&typeName=omar:raster_entry&version=1.0.0"
-
-		def xml = httpDownloadService.serviceMethod([url: queryUrl])
-
-		def images = xml.featureMember ? processResults(xml.featureMember) : []
-
-
-		return images[0]
-	}
-
 	def searchLibrary(params) {
 		def libraryObject = grailsApplication.config.libraries.omar
 
-		def queryUrl = libraryObject.baseUrl
-		queryUrl += "/omar/wfs"
+		def queryUrl = libraryObject.queryUrl
 
 		def filter = ""
 

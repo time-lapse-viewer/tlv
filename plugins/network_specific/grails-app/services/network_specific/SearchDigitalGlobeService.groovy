@@ -82,6 +82,7 @@ class SearchDigitalGlobeService {
 			def metadata = extractMetadata(it.FinishedFeature)
 
 			def image = [:]
+			image.acquisitionDate = metadata.acquisitionDate
 			image.indexId = metadata.featureId
 			image.imageId = metadata.featureId
 			image.library = "digitalGlobe"
@@ -93,30 +94,10 @@ class SearchDigitalGlobeService {
 		return images
 	}
 
-	def searchImageId(image) {
-		def library = grailsApplication.config.libraries["${image.library}"]		
-
-//		def queryUrl = library.baseUrl + "/catalogservice/wfsaccess"
-//		queryUrl += "?connectid=" + library.connectId
-//		queryUrl += "&filter=" + URLEncoder.encode("image_id LIKE '${image.imageId}%' OR title LIKE '${image.imageId}%'")
-//		queryUrl += "&maxResults=1&request=getFeature&service=WFS&typeName=omar:raster_entry&version=1.0.0"
-
-//SERVICE=WFS&REQUEST=GetFeature&maxFeatures=25&typeName=DigitalGlobe:FinishedFeature&VERSION=1.1.0
-
-
-//		def xml = httpDownloadService.serviceMethod([url: queryUrl])
-
-//		def images = xml.featureMember ? processResults(xml.featureMember) : []
-
-
-//		return images[0]
-	}
-
 	def searchLibrary(params) {
 		def library = grailsApplication.config.libraries.digitalGlobe
 
-		def queryUrl = library.baseUrl
-		queryUrl += "/catalogservice/wfsaccess"
+		def queryUrl = library.queryUrl
 
 		def filter = ""
 
