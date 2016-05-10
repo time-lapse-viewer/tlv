@@ -11,6 +11,7 @@ class SearchLibraryService {
 	def httpDownloadService
 	def mathConversionService
 	def searchDigitalGlobeService
+	def searchPlanetLabsService
 	def searchOmarService
 
 
@@ -23,6 +24,7 @@ class SearchLibraryService {
 		params.libraries.each() { 
 			if (it == "digitalGlobe") { resultsMap.layers += searchDigitalGlobeService.searchLibrary(params) }
 			else if (it == "omar") { resultsMap.layers += searchOmarService.searchLibrary(params) }
+			else if (it == "planetLabs") { resultsMap.layers += searchPlanetLabsService.searchLibrary(params) }
 		}
 
 
@@ -31,6 +33,7 @@ class SearchLibraryService {
 			resultsMap.layers = resultsMap.layers.reverse().drop(howManyToDrop).reverse()
 		}
 
+		resultsMap.layers.sort({ it.acquisitionDate })
 
 		return resultsMap
 	}	

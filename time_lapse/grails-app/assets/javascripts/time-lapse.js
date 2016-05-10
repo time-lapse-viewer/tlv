@@ -1,51 +1,31 @@
-function addLayersToTheMap() {
-	$.each(
-		tlv.layers,
-		function(i, x) {
-			var params = {
-				BANDS: x.bands || "2,1,0",
-				BRIGHTNESS: x.brightness || 0,
-				CONTRAST: x.contrast || 0,
-				DRA: x.dra || "auto",
-				DRA_AREA: x.draArea || "viewport",
-				DRA_SIGMA: x.draSigma || 1,
-				FORMAT: x.keepVisible ? "image/png" : "image/jpeg",
-				IDENTIFIER: new Date().getTime(),
-				IMAGE_ID: x.imageId,
-				INTEPOLATION: x.interpolation || "bilinear",
-				KEEP_VISIBLE: x.keepVisible || false,
-				LAYERS: x.indexId,
-				LIBRARY: x.library,
-				OFFSET_LAT: x.offsetLat || 0,
-				OFFSET_LON: x.offsetLon || 0,
-				OPACITY: x.opacity || 1,
-				ROTATE: x.rotate || 0,
-				SHARPNESS: x.sharpness || 0,
-				TRANSPARENT: x.keepVisible || false,
-				VERSION: "1.1.1"
-			};
+function addLayerToTheMap(layer) {
+	var params = {
+		FORMAT: image/png",
+		IDENTIFIER: new Date().getTime(),
+		IMAGE_ID: layer.imageId,
+		LAYERS: layer.indexId,
+		LIBRARY: layer.library,
+		TRANSPARENT: true,
+		VERSION: "1.1.1"
+	};
 
-			var image = new ol.layer.Image({
-				opacity: x.opacity || 1,
-				source: new ol.source.ImageWMS({
-					params: params,
-					ratio: 1,
-					url: tlv.contextPath + "/wms"
-				}),
-				visible: i == 0 ? true : false
-			});
+	var image = new ol.layer.Image({
+		opacity: layer.opacity || 1,
+		source: new ol.source.ImageWMS({
+			params: params,
+			ratio: 1,
+			url: tlv.contextPath + "/wms"
+		}),
+		visible: false
+	});
 
-			image.getSource().on("imageloadstart", function(event) { theLayerHasStartedLoading(this); });
-			image.getSource().on("imageloadend", function(event) { theLayerHasFinishedLoading(this); });;
+	image.getSource().on("imageloadstart", function(event) { theLayerHasStartedLoading(this); });
+	image.getSource().on("imageloadend", function(event) { theLayerHasFinishedLoading(this); });;
 
-			x.mapLayer = image;
-			x.layerIsLoaded = 0;
+	layer.mapLayer = image;
+	layer.layerIsLoaded = 0;
 			
-			tlv.map.addLayer(x.mapLayer);
-		}
-	);
-
-	tlv.map.getLayers().getArray().reverse();
+	tlv.map.addLayer(layer.mapLayer);
 }
 
 function buildSummaryTable() {
@@ -105,8 +85,8 @@ function calculateInitialViewBbox() {
 }
 
 function changeFrame(param) {
-	var mapLayer = tlv.layers[tlv.currentLayer].mapLayer;
-	mapLayer.setVisible(mapLayer.getSource().getParams().KEEP_VISIBLE);
+	var layer = tlv.layers[tlv.currentLayer];
+	layer.mapLayer.setVisible(layer.keepVisible);
 
 	if (param === "fastForward") { tlv.currentLayer = getNextFrameIndex(); }
 	else if (param === "rewind") { tlv.currentLayer = getPreviousFrameIndex(); }
@@ -197,8 +177,8 @@ function getTimeToAdjacentImage(layerIndex, adjacency) {
 	else if (adjacency == "next" && layerIndex < tlv.layers.length - 1) { layerIndex2 = layerIndex + 1; }
 
 	if (typeof layerIndex2 == "number") { 
-		var date1 = tlv.layers[layerIndex].metadata.acquisitionDate ? new Date(Date.parse(tlv.layers[layerIndex].metadata.acquisitionDate)) : null;
-		var date2 = tlv.layers[layerIndex2].metadata.acquisitionDate ? new Date(Date.parse(tlv.layers[layerIndex2].metadata.acquisitionDate)) : null;
+		var date1 = tlv.layers[layerIndex].acquisitionDate ? new Date(Date.parse(tlv.layers[layerIndex].acquisitionDate)) : null;
+		var date2 = tlv.layers[layerIndex2].acquisitionDate ? new Date(Date.parse(tlv.layers[layerIndex2].acquisitionDate)) : null;
 
 		if (date1 && date2) {
 			var timeDifference = Math.abs(date2 - date1);
@@ -367,7 +347,17 @@ function setupTimeLapse() {
 	setupBaseLayers();
 
 	if (tlv.chronological == "true") { tlv.layers.reverse(); }
-	addLayersToTheMap();
+	
+	// add layers to the map
+	$.each(
+		tlv.layers, 
+		function(i, x) { 
+			x.keepVisible = x.keepVisible || false;
+			
+			addLayerToTheMap(x); 
+		}
+	);	
+	tlv.map.getLayers().getArray().reverse();
 
 	tlv.map.getView().fit(tlv.bbox, tlv.map.getSize());
 
@@ -392,7 +382,8 @@ function theLayerHasFinishedLoading(layerSource) {
 	$.each(
 		tlv.layers, 
 		function(i, x) { 
-			var id = x.mapLayer.getSource().getParams().IDENTIFIER;
+			// take into account that XYZ layers will not have the identifier in the source
+			var id = typeof x.mapLayer.getSource().getParams == "function" ? x.mapLayer.getSource().getParams().IDENTIFIER : null;
 			if (thisLayerId == id) { 
 				x.layerIsLoaded += 1; 
 				if (thisLayerId == currentLayerId && x.layerIsLoaded == 0) { tlv.loadingSpinner.stop(); }
@@ -409,7 +400,8 @@ function theLayerHasStartedLoading(layerSource) {
 	$.each(
 		tlv.layers,
 		function(i, x) {
-			var id = x.mapLayer.getSource().getParams().IDENTIFIER;
+			// take into account that XYZ layers will not have the identifier in the source
+			var id = typeof x.mapLayer.getSource().getParams == "function" ? x.mapLayer.getSource().getParams().IDENTIFIER : null;
 			if (thisLayerId == id) { 
 				x.layerIsLoaded -= 1; 
 				if (thisLayerId == currentLayerId && x.layerIsLoaded < 0) {
@@ -427,7 +419,7 @@ function theLayerHasStartedLoading(layerSource) {
 function theMapHasMoved() { /* place holder to be overriden by other functions */ }
 
 function updateAcquisitionDate() { 
-	var acquisitionDate = tlv.layers[tlv.currentLayer].metadata.acquisitionDate;
+	var acquisitionDate = tlv.layers[tlv.currentLayer].acquisitionDate;
 	if (acquisitionDate) {
 		var timeToNextImage = getTimeToAdjacentImage(tlv.currentLayer, "next");
 		var timeToPreviousImage = getTimeToAdjacentImage(tlv.currentLayer, "previous");
@@ -440,7 +432,11 @@ function updateAcquisitionDate() {
 	else { $("#acquisitionDateDiv").html("N/A"); }
 }
 
-function updateImageId() { $("#imageIdDiv").html(tlv.layers[tlv.currentLayer].imageId); }
+function updateImageId() { 
+	var layer = tlv.layers[tlv.currentLayer];
+	var libraryLabel = tlv.availableResources.complete[layer.library].label;
+	$("#imageIdDiv").html(libraryLabel + ": " + layer.imageId); 
+}
 
 function updateMapSize() {
 	if (tlv.map) {
