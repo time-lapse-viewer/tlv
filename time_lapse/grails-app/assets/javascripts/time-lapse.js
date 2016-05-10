@@ -1,6 +1,6 @@
 function addLayerToTheMap(layer) {
 	var params = {
-		FORMAT: image/png",
+		FORMAT: "image/png",
 		IDENTIFIER: new Date().getTime(),
 		IMAGE_ID: layer.imageId,
 		LAYERS: layer.indexId,
