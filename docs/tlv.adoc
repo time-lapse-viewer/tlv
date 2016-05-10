@@ -10,8 +10,12 @@
 
 TLV is an on-demand imagery flipbook, dedicated to searching, viewing and exporting imagery as fast as humanly possible... all within a single web-application.
 
-include::api.adoc[]
+include::search.adoc[]
 
 include::map.adoc[]
+
+include::export.adoc[]
+
+include::api.adoc[]
 
 :last-update-label!:

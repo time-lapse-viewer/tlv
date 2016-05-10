@@ -1,0 +1,11 @@
+== Export
+
+
+The following section describes all the functionality that is available as it relates to the export drop-down.
+
+
+=== Metadata
+This will take all the metdata from all the layers, convert it to a CSV file and allow you to download it. TLV harvests as much metadata as it can from its various libraries and does not make any attempt to change or normalize any of the data. So, what you see it what you get. 
+
+NOTE: This function makes use of some HTML 5 functionality which may not be supported on all browsers.
+
