@@ -200,7 +200,7 @@ function exportMetadata() {
 	);
 
 	// download
-	var fileName = "tlv_metadata_" + Date.now() + ".csv";
+	var fileName = "tlv_metadata_" + new Date().generateFilename() + ".csv";
 	var buffer = csvData.join("\n");
 	var blob = new Blob([buffer], { "type": "text/csv;charset=utf8;" });
 	var link = document.createElement("a");
