@@ -36,11 +36,12 @@ function buildSummaryTable() {
 	var row = table.insertRow(0);
 	var cell = row.insertCell(row.cells.length);
 	row.insertCell(row.cells.length);
+	var keys = ["imageId", "acquisitionDate", "library"];
 	$.each(
-		tlv.layers[0].metadata,
-		function(key, value) {
+		keys,
+		function(i, x) {
 			var cell = row.insertCell(row.cells.length);
-			$(cell).append(key.capitalize().replace(/([A-Z])/g, " $1"));
+			$(cell).append(x.capitalize().replace(/([A-Z])/g, " $1"));
 		}
 	);
 
@@ -66,13 +67,14 @@ function buildSummaryTable() {
 				$(cell).append("<a href = javascript:moveLayerDownInStack(" + i + ");buildSummaryTable();>" + downButton + "</a>");
 			}
 
-			$.each(
-				x.metadata,
-				function(key, value) {
-					cell = row.insertCell(row.cells.length);
-					$(cell).append(value);
-				}
-			);
+			cell = row.insertCell(row.cells.length);
+			$(cell).append(x.imageId);
+
+			cell = row.insertCell(row.cells.length);
+			$(cell).append(x.acquisitionDate);
+
+			cell = row.insertCell(row.cells.length);
+			$(cell).append(tlv.availableResources.complete[x.library].label);				
 		}
 	);
 }
