@@ -16,7 +16,7 @@ class SearchDigitalGlobeService {
 		def metadata = [
 			acquisitionDate: xml.acquisitionDate?.text() ?: null,
 			acquisitionType: xml.acquisitionType?.text() ?: null,
-			ageDyas: xml.ageDays?.text().isNumber() ? xml.ageDays.text() as Integer : null,
+			ageDays: xml.ageDays?.text().isNumber() ? xml.ageDays.text() as Integer : null,
 			antenaLookDirection: xml.antenaLookDirection?.text() ?: null,
 			assetName: xml.assetName?.text() ?: null,
 			assetType: xml.assetType?.text() ?: null,
