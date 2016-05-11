@@ -99,26 +99,26 @@ class SearchDigitalGlobeService {
 
 		def queryUrl = library.queryUrl
 
-		def filter = ""
+		def cqlFilter = ""
 
 		// acquisition date
-//		def startDate = "${params.startYear}-${params.startMonth}-${params.startDay}T${params.startHour}:${params.startHour}:${params.startSecond}.000"
-//		def endDate = "${params.endYear}-${params.endMonth}-${params.endDay}T${params.endHour}:${params.endHour}:${params.endSecond}.000"
-//		filter += "(acquisitionDate > ${startDate} AND acquisitionDate < ${endDate})"
+		def startDate = "${params.startYear}-${params.startMonth}-${params.startDay}T${params.startHour}:${params.startHour}:${params.startSecond}.000"
+		def endDate = "${params.endYear}-${params.endMonth}-${params.endDay}T${params.endHour}:${params.endHour}:${params.endSecond}.000"
+		cqlFilter += "(acquisitionDate > '${startDate}') AND (acquisitionDate < '${endDate}')"
 
-//		filter += " AND "
+		cqlFilter += " AND "
 
 		// bbox
 		def deltaDeg = mathConversionService.convertRadiusToDeltaDegrees(params)
 		def location = params.location.collect({ it as Double })
-		//filter += "BBOX=${location[0] - deltaDeg},${location[1] - deltaDeg},${location[0] + deltaDeg},${location[1] + deltaDeg}"
+		cqlFilter += "(BBOX(geometry, ${location[0] - deltaDeg},${location[1] - deltaDeg},${location[0] + deltaDeg},${location[1] + deltaDeg}))"
 
-		filter += " AND "
+		cqlFilter += " AND "
 
 		// cloud cover
-//		filter += "(cloud_cover < ${params.maxCloudCover} OR cloud_cover IS NULL)"
+		cqlFilter += "(cloudCover < ${params.maxCloudCover.toDouble() / 100})"
 
-//		filter += " AND "
+		cqlFilter += " AND "
 
 		// dwithin
 //		def deltaDegrees = mathConversionService.convertRadiusToDeltaDegrees(params)
@@ -127,7 +127,7 @@ class SearchDigitalGlobeService {
 //		filter += " AND "
 
 		// niirs
-//		filter += "(niirs < ${params.minNiirs} OR niirs IS NULL)"
+		cqlFilter += "(niirs > ${params.minNiirs})"
 
 		// sensors
 //		if (params.sensors.find { it == "all" } != "all") {
@@ -144,9 +144,8 @@ class SearchDigitalGlobeService {
 //			filter += "(${sensorFilters.join(" OR ")})"
 //		}
 
-		queryUrl += "?bbox=${location[0] - deltaDeg},${location[1] - deltaDeg},${location[0] + deltaDeg},${location[1] + deltaDeg}"
-		queryUrl += "&connectid=${library.connectId}"
-//		queryUrl += "&filter=" + URLEncoder.encode(filter)
+		queryUrl += "?connectid=${library.connectId}"
+		queryUrl += "&cql_filter=" + URLEncoder.encode(cqlFilter)
 
 		queryUrl += "&maxResults=${params.maxResults}"
 		queryUrl += "&request=GetFeature"
