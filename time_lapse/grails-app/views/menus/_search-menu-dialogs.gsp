@@ -21,7 +21,7 @@
 					<tr>
 						<td align = "right">Location:</td>
 						<td>
-							<input id = "searchTabLocationDiv" type = "text">
+							<input id = "searchTabLocationDiv" placeholder = "e.g. ${grailsApplication.config.defaultLocation}" type = "text">
 							&nbsp;within&nbsp;
 							<select id = "searchTabRadiusSelect">
 								<g:each in = "${[1, 10, 50, 100, 500,1000, 5000, 10000]}">
