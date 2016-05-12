@@ -20,7 +20,9 @@
 					<g:render template = "/menus/export-menu"/>
 					<%--
 					<g:render template = "menus/imagePropertiesMenu"/>
-					<g:render template = "menus/layersMenu"/>
+					--%>
+					<g:render template = "/menus/layers-menu"/>
+					<%--
 					<g:render template = "menus/viewMenu"/> 
 					--%>
 				</ul>

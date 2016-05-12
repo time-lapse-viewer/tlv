@@ -1,0 +1,15 @@
+== Layers
+
+
+The following section describes all the functionality that is available as it relates to the layers dialog.
+
+
+=== Corss-Hair
+As the name implies, this places a corss-hair in the center of the map. Whether you are looking to zero-in on the bad guy or just want to center the map on a particular target, this will get the job done. 
+
+TIP: If you prefer to have this layer enabled all the time, you can use `crossHairLayerEnabled=true` in the URL.
+
+=== Search Origin
+This will place a marker on the map that indicates the exact location used for the center point search. All the zooming and panning can sometimes disorient you worse than someone waking you up from deep REM sleep. So, in case you forget the point around which you actually were searching, we've got you covered.
+
+TIP: If you prefer to have this layer enabled all the time, you can use `searchOriginLayerEnabled=true` in the URL.

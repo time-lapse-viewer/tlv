@@ -16,6 +16,8 @@ include::map.adoc[]
 
 include::export.adoc[]
 
+include::layers.adoc[]
+
 include::api.adoc[]
 
 :last-update-label!:

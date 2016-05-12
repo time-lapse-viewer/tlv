@@ -1,3 +1,5 @@
+function addBaseLayersToTheMap() { tlv.baseLayers = {}; }
+
 function addLayerToTheMap(layer) {
 	var params = {
 		FORMAT: "image/png",
@@ -24,13 +26,13 @@ function addLayerToTheMap(layer) {
 
 	layer.mapLayer = image;
 	layer.layerIsLoaded = 0;
-			
+
 	tlv.map.addLayer(layer.mapLayer);
 }
 
 function buildSummaryTable() {
 	var table = $("#timeLapseSummaryTable")[0];
-	
+
 	for (var i = table.rows.length - 1; i >= 0; i--) { table.deleteRow(i); }
 
 	var row = table.insertRow(0);
@@ -57,8 +59,8 @@ function buildSummaryTable() {
 			var downButton = "<span class = 'glyphicon glyphicon-arrow-down' title = 'Move Down'></span>";
 			var upButton = "<span class = 'glyphicon glyphicon-arrow-up' title = 'Move Up'></span>";
 
-			if (i == 0) { 
-				$(cell).append("<a href = javascript:moveLayerDownInStack(" + i + ");buildSummaryTable();>" + downButton + "</a>"); 
+			if (i == 0) {
+				$(cell).append("<a href = javascript:moveLayerDownInStack(" + i + ");buildSummaryTable();>" + downButton + "</a>");
 				$(cell).css("text-align", "right");
 			}
 			else if (i == tlv.layers.length - 1) { $(cell).append("<a href = javascript:moveLayerUpInStack(" + i + ");buildSummaryTable();>" + upButton + "</a>"); }
@@ -74,13 +76,13 @@ function buildSummaryTable() {
 			$(cell).append(x.acquisitionDate);
 
 			cell = row.insertCell(row.cells.length);
-			$(cell).append(tlv.availableResources.complete[x.library].label);				
+			$(cell).append(tlv.availableResources.complete[x.library].label);
 		}
 	);
 }
 
-function calculateInitialViewBbox() {        
-	var bbox = convertRadiusToBbox(tlv.location[0], tlv.location[1], 1000); 
+function calculateInitialViewBbox() {
+	var bbox = convertRadiusToBbox(tlv.location[0], tlv.location[1], 1000);
 
 
 	return [bbox.minLon, bbox.minLat, bbox.maxLon, bbox.maxLat];
@@ -105,7 +107,7 @@ function changeFrame(param) {
 }
 
 function createMousePositionControl() {
-	var mousePositionControl = new ol.control.MousePosition({ 
+	var mousePositionControl = new ol.control.MousePosition({
 		coordinateFormat: function(coordinate) {
 			var lat = coordinate[1];
 			var lon = coordinate[0];
@@ -116,7 +118,7 @@ function createMousePositionControl() {
 				case 2: return coordConvert.ddToMgrs(lat, lon); break;
 			}
 		},
-		projection: "EPSG:4326" 
+		projection: "EPSG:4326"
 	});
 
 	mousePositionControl.coordinateDisplayFormat = 0;
@@ -135,7 +137,7 @@ function deleteFrame() {
 	var nextFrameIndex = getNextFrameIndex();
 	var spliceIndex = nextFrameIndex == 0 ? 0 : nextFrameIndex;
 	tlv.layers.splice(spliceIndex, 1);
-	if (tlv.currentLayer > tlv.layers.length - 1) { tlv.currentLayer = tlv.layers.length - 1; } 
+	if (tlv.currentLayer > tlv.layers.length - 1) { tlv.currentLayer = tlv.layers.length - 1; }
 
 	changeFrame("fastForward");
 }
@@ -166,7 +168,7 @@ function enableMapRotation() {
 function geoJump() {
 	var location = $("#geoJumpLocationInput").val();
 	var point = convertGeospatialCoordinateFormat(location);
-	tlv.map.getView().setCenter(point); 
+	tlv.map.getView().setCenter(point);
 }
 
 function getNextFrameIndex() { return tlv.currentLayer >= tlv.layers.length - 1 ? 0 : tlv.currentLayer + 1; }
@@ -178,7 +180,7 @@ function getTimeToAdjacentImage(layerIndex, adjacency) {
 	if (adjacency == "previous" && layerIndex > 0) { layerIndex2 = layerIndex - 1; }
 	else if (adjacency == "next" && layerIndex < tlv.layers.length - 1) { layerIndex2 = layerIndex + 1; }
 
-	if (typeof layerIndex2 == "number") { 
+	if (typeof layerIndex2 == "number") {
 		var date1 = tlv.layers[layerIndex].acquisitionDate ? new Date(Date.parse(tlv.layers[layerIndex].acquisitionDate)) : null;
 		var date2 = tlv.layers[layerIndex2].acquisitionDate ? new Date(Date.parse(tlv.layers[layerIndex2].acquisitionDate)) : null;
 
@@ -197,11 +199,11 @@ function getTimeToAdjacentImage(layerIndex, adjacency) {
 
 			var months = parseInt(days / 30);
 			if (months > 0) { days -= months * 30; }
-			
+
 			var years = parseInt(months / 12);
 			if (years > 0) { months -= years * 12; }
 
-			
+
 			if (years > 0) {
 				if (months > 0) { return "~" + years + "yr., " + months + " mon."; }
 				else { return "~" + years + "yr."; }
@@ -272,7 +274,7 @@ var pageLoadTimeLapse = pageLoad;
 pageLoad = function() {
 	pageLoadTimeLapse();
 	//setupMap();
-	
+
 	if (tlv.layers) {
 		$("#searchDialog").modal("hide");
 		tlv.bbox = calculateInitialViewBbox();
@@ -280,16 +282,16 @@ pageLoad = function() {
 	}
 }
 
-function playStopTimeLapse(button) { 
+function playStopTimeLapse(button) {
 	var className = button.className;
-	
+
 	$(button).removeClass(className);
-	if (className.contains("play")) { 
-		playTimeLapse(); 
+	if (className.contains("play")) {
+		playTimeLapse();
 		className = className.replace("play", "stop");
 	}
-	else { 
-		stopTimeLapse(); 
+	else {
+		stopTimeLapse();
 		className = className.replace("stop", "play");
 	}
 	$(button).addClass(className);
@@ -299,8 +301,6 @@ function playTimeLapse() {
 	changeFrame("fastForward");
 	tlv.timeLapseAdvance = setTimeout("playTimeLapse()", 1000);
 }
-
-function setupBaseLayers() { tlv.baseLayers = {}; }
 
 function setupMap() {
 	// if a map already exists, reset it and start from scratch
@@ -345,20 +345,18 @@ function setupTimeLapse() {
 	tlv.map.addInteraction(tlv.mapInteractions.altDragRotate);
 	tlv.map.addInteraction(tlv.mapInteractions.dragPan);
 
-	tlv.layerZIndex = 0;
-	setupBaseLayers();
-
 	if (tlv.chronological == "true") { tlv.layers.reverse(); }
-	
 	// add layers to the map
 	$.each(
-		tlv.layers, 
-		function(i, x) { 
+		tlv.layers,
+		function(i, x) {
 			x.keepVisible = x.keepVisible || false;
-			
-			addLayerToTheMap(x); 
+
+			addLayerToTheMap(x);
 		}
-	);	
+	);
+
+	addBaseLayersToTheMap();
 	tlv.map.getLayers().getArray().reverse();
 
 	tlv.map.getView().fit(tlv.bbox, tlv.map.getSize());
@@ -382,12 +380,12 @@ function theLayerHasFinishedLoading(layerSource) {
 	var currentLayerId = tlv.layers[tlv.currentLayer].mapLayer.getSource().getParams().IDENTIFIER;
 	var thisLayerId = layerSource.getParams().IDENTIFIER;
 	$.each(
-		tlv.layers, 
-		function(i, x) { 
+		tlv.layers,
+		function(i, x) {
 			// take into account that XYZ layers will not have the identifier in the source
 			var id = typeof x.mapLayer.getSource().getParams == "function" ? x.mapLayer.getSource().getParams().IDENTIFIER : null;
-			if (thisLayerId == id) { 
-				x.layerIsLoaded += 1; 
+			if (thisLayerId == id) {
+				x.layerIsLoaded += 1;
 				if (thisLayerId == currentLayerId && x.layerIsLoaded == 0) { tlv.loadingSpinner.stop(); }
 
 				return false;
@@ -396,7 +394,7 @@ function theLayerHasFinishedLoading(layerSource) {
 	);
 }
 
-function theLayerHasStartedLoading(layerSource) { 
+function theLayerHasStartedLoading(layerSource) {
 	var currentLayerId = tlv.layers[tlv.currentLayer].mapLayer.getSource().getParams().IDENTIFIER;
 	var thisLayerId = layerSource.getParams().IDENTIFIER;
 	$.each(
@@ -404,8 +402,8 @@ function theLayerHasStartedLoading(layerSource) {
 		function(i, x) {
 			// take into account that XYZ layers will not have the identifier in the source
 			var id = typeof x.mapLayer.getSource().getParams == "function" ? x.mapLayer.getSource().getParams().IDENTIFIER : null;
-			if (thisLayerId == id) { 
-				x.layerIsLoaded -= 1; 
+			if (thisLayerId == id) {
+				x.layerIsLoaded -= 1;
 				if (thisLayerId == currentLayerId && x.layerIsLoaded < 0) {
 					var target = $("#map")[0];
 					tlv.loadingSpinner.spin(target);
@@ -413,14 +411,14 @@ function theLayerHasStartedLoading(layerSource) {
 
 
 				return false;
-			}		
+			}
 		}
 	);
 }
 
 function theMapHasMoved() { /* place holder to be overriden by other functions */ }
 
-function updateAcquisitionDate() { 
+function updateAcquisitionDate() {
 	var acquisitionDate = tlv.layers[tlv.currentLayer].acquisitionDate;
 	if (acquisitionDate) {
 		var timeToNextImage = getTimeToAdjacentImage(tlv.currentLayer, "next");
@@ -429,15 +427,15 @@ function updateAcquisitionDate() {
 			(timeToPreviousImage ? timeToPreviousImage + " <- " : "") +
 			acquisitionDate + "z" +
 			(timeToNextImage ? " -> " + timeToNextImage : "")
-		); 
+		);
 	}
 	else { $("#acquisitionDateDiv").html("N/A"); }
 }
 
-function updateImageId() { 
+function updateImageId() {
 	var layer = tlv.layers[tlv.currentLayer];
 	var libraryLabel = tlv.availableResources.complete[layer.library].label;
-	$("#imageIdDiv").html(libraryLabel + ": " + layer.imageId); 
+	$("#imageIdDiv").html(libraryLabel + ": " + layer.imageId);
 }
 
 function updateMapSize() {

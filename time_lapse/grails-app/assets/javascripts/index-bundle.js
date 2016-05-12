@@ -13,6 +13,8 @@
 //= require menus/search
 //= require time-lapse
 //= require time-lapse-plugin
+//= require menus/layers
+//= require menus/layers-plugin
 //= require menus/search
 //= require menus/search-plugin
 //= require menus/export

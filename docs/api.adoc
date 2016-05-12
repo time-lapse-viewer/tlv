@@ -1,16 +1,28 @@
 == API
 
 
-The table below shows a list of parameters that can be added to the URL (in a "GET" fashion). 
+The table below shows a list of parameters that can be added to the URL (in a "GET" fashion).
 
 |===
 | URL Parameter | Description | Example | Default | Possible Values
+
+| _baseLayer_
+| Set
+| baseLayer=openStreetMap
+| none
+| openStreetMap, bingMapsAerial, bingMapsAerialWithLabels, bingMapsRoad
 
 | _chronological_
 | Present the image stack in chronological order.
 | chronological=true
 | true
 | false
+
+| _crossHairLayerEnabled_
+| Automatically enable to cross-hair layer.
+| crossHairLayerEnabled=true
+| false
+| true
 
 | _endDay_
 | Automatically set the search end day.
@@ -46,11 +58,11 @@ The table below shows a list of parameters that can be added to the URL (in a "G
 | Automatically set the search end year.
 | endYear=2017
 | One month prior to today's date
-| [1970 - ∞) 
+| [1970 - ∞)
 
 | _location_
 | Automatically fill in the search location AND kick off a search.
-| location=55GEN2119554510 
+| location=55GEN2119554510
 | nothing
 | Any valid coordinate in DD, DMS or MGRS format.
 
@@ -71,6 +83,12 @@ The table below shows a list of parameters that can be added to the URL (in a "G
 | minNiirs=3
 | 0
 | [0 - 9]
+
+| _searchOriginLayerEnabled_
+| Automatically enable the search origin layer.
+| searchOriginLayerEnabled=true
+| false
+| true
 
 | _startDay_
 | Automatically set the search start day.
