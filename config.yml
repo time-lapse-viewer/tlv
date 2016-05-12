@@ -24,7 +24,7 @@ libraries:
         apiKey: "api-key-from-planet-labs"
         label: "PLANET"
         password: "planet-labs-password"
-        queryUrl: "https://api.planet.com" 
+        queryUrl: "https://api.planet.com"
         sensors: []
         tailoredGeoint: []
         username: "planet-labs-username"
@@ -33,6 +33,10 @@ libraries:
             - "https://tiles1.planet.com/v0/scenes/ortho"
             - "https://tiles2.planet.com/v0/scenes/ortho"
             - "https://tiles3.planet.com/v0/scenes/ortho"
+
+networkSpecific:
+    layers:
+        enabled: true
 
 securityClassification: "UNCLASSIFIED"
 
