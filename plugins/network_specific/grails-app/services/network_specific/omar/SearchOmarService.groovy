@@ -1,4 +1,4 @@
-package network_specific
+package network_specific.omar
 
 
 import grails.transaction.Transactional

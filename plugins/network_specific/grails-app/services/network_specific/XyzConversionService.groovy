@@ -8,17 +8,17 @@ import grails.transaction.Transactional
 class XyzConversionService {
 
 	def grailsApplication
+	def xyzConversionPlanetLabsService
 
 
 	def serviceMethod(params) {
-		def library = params.LIBRARY		
+		def library = params.LIBRARY
 
-		def viewUrls = grailsApplication.config.libraries[library].viewUrls
-		def viewUrl = viewUrls[new Random().nextInt(viewUrls.size())]
-
-		if (library == "planetLabs") { viewUrl += "/${params.LAYERS}/${params.Z}/${params.X}/${params.Y}.png" }
-
-
-		return viewUrl
+		
+		switch (library) {
+			case "planetLabs": 
+				return xyzConversionPlanetLabsService.serviceMethod(params)
+				break
+		}
 	}
 }

@@ -8,6 +8,8 @@ import grails.transaction.Transactional
 class WmsConversionService {
 
 	def grailsApplication
+	def wmsConversionDigitalGlobeService
+	def wmsConversionOmarService
 
 
 	def serviceMethod(params) {
@@ -20,29 +22,15 @@ class WmsConversionService {
 		// remove params that are not used by any WMS schema
 		params.remove("LIBRARY")
 		params.remove("IMAGE_ID")
-	
-
-		def viewUrl = grailsApplication.config.libraries[library].viewUrl + "?"
-
-		if (library == "omar") {
-			// best default image values
-			params.BANDS = "default"
-			params.BRIGHTNESS = 0
-			params.CONTRAST = 1
-			params.INTERPOLATION = "bilinear"
-			params.SHARPEN_MODE = "none"
-			params.STRETCH_MODE = "linear_auto_min_max"
-			params.STRECTH_MODE_REGION = "viewport" 
-		}
-		else if (library == "digitalGlobe") { 
-			params.CONNECTID = grailsApplication.config.libraries[library].connectId 
-			params.COVERAGE_CQL_FILTER = "featureId='${params.LAYERS}'"
-			params.LAYERS = "DigitalGlobe:Imagery"
-		}
-				
-		params.each() { viewUrl += "${it}&" }
 
 
-		return viewUrl
+		switch (library) {
+			case "digitalGlobe":
+				return wmsConversionDigitalGlobeService.serviceMethod(params)
+				break
+			case "omar": 
+				return wmsConversionOmarService.serviceMethod(params)
+				break
+		}		
 	}
 }

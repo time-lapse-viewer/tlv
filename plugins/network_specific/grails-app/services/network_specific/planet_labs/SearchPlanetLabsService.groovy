@@ -1,4 +1,4 @@
-package network_specific
+package network_specific.planet_labs
 
 
 import grails.transaction.Transactional

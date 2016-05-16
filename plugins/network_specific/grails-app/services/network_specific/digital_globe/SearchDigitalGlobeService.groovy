@@ -1,4 +1,4 @@
-package network_specific
+package network_specific.digital_globe
 
 
 import grails.transaction.Transactional
