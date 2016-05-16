@@ -30,16 +30,16 @@ class HttpDownloadService {
 			def ssl = new SSLSocketFactory(keyStore, "tlvCheese", trustStore)
 			http.client.connectionManager.schemeRegistry.register(new Scheme("https", ssl, 443))
 		}
-		
+
 		http.request(GET) { req ->
 			if (params.username && params.password) {
 				def auth = "${params.username}:${params.password}".getBytes().encodeBase64()
 				headers."Authorization" = "Basic ${auth}"
 			}
 			response.failure = { response, reader ->
-				println reader
+println reader
 
-			
+
 				return null
 			}
 			response.success = { response, reader ->
