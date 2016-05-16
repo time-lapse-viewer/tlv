@@ -1,6 +1,9 @@
 package time_lapse
 
 
+import javax.imageio.ImageIO
+
+
 class XyzController {
 
 	def xyzConversionService
@@ -8,9 +11,11 @@ class XyzController {
 
 	def index() {
 		//logService.recordChipRequest(params, request)
-		def url = xyzConversionService.serviceMethod(params)
+		def bufferedImage = xyzConversionService.serviceMethod(params)
 
-
-		redirect(url: url)
+		response.contentType = "image/png"
+		ImageIO.write(bufferedImage, "png", response.outputStream)
+		response.outputStream.flush()
+		response.outputStream.close()
 	}
 }

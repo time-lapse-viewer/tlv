@@ -1,6 +1,9 @@
 package time_lapse
 
 
+import javax.imageio.ImageIO
+
+
 class WmsController {
 
 	def wmsConversionService
@@ -8,9 +11,13 @@ class WmsController {
 
 	def index() {
 		//logService.recordChipRequest(params, request)
-		def url = wmsConversionService.serviceMethod(params)
+		def bufferedImage = wmsConversionService.serviceMethod(params)
 
 
-		redirect(url: url)
+		response.contentType = "image/png"
+		ImageIO.write(bufferedImage, "png", response.outputStream)
+		response.outputStream.flush()
+		response.outputStream.close()
+		//redirect(url: url)
 	}
 }
