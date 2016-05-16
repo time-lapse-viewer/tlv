@@ -3,8 +3,8 @@ addLayerToTheMap = function(layer) {
 	if (layer.library == "planetLabs") {
 		var image = new ol.layer.Tile({
 			opacity: layer.opacity || 1,
-			source: new ol.source.XYZ({ 
-				url: tlv.contextPath + "/xyz" + 
+			source: new ol.source.XYZ({
+				url: tlv.contextPath + "/xyz" +
 					"?IDENTIFIER=" + new Date().getTime() +
 					"&IMAGE_ID=" + layer.imageId +
 					"&LAYERS=" + layer.indexId +
