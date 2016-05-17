@@ -9,8 +9,6 @@
 		<li><a href = javascript:void(0) onclick = exportLink()>Link</a></li>
 		--%>
 		<li><a href = javascript:void(0) onclick = exportMetadata()>Metadata</a></li>
-		<%--
 		<li><a href = javascript:void(0) onclick = exportScreenshot()>Screenshot</a></li>
-		--%>
 	</ul>
 </li>

@@ -9,3 +9,7 @@ This will take all the metdata from all the layers, convert it to a CSV file and
 
 NOTE: This function makes use of some HTML 5 functionality which may not be supported on all browsers.
 
+=== Screenshot
+This will pretty much make the map take a selfie and then your browser will download the result. 
+
+NOTE: This function makes use of some HTML 5 functionality which may not be supported on all browsers.

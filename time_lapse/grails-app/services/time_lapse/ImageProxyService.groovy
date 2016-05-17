@@ -18,10 +18,11 @@ class ImageProxyService {
 			url: url,
 			username: params.username ?: null
 		])
-		def byteArrayInputStream = new ByteArrayInputStream(inputStream)
-		def bufferedImage = ImageIO.read(byteArrayInputStream)
+		//def byteArrayInputStream = new ByteArrayInputStream(inputStream)
+		//def bufferedImage = ImageIO.read(byteArrayInputStream)
 
 
-		return bufferedImage
+		//return bufferedImage
+		return inputStream
 	}
 }

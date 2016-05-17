@@ -18,13 +18,13 @@ class XyzConversionPlanetLabsService {
 		def viewUrl = viewUrls[new Random().nextInt(viewUrls.size())]
 		viewUrl += "/${params.LAYERS}/${params.Z}/${params.X}/${params.Y}.png" 
 
-		def bufferedImage = imageProxyService.serviceMethod([
+		def imageBytes = imageProxyService.serviceMethod([
 			password: library.password,
 			url: viewUrl,
 			username: library.username
 		])
 
 
-		return bufferedImage
+		return imageBytes
 	}
 }

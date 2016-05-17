@@ -26,9 +26,9 @@ class WmsConversionOmarService {
 
 		params.each() { viewUrl += "${it}&" }
 
-		def bufferedImage = imageProxyService.serviceMethod([url: viewUrl])
+		def imageBytes = imageProxyService.serviceMethod([url: viewUrl])
 
 
-		return bufferedImage
+		return imageBytes
 	}
 }
