@@ -27,7 +27,7 @@
 					--%>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href = javascript:void(0) onclick = $("#helpDialog").modal("show")>Help</a></li>
+					<li><a href = "/docs" target = "_blank")>Help</a></li>
 				</ul>
 			</div>
 		</div>		

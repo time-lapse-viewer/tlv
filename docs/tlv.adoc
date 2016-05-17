@@ -20,4 +20,6 @@ include::layers.adoc[]
 
 include::api.adoc[]
 
+include::contact.adoc[]
+
 :last-update-label!:

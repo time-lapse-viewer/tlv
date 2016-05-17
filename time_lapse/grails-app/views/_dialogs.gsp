@@ -22,13 +22,3 @@
 <g:render template = "/menus/layers-menu-dialogs"/>
 <g:render template = "/menus/search-menu-dialogs"/>
 <g:render template = "/menus/time-lapse-menu-functions-dialogs"/>
-
-<div class = "modal" id = "helpDialog">
-	<div class = "modal-dialog">
-		<div class = "modal-content">
-			<div class = "modal-header"><h4>Help!</h4></div>
-			<div class = "modal-body"><g:render plugin = "networkSpecific" template = "/help_dialog/help-dialog"/></div>
-			<div class = "modal-footer"><button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button></div>
-		</div>
-	</div>
-</div>
