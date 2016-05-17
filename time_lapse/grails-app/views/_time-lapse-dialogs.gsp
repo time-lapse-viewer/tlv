@@ -11,3 +11,19 @@
 		</div>
 	</div>
 </div>
+
+<g:javascript>
+	$("#summaryTableDialog").on(
+		"shown.bs.modal", 
+		function (event) {
+			var dialogBody = $("#summaryTableDialog .modal-body");
+			var maxDialogBodyHeight = $(window).height() * 0.7;
+			var dialogBodyIsTooTall = dialogBody.height() > maxDialogBodyHeight;
+			console.dir(dialogBody.height());
+			console.dir(maxDialogBodyHeight);
+			console.dir(dialogBodyIsTooTall);
+			dialogBody.css("max-height", dialogBodyIsTooTall ? maxDialogBodyHeight : "");
+			dialogBody.css("overflow-y", dialogBodyIsTooTall ? "auto" : "");
+		}
+	);
+</g:javascript>
