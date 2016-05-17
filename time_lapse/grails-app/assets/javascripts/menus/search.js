@@ -152,7 +152,7 @@ function getSearchParams() {
 	}
 	searchObject.libraries = libraries;
 
-	var locationString = $("#searchTabLocationDiv").val();
+	var locationString = $("#searchTabLocationInput").val();
 	if (locationString == "") { locationString = tlv.defaultLocation; }
 	var location = convertGeospatialCoordinateFormat(locationString);
 	if (!location) { return false; }
