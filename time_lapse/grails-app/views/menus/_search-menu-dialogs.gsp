@@ -21,33 +21,27 @@
 					<tr>
 						<td align = "right">Location:</td>
 						<td>
-							<input id = "searchTabLocationInput" placeholder = "e.g. ${grailsApplication.config.defaultLocation}" type = "text">
-							&nbsp;within&nbsp;
-							<select id = "searchTabRadiusSelect">
-								<g:each in = "${[1, 10, 50, 100, 500,1000, 5000, 10000]}">
-									<option value = ${it}>${it}</option>
-								</g:each>
-							</select> meter(s)
+							<input id = "searchLocationInput" placeholder = "e.g. ${grailsApplication.config.defaultLocation}" type = "text">
 						</td>
 					</tr>
 					<tr>
 						<td align = "right">Start Date:</td>
-						<td><input type = "text" id = "searchTabStartDateTimePicker"/></td>
+						<td><input type = "text" id = "searchStartDateTimePicker"/></td>
 					</tr>
 					<tr>
 						<td align = "right">End Date:</td>
-						<td><input type = "text" id = "searchTabEndDateTimePicker"/></td>
+						<td><input type = "text" id = "searchEndDateTimePicker"/></td>
 					</tr>
 					<tr>
 						<td align = "right">Sensor:</td>
          					<td>
 							<div class = "btn-group" data-toggle = "buttons">
-								<label class = "btn btn-primary" id = "searchTabSensorAllLabel" onchange = librarySensorCheck()>
-									<input id = "searchTabSensorAllCheckbox" type = "checkbox">ALL
+								<label class = "btn btn-primary" id = "searchSensorAllLabel" onchange = librarySensorCheck()>
+									<input id = "searchSensorAllCheckbox" type = "checkbox">ALL
 								</label>
 								<g:each in = "${params.availableResources.sensors}">
-									<label class = "btn btn-primary" id = "searchTabSensor${it.name.capitalize()}Label" title = "${it.description}">
-										<input id = "searchTabSensor${it.name.capitalize()}Checkbox" type = "checkbox">
+									<label class = "btn btn-primary" id = "searchSensor${it.name.capitalize()}Label" title = "${it.description}">
+										<input id = "searchSensor${it.name.capitalize()}Checkbox" type = "checkbox">
 										${it.name.toUpperCase()}
 									</label>
 								</g:each>
@@ -58,13 +52,13 @@
 						<td align = "right">Tailored GEOINT:</td>
 						<td>
 							<div class = "btn-group" data-toggle = "buttons">
-								<label class = "btn btn-primary" id = "searchTabTailoredGeointAllLabel" onchange = librarySensorCheck()>
-									<input id = "searchTabTailoredGeointAllCheckbox" type = "checkbox">ALL
+								<label class = "btn btn-primary" id = "searchTailoredGeointAllLabel" onchange = librarySensorCheck()>
+									<input id = "searchTailoredGeointAllCheckbox" type = "checkbox">ALL
 								</label>
 								<g:each in = "${params.availableResources.tailoredGeoint}">
 									<label 
-										class = "btn btn-primary" id = "searchTabTailoredGeoint${it.name.capitalize()}Label" title = "${it.description}">
-										<input id = "searchTabTailoredGeoint${it.name.capitalize()}Checkbox" type = "checkbox">
+										class = "btn btn-primary" id = "searchTailoredGeoint${it.name.capitalize()}Label" title = "${it.description}">
+										<input id = "searchTailoredGeoint${it.name.capitalize()}Checkbox" type = "checkbox">
 										${it.name.toUpperCase()}
 									</label>
 								</g:each>
@@ -73,16 +67,16 @@
 					</tr>
 					<tr>
 						<td align = "right">Min. NIIRS:</td>
-               					<td><input id = "searchTabMinNiirsInput" max = "9" min = "0" step = "0.1" type = "number"></td>
+               					<td><input id = "searchMinNiirsInput" max = "9" min = "0" step = "0.1" type = "number"></td>
 					</tr>
         				<tr>
 						<td align = "right">Max. Cloud Cover (%):</td>
-						<td><input id = "searchTabMaxCloudCoverInput" max = "100" min = "0" step = "1" type = "number"></td>
+						<td><input id = "searchMaxCloudCoverInput" max = "100" min = "0" step = "1" type = "number"></td>
 					</tr>
 					<tr>
 						<td align = "right">Max. Results:</td>
 						<td>
-							<select id = "searchTabMaxResultsSelect">
+							<select id = "searchMaxResultsSelect">
 								<g:each in = "${[5, 10, 25, 50, 75, 100, 250, 500]}">
 									<option value = ${it}>${it}</option>
 								</g:each>
@@ -94,8 +88,8 @@
 						<td>
 							<div class = "btn-group" data-toggle = "buttons">
 								<g:each in = "${params.availableResources.complete}">
-									<label class = "btn btn-primary" id = "searchTabLibrary${it.key.capitalize()}Label" onchange = librarySensorCheck()>
-										<input id = "searchTabLibrary${it.key.capitalize()}Checkbox" type = "checkbox">
+									<label class = "btn btn-primary" id = "searchLibrary${it.key.capitalize()}Label" onchange = librarySensorCheck()>
+										<input id = "searchLibrary${it.key.capitalize()}Checkbox" type = "checkbox">
 										${it.value.label.toUpperCase()}
 									</label>
 								</g:each>

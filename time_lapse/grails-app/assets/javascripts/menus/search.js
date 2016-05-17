@@ -50,10 +50,10 @@ function disableAllSensorCheckboxes() {
 	$.each(
 		tlv.availableResources.sensors,
 		function(i, x) {
-			var checkbox = $("#searchTabSensor" + x.name.capitalize() + "Checkbox");
+			var checkbox = $("#searchSensor" + x.name.capitalize() + "Checkbox");
 			if (checkbox.is(":checked")) { checkbox.trigger("click"); } 
 			
-			var label = $("#searchTabSensor" + x.name.capitalize() + "Label");
+			var label = $("#searchSensor" + x.name.capitalize() + "Label");
 			label.attr("disabled", true);
 			label.fadeTo("fast", 0.5);
 		}
@@ -61,10 +61,10 @@ function disableAllSensorCheckboxes() {
 }
 
 function disableSensorCheckbox(sensorName) {
-	var checkbox = $("#searchTabSensor" + sensorName.capitalize() + "Checkbox");
+	var checkbox = $("#searchSensor" + sensorName.capitalize() + "Checkbox");
 	if (checkbox.is(":checked")) { checkbox.trigger("click"); }
 
-	var label = $("#searchTabSensor" + sensorName.capitalize() + "Label");
+	var label = $("#searchSensor" + sensorName.capitalize() + "Label");
 	label.attr("disabled", true);
 	label.fadeTo("fast", 0.5);
 }
@@ -73,10 +73,10 @@ function disableAllTailoredGeointCheckboxes() {
 	$.each(
 		tlv.availableResources.tailoredGeoint,
 		function(i, x) {
-			var checkbox = $("#searchTabTailoredGeoint" + x.name.capitalize() + "Checkbox");
+			var checkbox = $("#searchTailoredGeoint" + x.name.capitalize() + "Checkbox");
 			if (checkbox.is(":checked")) { checkbox.trigger("click"); }
 
-			var label = $("#searchTabTailoredGeoint" + x.name.capitalize() + "Label");
+			var label = $("#searchTailoredGeoint" + x.name.capitalize() + "Label");
 			label.attr("disabled", true);
 			label.fadeTo("fast", 0.5);
 		}
@@ -84,22 +84,22 @@ function disableAllTailoredGeointCheckboxes() {
 }
 
 function disableTailoredGeointCheckbox(tailoredGeointName) {
-	var checkbox = $("#searchTabTailoredGeoint" + tailoredGeointName.capitalize() + "Checkbox");
+	var checkbox = $("#searchTailoredGeoint" + tailoredGeointName.capitalize() + "Checkbox");
 	if (checkbox.is(":checked")) { checkbox.trigger("click"); }
 
-	var label = $("#searchTabTailoredGeoint" + tailoredGeointName.capitalize() + "Label");
+	var label = $("#searchTailoredGeoint" + tailoredGeointName.capitalize() + "Label");
 	label.attr("disabled", true);
 	label.fadeTo("fast", 0.5);
 }
 
 function enableSensorCheckbox(sensorName) {
-	var label = $("#searchTabSensor" + sensorName.capitalize() + "Label");
+	var label = $("#searchSensor" + sensorName.capitalize() + "Label");
 	label.attr("disabled", false);
 	label.fadeTo("fast", 1);
 }
 
 function enableTailoredGeointCheckbox(tailoredGeointName) {
-        var label = $("#searchTabTailoredGeoint" + tailoredGeointName.capitalize() + "Label");
+        var label = $("#searchTailoredGeoint" + tailoredGeointName.capitalize() + "Label");
         label.attr("disabled", false);
         label.fadeTo("fast", 1);
 }
@@ -127,7 +127,7 @@ function getDate(date) {
 }
 
 function getEndDate() {
-	var date = $("#searchTabEndDateTimePicker").data("DateTimePicker").date().toDate();
+	var date = $("#searchEndDateTimePicker").data("DateTimePicker").date().toDate();
 
 
 	return getDate(date);
@@ -152,23 +152,20 @@ function getSearchParams() {
 	}
 	searchObject.libraries = libraries;
 
-	var locationString = $("#searchTabLocationInput").val();
+	var locationString = $("#searchLocationInput").val();
 	if (locationString == "") { locationString = tlv.defaultLocation; }
 	var location = convertGeospatialCoordinateFormat(locationString);
 	if (!location) { return false; }
 	else { searchObject.location = location; }
 
-	var maxCloudCover = $("#searchTabMaxCloudCoverInput").val();
+	var maxCloudCover = $("#searchMaxCloudCoverInput").val();
 	searchObject.maxCloudCover = maxCloudCover;
 
-	var maxResults = $("#searchTabMaxResultsSelect").val();
+	var maxResults = $("#searchMaxResultsSelect").val();
 	searchObject.maxResults = parseInt(maxResults);
 
-	var minNiirs = $("#searchTabMinNiirsInput").val();
+	var minNiirs = $("#searchMinNiirsInput").val();
 	searchObject.minNiirs = parseFloat(minNiirs);
-
-	var radius = $("#searchTabRadiusSelect").val();
-	searchObject.radius = parseInt(radius);
 
 	var sensors = getSelectedSensors();
 	if (sensors.length == 0) { 
@@ -198,7 +195,7 @@ function getSelectedLibraries() {
 	$.each(
 		tlv.availableResources.libraries,
 		function(i, x) {
-			var checkbox = $("#searchTabLibrary" + x.capitalize() + "Checkbox");
+			var checkbox = $("#searchLibrary" + x.capitalize() + "Checkbox");
 			if (checkbox.is(":checked")) { libraries.push(x); }
 		}
 	);
@@ -209,12 +206,12 @@ function getSelectedLibraries() {
 
 function getSelectedSensors() {
 	var sensors = [];
-	if ($("#searchTabSensorAllCheckbox").is(":checked")) { sensors.push("all"); }
+	if ($("#searchSensorAllCheckbox").is(":checked")) { sensors.push("all"); }
 	else { 
 		$.each(
 			tlv.availableResources.sensors,
 			function(i, x) {
-				var checkbox = $("#searchTabSensor" + x.name.capitalize() + "Checkbox");
+				var checkbox = $("#searchSensor" + x.name.capitalize() + "Checkbox");
 				if (checkbox.is(":checked")) { sensors.push(x.name); }
 			}
 		);
@@ -226,12 +223,12 @@ function getSelectedSensors() {
 
 function getSelectedTailoredGeoint() {
 	var tailoredGeoint = [];
-	if ($("#searchTabTailoredGeointAllCheckbox").is(":checked")) { tailoredGeoint.push("all"); }
+	if ($("#searchTailoredGeointAllCheckbox").is(":checked")) { tailoredGeoint.push("all"); }
 	else { 
 		$.each(
 			tlv.availableResources.tailoredGeoint,
 			function(i, x) {
-				var checkbox = $("#searchTabTailoredGeoint" + x.name.capitalize() + "Checkbox");
+				var checkbox = $("#searchTailoredGeoint" + x.name.capitalize() + "Checkbox");
 				if (checkbox.is(":checked")) { tailoredGeoint.push(x.name); }
 			}
 		);
@@ -243,15 +240,18 @@ function getSelectedTailoredGeoint() {
 
 
 function getStartDate() {
-	var date = $("#searchTabStartDateTimePicker").data("DateTimePicker").date().toDate();
+	var date = $("#searchStartDateTimePicker").data("DateTimePicker").date().toDate();
         
 
 	return getDate(date);
 }
 
 function initializeEndDateTimePicker() {
-	var endDateTimePicker = $("#searchTabEndDateTimePicker");
-	endDateTimePicker.datetimepicker({ format: "MM/DD/YYYY HH:mm:ss" });
+	var endDateTimePicker = $("#searchEndDateTimePicker");
+	endDateTimePicker.datetimepicker({ 
+		format: "MM/DD/YYYY HH:mm:ss",
+		keyBinds: null
+	});
 
 	// default to current date or user defined
 	var endDate = new Date();
@@ -269,7 +269,7 @@ function initializeLibraryCheckboxes() {
 		$.each(
 			tlv.libraries.split(","),
 			function(i, x) {
-				var checkbox = $("#searchTabLibrary" + x.capitalize() + "Checkbox");
+				var checkbox = $("#searchLibrary" + x.capitalize() + "Checkbox");
 				checkbox.trigger("click");
 			}
 		);
@@ -278,24 +278,24 @@ function initializeLibraryCheckboxes() {
 
 function initializeLocationInput() {
 	if (tlv.location) {
-		$("#searchTabLocationInput").val(tlv.location);
+		$("#searchLocationInput").val(tlv.location);
 		beginSearch();
 	}
 }
 
 function initializeMaxCloudCoverInput() {
 	var maxCloudCover = tlv.maxCloudCover ? tlv.maxCloudCover : 100;
-	$("#searchTabMaxCloudCoverInput").val(maxCloudCover);
+	$("#searchMaxCloudCoverInput").val(maxCloudCover);
 }
 
 function initializeMaxResultsSelect() {
 	var maxResults = tlv.maxResults ? tlv.maxResults : 10;
-	$("#searchTabMaxResultsSelect option[value = '" + maxResults + "']").prop("selected", true);
+	$("#searchMaxResultsSelect option[value = '" + maxResults + "']").prop("selected", true);
 }
 
 function initializeMinNiirsInput() {
 	var minNiirs = tlv.minNiirs ? tlv.minNiirs : 0;
-	$("#searchTabMinNiirsInput").val(minNiirs);
+	$("#searchMinNiirsInput").val(minNiirs);
 }
 
 function initializeSensorCheckboxes() {
@@ -303,23 +303,26 @@ function initializeSensorCheckboxes() {
 		$.each(
 			tlv.sensors.split(","),
 			function(i, x) {
-				var checkbox = $("#searchTabSensor" + x.capitalize() + "Checkbox");
+				var checkbox = $("#searchSensor" + x.capitalize() + "Checkbox");
                                 checkbox.trigger("click");
 			}
 		);
 	}
 	else { 
-		$("#searchTabSensorAllCheckbox").trigger("click"); 
+		$("#searchSensorAllCheckbox").trigger("click"); 
 		disableAllSensorCheckboxes();
 	}
 }
 
 function initializeStartDateTimePicker() {
-	var startDateTimePicker = $("#searchTabStartDateTimePicker");
-	startDateTimePicker.datetimepicker({ format: "MM/DD/YYYY HH:mm:ss" });
+	var startDateTimePicker = $("#searchStartDateTimePicker");
+	startDateTimePicker.datetimepicker({ 
+		format: "MM/DD/YYYY HH:mm:ss",
+		keyBinds: null
+	});
 
 	// default to the beginning of the day 30 days prior to the end date
-	var endDate = $("#searchTabEndDateTimePicker").data("DateTimePicker").date().toDate();
+	var endDate = $("#searchEndDateTimePicker").data("DateTimePicker").date().toDate();
 	var startDate = new Date(endDate - 30 * 24 * 60 * 60 * 1000);
 	if (tlv.startYear) { startDate.setFullYear(tlv.startYear); }
 	if (tlv.startMonth) { startDate.setMonth(tlv.startMonth - 1); }
@@ -336,7 +339,7 @@ function initializeTailoredGeointCheckboxes() {
 		$.each(
 			tlv.tailoredGeoint.split(","),
 			function(i, x) {
-				var checkbox = $("#searchTabTailoredGeoint" + x.capitalize() + "Checkbox");
+				var checkbox = $("#searchTailoredGeoint" + x.capitalize() + "Checkbox");
 				checkbox.trigger("click");
 			}
 		);
@@ -344,7 +347,7 @@ function initializeTailoredGeointCheckboxes() {
 }
 
 function librarySensorCheck() {
-	if ($("#searchTabSensorAllCheckbox").is(":checked")) { disableAllSensorCheckboxes(); }
+	if ($("#searchSensorAllCheckbox").is(":checked")) { disableAllSensorCheckboxes(); }
 	else {
 		$.each(
 			tlv.availableResources.sensors,
@@ -354,7 +357,7 @@ function librarySensorCheck() {
 				$.each(
 					tlv.availableResources.complete,
 					function(j, y) {
-						var libraryCheckbox = $("#searchTabLibrary" + j.capitalize() + "Checkbox");
+						var libraryCheckbox = $("#searchLibrary" + j.capitalize() + "Checkbox");
 						if (libraryCheckbox.is(":checked")) {
 							$.each(
 								y.sensors,
@@ -371,7 +374,7 @@ function librarySensorCheck() {
 		);
 	}
 
-	if ($("#searchTabTailoredGeointAllCheckbox").is(":checked")) { disableAllTailoredGeointCheckboxes(); }
+	if ($("#searchTailoredGeointAllCheckbox").is(":checked")) { disableAllTailoredGeointCheckboxes(); }
 	else {
 		$.each(
 			tlv.availableResources.tailoredGeoint,
@@ -381,7 +384,7 @@ function librarySensorCheck() {
 				$.each(
 					tlv.availableResources.complete,
 					function(j, y) {
-						var libraryCheckbox = $("#searchTabLibrary" + j.capitalize() + "Checkbox");
+						var libraryCheckbox = $("#searchLibrary" + j.capitalize() + "Checkbox");
 						if (libraryCheckbox.is(":checked")) {
 							$.each(
 								y.tailoredGeoint,
