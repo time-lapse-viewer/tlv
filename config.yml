@@ -17,7 +17,7 @@ libraries:
               name: "msi"
             - description: "Commercial: Panchromatic"
               name: "vis"
-        queryUrl: "http://omar.ossim.org/omar/ogs/wfs"
+        queryUrl: "http://omar.ossim.org/omar/wfs"
         tailoredGeoint: []
         viewUrl: "http://omar.ossim.org/omar/ogc/wms"
     planetLabs:
