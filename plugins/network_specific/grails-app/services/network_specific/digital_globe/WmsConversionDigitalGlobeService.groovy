@@ -21,7 +21,7 @@ class WmsConversionDigitalGlobeService {
 
 		params.each() { viewUrl += "${it}&" }
 
-		def imagesBytes = imageProxyService.serviceMethod([
+		def imageBytes = imageProxyService.serviceMethod([
 			password: library.password,
 			url: viewUrl,
 			username: library.username
