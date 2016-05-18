@@ -106,6 +106,13 @@ function changeFrame(param) {
 	updateScreenText();
 }
 
+function createMapControls() {
+	tlv.mapControls = [
+		createMousePositionControl(),
+		new ol.control.FullScreen()
+	];
+}
+
 function createMousePositionControl() {
 	var mousePositionControl = new ol.control.MousePosition({
 		coordinateFormat: function(coordinate) {
@@ -312,11 +319,9 @@ function setupMap() {
 	// if a map already exists, reset it and start from scratch
 	if (tlv.map) { tlv.map.setTarget(null); }
 
+	createMapControls();
 	tlv.map = new ol.Map({
-		controls: ol.control.defaults().extend([
-			createMousePositionControl(),
-			new ol.control.FullScreen()
-		]),
+		controls: ol.control.defaults().extend(tlv.mapControls),
 		interactions: ol.interaction.defaults({
 			altShiftDragRotate: false,
 			dragPan: false

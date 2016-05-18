@@ -7,18 +7,36 @@ function addSwipeListenerToMap() {
 	tlv.layers[secondLayer].mapLayer.setVisible(true);
 
 	tlv.swipeLayers = [firstLayer, secondLayer].sort();
-	tlv.layers[tlv.swipeLayers[1]].mapLayer.on("precompose", precomposeSwipe);
-	tlv.layers[tlv.swipeLayers[1]].mapLayer.on("postcompose", postcomposeSwipe);
+	tlv.layers[tlv.swipeLayers[0]].mapLayer.on("precompose", precomposeSwipe);
+	tlv.layers[tlv.swipeLayers[0]].mapLayer.on("postcompose", postcomposeSwipe);
 }
 
 var changeFrameView = changeFrame;
-changeFrame = function(params) {
+	changeFrame = function(params) {
 	if ($("#swipeButton").html() == "ON") {
 		turnOffSwipe();
 		changeFrameView(params);
 		turnOnSwipe();
 	}
 	else { changeFrameView(params); }
+}
+
+var createMapControlsView = createMapControls;
+createMapControls = function() {
+	createMapControlsView();
+	tlv.mapControls.push(createSliderControl());
+}
+
+function createSliderControl() {
+	var sliderInput = document.createElement("input");
+	sliderInput.id = "swipeSliderInput";
+	sliderInput.style = "width: 100%";
+	sliderInput.type = "text";
+
+	sliderInput.setAttribute("data-slider-id", "swipeSlider");
+
+
+	return new ol.control.Control({ element: sliderInput });
 }
 
 function initializeSwipeSlider() {
@@ -32,13 +50,6 @@ function initializeSwipeSlider() {
 	swipeSlider.on("slide", function() { tlv.map.render(); });
 
 	$("#swipeSlider").hide();
-}
-
-var pageLoadView = pageLoad;
-pageLoad = function() {  
-	pageLoadView();
-	
-	initializeSwipeSlider();
 }
 
 var precomposeSwipe = function(event) {
@@ -74,10 +85,11 @@ function swipeToggleButtonClick(desiredState) {
 	else { turnOffSwipe(); }
 }
 
-var setupTimeLapseView = setupTimeLapse;
-setupTimeLapse = function() {
-	setupTimeLapseView();
-}	
+var setupMapView = setupMap;
+setupMap = function() {
+	setupMapView();
+	initializeSwipeSlider();
+}
 
 function turnOffSwipe() {
 	$("#swipeSlider").hide();
@@ -88,5 +100,5 @@ function turnOffSwipe() {
 function turnOnSwipe() {
 	$("#swipeSlider").show();
 	addSwipeListenerToMap();
-	tlv.map.render();
+	//tlv.map.render();
 }

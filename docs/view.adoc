@@ -1,0 +1,10 @@
+== View
+
+
+The following section describes all the functionality that is available as it relates to the view menu.
+
+
+=== Swipe
+Become the next Picasso by digitally painting (i.e swiping) adjacent images onto one another.
+
+TIP: This is really helpful when you want to see changes between images.

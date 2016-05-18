@@ -18,6 +18,8 @@ include::export.adoc[]
 
 include::layers.adoc[]
 
+include::view.adoc[]
+
 include::api.adoc[]
 
 include::contact.adoc[]
