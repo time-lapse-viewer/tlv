@@ -19,6 +19,8 @@ function beginSearch() {
 
 				tlv.bbox = calculateInitialViewBbox();
 				setupTimeLapse(); 
+
+				$("#searchDialog").modal("hide");
 			},
 			url: tlv.contextPath + "/search/searchLibrary"
 		});	
@@ -147,7 +149,7 @@ function getSearchParams() {
 	var libraries = getSelectedLibraries();
 	if (libraries.length == 0) { 
 		alert("Please select a library, thanks."); 
-		$('#searchDialog').modal('show');
+		$("#searchDialog").modal("show");
 		return; 
 	}
 	searchObject.libraries = libraries;
@@ -170,7 +172,7 @@ function getSearchParams() {
 	var sensors = getSelectedSensors();
 	if (sensors.length == 0) { 
 		alert("Please select a sensor, thanks."); 
-		$('#searchDialog').modal('show')
+		$("#searchDialog").modal("show");
 		return; 
 	}
 	searchObject.sensors = sensors;
