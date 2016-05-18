@@ -18,13 +18,9 @@
 					</li>	
 					<g:render template = "/menus/time-lapse-menu-functions"/>
 					<g:render template = "/menus/export-menu"/>
-					<%--
-					<g:render template = "menus/imagePropertiesMenu"/>
-					--%>
+					<%--<g:render template = "menus/imagePropertiesMenu"/>--%>
 					<g:render template = "/menus/layers-menu"/>
-					<%--
-					<g:render template = "menus/viewMenu"/> 
-					--%>
+					<%--<g:render template = "/menus/view-menu"/>--%>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href = "/docs" target = "_blank")>Help</a></li>

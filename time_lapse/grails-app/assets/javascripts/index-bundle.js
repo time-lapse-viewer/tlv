@@ -2,7 +2,7 @@
 //= require bootstrap-3.3.6
 //= require moment-2.10.6.js
 //= require bootstrap-datetimepicker-4.15.35
-// //= require bootstrap-slider
+//= require bootstrap-slider
 //= require ol-3.15.1
 //= require spin
 //= require coordinate-conversion
@@ -18,3 +18,4 @@
 //= require menus/search
 //= require menus/search-plugin
 //= require menus/export
+//= require menus/view

@@ -14,11 +14,8 @@
 </div>
 
 <g:render template = "/time-lapse-dialogs"/>
-<%--
-<g:render template = "menus/exportMenuDialogs"/>
-<g:render template = "menus/imagePropertiesMenuDialogs"/>
-<g:if test = "${grailsApplication.config.networkSpecific.layers.enabled}"><g:render plugin = "networkSpecific" template = "menus/layers/layersMenuDialogs"/></g:if>
---%>
+
 <g:render template = "/menus/layers-menu-dialogs"/>
 <g:render template = "/menus/search-menu-dialogs"/>
 <g:render template = "/menus/time-lapse-menu-functions-dialogs"/>
+<g:render template = "/menus/view-menu-dialogs"/>
