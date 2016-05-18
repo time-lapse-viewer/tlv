@@ -77,7 +77,7 @@ class SearchPlanetLabsService {
 		queryUrl += "?acquired.gte=${startDate}&acquired.lte=${endDate}"
 
 		// bbox
-		def deltaDeg = mathConversionService.convertRadiusToDeltaDegrees(params)
+		def deltaDeg = mathConversionService.convertRadiusToDeltaDegrees([radius: 1])
 		def location = params.location.collect({ it as Double })
 		def bbox = [location[0] - deltaDeg, location[1] - deltaDeg, location[0] + deltaDeg, location[1] + deltaDeg]
 		def polygon = [

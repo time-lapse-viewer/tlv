@@ -102,7 +102,7 @@ class SearchOmarService {
 		filter += " AND "
 
 		// dwithin
-		def deltaDegrees = mathConversionService.convertRadiusToDeltaDegrees(params)
+		def deltaDegrees = mathConversionService.convertRadiusToDeltaDegrees([radius: 1])
 		filter += "DWITHIN(ground_geom,POINT(${params.location.join(" ")}),${deltaDegrees},meters)"
 
 		filter += " AND "

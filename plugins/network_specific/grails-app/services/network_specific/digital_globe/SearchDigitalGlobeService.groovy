@@ -109,7 +109,7 @@ class SearchDigitalGlobeService {
 		cqlFilter += " AND "
 
 		// bbox
-		def deltaDeg = mathConversionService.convertRadiusToDeltaDegrees(params)
+		def deltaDeg = mathConversionService.convertRadiusToDeltaDegrees([radius: 1]) //params)
 		def location = params.location.collect({ it as Double })
 		cqlFilter += "(BBOX(geometry, ${location[0] - deltaDeg},${location[1] - deltaDeg},${location[0] + deltaDeg},${location[1] + deltaDeg}))"
 
