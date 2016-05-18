@@ -14,8 +14,8 @@ addLayerToTheMap = function(layer) {
 			visible: false
 		});
 
-		//image.getSource().on("imageloadstart", function(event) { theLayerHasStartedLoading(this); });
-		//image.getSource().on("imageloadend", function(event) { theLayerHasFinishedLoading(this); });;
+		image.getSource().on("tileloadstart", function(event) { theLayerHasStartedLoading(this); });
+		image.getSource().on("tileloadend", function(event) { theLayerHasFinishedLoading(this); });;
 
 		layer.mapLayer = image;
 		layer.layerIsLoaded = 0;

@@ -171,6 +171,12 @@ function geoJump() {
 	tlv.map.getView().setCenter(point);
 }
 
+function getLayerIdentifier(source) {
+	if (typeof source.getParams == "function") { return source.getParams().IDENTIFIER; }
+	// assume an XYZ layer
+	else { return source.getUrls()[0]; }
+}
+
 function getNextFrameIndex() { return tlv.currentLayer >= tlv.layers.length - 1 ? 0 : tlv.currentLayer + 1; }
 
 function getPreviousFrameIndex() { return tlv.currentLayer <= 0 ? tlv.layers.length - 1 : tlv.currentLayer - 1; }
@@ -377,16 +383,16 @@ function setupTimeLapse() {
 function stopTimeLapse() { clearTimeout(tlv.timeLapseAdvance); }
 
 function theLayerHasFinishedLoading(layerSource) {
-	var currentLayerId = tlv.layers[tlv.currentLayer].mapLayer.getSource().getParams().IDENTIFIER;
-	var thisLayerId = layerSource.getParams().IDENTIFIER;
+	var thisLayerId = getLayerIdentifier(layerSource);
 	$.each(
 		tlv.layers,
 		function(i, x) {
-			// take into account that XYZ layers will not have the identifier in the source
-			var id = typeof x.mapLayer.getSource().getParams == "function" ? x.mapLayer.getSource().getParams().IDENTIFIER : null;
+			var id = getLayerIdentifier(x.mapLayer.getSource());
 			if (thisLayerId == id) {
 				x.layerIsLoaded += 1;
+				var currentLayerId = getLayerIdentifier(tlv.layers[tlv.currentLayer].mapLayer.getSource());
 				if (thisLayerId == currentLayerId && x.layerIsLoaded == 0) { tlv.loadingSpinner.stop(); }
+
 
 				return false;
 			}
@@ -395,15 +401,14 @@ function theLayerHasFinishedLoading(layerSource) {
 }
 
 function theLayerHasStartedLoading(layerSource) {
-	var currentLayerId = tlv.layers[tlv.currentLayer].mapLayer.getSource().getParams().IDENTIFIER;
-	var thisLayerId = layerSource.getParams().IDENTIFIER;
+	var thisLayerId = getLayerIdentifier(layerSource);
 	$.each(
 		tlv.layers,
 		function(i, x) {
-			// take into account that XYZ layers will not have the identifier in the source
-			var id = typeof x.mapLayer.getSource().getParams == "function" ? x.mapLayer.getSource().getParams().IDENTIFIER : null;
+			var id = getLayerIdentifier(x.mapLayer.getSource());
 			if (thisLayerId == id) {
 				x.layerIsLoaded -= 1;
+				var currentLayerId = getLayerIdentifier(tlv.layers[tlv.currentLayer].mapLayer.getSource());
 				if (thisLayerId == currentLayerId && x.layerIsLoaded < 0) {
 					var target = $("#map")[0];
 					tlv.loadingSpinner.spin(target);
