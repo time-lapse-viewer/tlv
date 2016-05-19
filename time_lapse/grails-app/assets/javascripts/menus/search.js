@@ -19,8 +19,6 @@ function beginSearch() {
 
 				tlv.bbox = calculateInitialViewBbox();
 				setupTimeLapse(); 
-
-				$("#searchDialog").modal("hide");
 			},
 			url: tlv.contextPath + "/search/searchLibrary"
 		});	
@@ -281,8 +279,10 @@ function initializeLibraryCheckboxes() {
 function initializeLocationInput() {
 	if (tlv.location) {
 		$("#searchLocationInput").val(tlv.location);
+		$("#searchDialog").modal("hide");
 		beginSearch();
 	}
+	else { $("#searchDialog").modal("show"); }
 }
 
 function initializeMaxCloudCoverInput() {
@@ -408,7 +408,6 @@ var pageLoadSearch = pageLoad;
 pageLoad = function() {
 	pageLoadSearch();
 	setupSearchMenuDialog();
-	$("#searchDialog").modal("show");
 }
 
 function searchError() { alert("Uh oh, something went wrong with your search!"); }
