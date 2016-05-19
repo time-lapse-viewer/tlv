@@ -101,7 +101,9 @@ function changeFrame(param) {
 	tlv.map.renderSync();
 
 	if (tlv.layers[tlv.currentLayer].layerIsLoaded == 0) { tlv.loadingSpinner.stop(); }
-	else { tlv.loadingSpinner.spin($("#map")[0]); }
+	else { 
+		if (!tlv.loadingSpinner.el) { tlv.loadingSpinner.spin($("#map")[0]); }
+	}
 
 	updateScreenText();
 }
@@ -387,20 +389,19 @@ function stopTimeLapse() { clearTimeout(tlv.timeLapseAdvance); }
 
 function theLayerHasFinishedLoading(layerSource) {
 	var thisLayerId = getLayerIdentifier(layerSource);
+
+	var allVisibleLayersHaveFinishedLoading = true;
 	$.each(
 		tlv.layers,
 		function(i, x) {
 			var id = getLayerIdentifier(x.mapLayer.getSource());
-			if (thisLayerId == id) {
-				x.layerIsLoaded += 1;
-				var currentLayerId = getLayerIdentifier(tlv.layers[tlv.currentLayer].mapLayer.getSource());
-				if (thisLayerId == currentLayerId && x.layerIsLoaded == 0) { tlv.loadingSpinner.stop(); }
+			if (thisLayerId == id) { x.layerIsLoaded += 1; }
 
-
-				return false;
-			}
+			if (x.layerIsLoaded != 0 && x.mapLayer.getVisible()) { allVisibleLayersHaveFinishedLoading = false; }
 		}
 	);
+
+	if (allVisibleLayersHaveFinishedLoading) { tlv.loadingSpinner.stop(); }
 }
 
 function theLayerHasStartedLoading(layerSource) {
@@ -409,16 +410,11 @@ function theLayerHasStartedLoading(layerSource) {
 		tlv.layers,
 		function(i, x) {
 			var id = getLayerIdentifier(x.mapLayer.getSource());
-			if (thisLayerId == id) {
-				x.layerIsLoaded -= 1;
-				var currentLayerId = getLayerIdentifier(tlv.layers[tlv.currentLayer].mapLayer.getSource());
-				if (thisLayerId == currentLayerId && x.layerIsLoaded < 0) {
-					var target = $("#map")[0];
-					tlv.loadingSpinner.spin(target);
-				}
-
-
-				return false;
+			if (thisLayerId == id) { x.layerIsLoaded -= 1; }
+			
+			if (x.mapLayer.getVisible()) { 
+				// only start the spinner if it's not already spinning
+				if (!tlv.loadingSpinner.el) { tlv.loadingSpinner.spin($("#map")[0]); }
 			}
 		}
 	);
