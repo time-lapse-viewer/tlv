@@ -18,7 +18,7 @@ function addLayerToTheMap(layer) {
 			ratio: 1,
 			url: tlv.contextPath + "/wms"
 		}),
-		visible: false
+		visible: true
 	});
 
 	image.getSource().on("imageloadstart", function(event) { theLayerHasStartedLoading(this); });
@@ -356,19 +356,17 @@ function setupTimeLapse() {
 	tlv.map.addInteraction(tlv.mapInteractions.altDragRotate);
 	tlv.map.addInteraction(tlv.mapInteractions.dragPan);
 
-	if (tlv.chronological == "true") { tlv.layers.reverse(); }
+	addBaseLayersToTheMap();
+
+	if (tlv.chronological == "false") { tlv.layers.reverse(); }
 	// add layers to the map
 	$.each(
 		tlv.layers,
 		function(i, x) {
 			x.keepVisible = x.keepVisible || false;
-
 			addLayerToTheMap(x);
 		}
 	);
-
-	addBaseLayersToTheMap();
-	tlv.map.getLayers().getArray().reverse();
 
 	tlv.map.getView().fit(tlv.bbox, tlv.map.getSize());
 

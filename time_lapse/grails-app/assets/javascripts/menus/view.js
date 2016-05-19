@@ -7,8 +7,8 @@ function addSwipeListenerToMap() {
 	tlv.layers[secondLayer].mapLayer.setVisible(true);
 
 	tlv.swipeLayers = [firstLayer, secondLayer].sort();
-	tlv.layers[tlv.swipeLayers[0]].mapLayer.on("precompose", precomposeSwipe);
-	tlv.layers[tlv.swipeLayers[0]].mapLayer.on("postcompose", postcomposeSwipe);
+	tlv.layers[tlv.swipeLayers[1]].mapLayer.on("precompose", precomposeSwipe);
+	tlv.layers[tlv.swipeLayers[1]].mapLayer.on("postcompose", postcomposeSwipe);
 }
 
 var changeFrameView = changeFrame;
@@ -24,19 +24,30 @@ var changeFrameView = changeFrame;
 var createMapControlsView = createMapControls;
 createMapControls = function() {
 	createMapControlsView();
-	tlv.mapControls.push(createSliderControl());
+
+	$.each(createSwipeControls(), function(i, x) { tlv.mapControls.push(x); });
 }
 
-function createSliderControl() {
+function createSwipeControls() {
+	var leftSwipeTextDiv = document.createElement("div");
+	leftSwipeTextDiv.className = "swipe-text-div swipe-text-div-left";
+	leftSwipeTextDiv.id = "leftSwipeTextDiv";
+	var leftSwipeTextControl = new ol.control.Control({ element: leftSwipeTextDiv });
+
+	var rightSwipeTextDiv = document.createElement("div");
+	rightSwipeTextDiv.className = "swipe-text-div swipe-text-div-right";
+	rightSwipeTextDiv.id = "rightSwipeTextDiv";
+	var rightSwipeTextControl = new ol.control.Control({ element: rightSwipeTextDiv });
+
 	var sliderInput = document.createElement("input");
 	sliderInput.id = "swipeSliderInput";
 	sliderInput.style = "width: 100%";
 	sliderInput.type = "text";
-
 	sliderInput.setAttribute("data-slider-id", "swipeSlider");
+	var sliderControl = new ol.control.Control({ element: sliderInput });
 
 
-	return new ol.control.Control({ element: sliderInput });
+	return [leftSwipeTextControl, rightSwipeTextControl, sliderControl];
 }
 
 function initializeSwipeSlider() {
@@ -92,13 +103,50 @@ setupMap = function() {
 }
 
 function turnOffSwipe() {
+	$(".ol-full-screen").show();
+	$(".ol-mouse-position").show();
+	$(".ol-rotate").show();
+	$(".ol-zoom").show();
+
+	$("#leftSwipeTextDiv").hide();
+	$("#rightSwipeTextDiv").hide();
 	$("#swipeSlider").hide();
 	removeSwipeListenerFromMap();
-	//tlv.map.render();
+
+	updateScreenText();
 }
 
 function turnOnSwipe() {
+	$(".ol-full-screen").hide();
+	$(".ol-mouse-position").hide();
+	$(".ol-rotate").hide();
+	$(".ol-zoom").hide();
+
+	$("#leftSwipeTextDiv").show();
+	$("#rightSwipeTextDiv").show();
 	$("#swipeSlider").show();
 	addSwipeListenerToMap();
-	//tlv.map.render();
+
+	updateScreenText();
+}
+
+var updateScreenTextView = updateScreenText;
+updateScreenText = function() {
+	updateScreenTextView();
+
+	if ($("#swipeButton").html() == "ON") {
+		$("#acquisitionDateDiv").html("&nbsp;");
+		$("#imageIdDiv").html("&nbsp;");
+
+		$.each(
+			{ left: tlv.swipeLayers[0], right: tlv.swipeLayers[1] },
+			function(i, x) {
+				var layer = tlv.layers[x];
+				var acquisitionDate = layer.acquisitionDate;
+				var imageId = layer.imageId;
+				var libraryLabel = tlv.availableResources.complete[layer.library].label;
+				$("#" + i + "SwipeTextDiv").html(libraryLabel + ": " + imageId + "<br>" + acquisitionDate);
+			}
+		);
+	}
 }

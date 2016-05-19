@@ -28,9 +28,9 @@ When rotation is enabled (anti-nausea medicine sold separately), panning is disa
 Go to any place on the map that your heart desires.
 
 ==== Reverse Order
-The default order of the image stack is reverse-chronological. But, if you prefer the other way, here's where to do it. 
+The default order of the image stack is chronological. But, if you prefer the other way, here's where to do it. 
 
-TIP: If you prefer chronological order all the time, you can use `chronological=true` in the URL.
+TIP: If you prefer chronological order all the time, you can use `chronological=false` in the URL.
 
 === Mouse Coordinates
 The current coordinate of the mouse is displayed in the lower-left corner of the map. You can click the box to cycle through the endless format possibilities. And by "endless", we mean, three - DD, DMS and MGRS.

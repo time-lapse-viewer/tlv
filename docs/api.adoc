@@ -15,8 +15,8 @@ The table below shows a list of parameters that can be added to the URL (in a "G
 | _chronological_
 | Present the image stack in chronological order.
 | chronological=true
-| true
 | false
+| true
 
 | _crossHairLayerEnabled_
 | Automatically enable to cross-hair layer.
