@@ -108,6 +108,19 @@ function changeFrame(param) {
 	updateScreenText();
 }
 
+function createContextMenuContent(coordinate) {
+	var coordConvert = new CoordinateConversion();
+	var latitude = coordinate[1];
+	var longitude = coordinate[0];
+	var dd = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+	var dms = coordConvert.ddToDms(latitude, "lat") + " " + coordConvert.ddToDms(longitude, "lon");
+	var mgrs = coordConvert.ddToMgrs(latitude, longitude);
+
+	$("#contextMenuDialog .modal-body").html("<div align = 'center' class = 'row'>You clicked here:</div>");
+	$("#contextMenuDialog .modal-body").append("<div align = 'center' class = 'row'>" + dd + " // " + dms + " // " + mgrs + "</div>");
+}
+
+
 function createMapControls() {
 	tlv.mapControls = [
 		createMousePositionControl(),
@@ -288,7 +301,6 @@ function moveLayerUpInStack(layerIndex) {
 var pageLoadTimeLapse = pageLoad;
 pageLoad = function() {
 	pageLoadTimeLapse();
-	//setupMap();
 
 	if (tlv.layers) {
 		$("#searchDialog").modal("hide");
@@ -344,6 +356,17 @@ function setupMap() {
 	});
 
 	updateMapSize();
+
+	// setup context menu
+	tlv.map.getViewport().addEventListener("contextmenu",
+		function (event) {
+			event.preventDefault();
+			var pixel = [event.layerX, event.layerY];
+			var coordinate = tlv.map.getCoordinateFromPixel(pixel);
+			createContextMenuContent(coordinate);
+			$("#contextMenuDialog").modal("show");
+		}
+	);
 }
 
 function setupTimeLapse() {

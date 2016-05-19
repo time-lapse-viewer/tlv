@@ -19,11 +19,20 @@
 			var dialogBody = $("#summaryTableDialog .modal-body");
 			var maxDialogBodyHeight = $(window).height() * 0.7;
 			var dialogBodyIsTooTall = dialogBody.height() > maxDialogBodyHeight;
-			console.dir(dialogBody.height());
-			console.dir(maxDialogBodyHeight);
-			console.dir(dialogBodyIsTooTall);
 			dialogBody.css("max-height", dialogBodyIsTooTall ? maxDialogBodyHeight : "");
 			dialogBody.css("overflow-y", dialogBodyIsTooTall ? "auto" : "");
 		}
 	);
 </g:javascript>
+
+<div class = "modal" id = "contextMenuDialog">
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header"><h4>Context Menu</h4></div>
+			<div class = "modal-body"></div>
+			<div class = "modal-footer">
+				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
