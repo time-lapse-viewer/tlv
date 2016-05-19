@@ -20,13 +20,13 @@ class WmsConversionDigitalGlobeService {
 		params.LAYERS = "DigitalGlobe:Imagery"
 
 		params.each() { viewUrl += "${it}&" }
-
+println "Start DG Download: ${new Date()}"
 		def imageBytes = imageProxyService.serviceMethod([
 			password: library.password,
 			url: viewUrl,
 			username: library.username
 		])
-
+println "End DG Download: ${new Date()}"
 
 		return imageBytes
 	}

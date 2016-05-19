@@ -25,9 +25,9 @@ class WmsConversionOmarService {
 		params.STRECTH_MODE_REGION = "viewport"
 
 		params.each() { viewUrl += "${it}&" }
-
+println "Start OMAR Download: ${new Date()}"
 		def imageBytes = imageProxyService.serviceMethod([url: viewUrl])
-
+println "End OMAR Download: ${new Date()}"
 
 		return imageBytes
 	}
