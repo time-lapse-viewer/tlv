@@ -31,25 +31,32 @@ class HttpDownloadService {
 			http.client.connectionManager.schemeRegistry.register(new Scheme("https", ssl, 443))
 		}
 
-		http.request(GET) { req ->
-			if (params.username && params.password) {
-				def auth = "${params.username}:${params.password}".getBytes().encodeBase64()
-				headers."Authorization" = "Basic ${auth}"
-			}
-			response.failure = { response, reader ->
+		try {
+			http.request(GET) { req ->
+				if (params.username && params.password) {
+					def auth = "${params.username}:${params.password}".getBytes().encodeBase64()
+					headers."Authorization" = "Basic ${auth}"
+				}
+
+				response.failure = { response, reader ->
 println reader
 
 
-				return null
-			}
-			response.success = { response, reader ->
-				def contentType = response.allHeaders.find({ it.name =~ /(?i)Content-Type/})
-				if (contentType) { contentType = contentType.value }
+					return null
+				}
+				response.success = { response, reader ->
+					def contentType = response.allHeaders.find({ it.name =~ /(?i)Content-Type/})
+					if (contentType) { contentType = contentType.value }
 
 
-				if (contentType.contains("image/jpeg") || contentType.contains("image/png")) { return reader.bytes }
-				else { return reader }
+					if (contentType.contains("image/jpeg") || contentType.contains("image/png")) { return reader.bytes }
+					else { return reader }
+				}
 			}
+		}
+		catch (Exception e) { 
+			println e
+			return null 
 		}
 	}
 }
