@@ -5,7 +5,7 @@ function convertGeospatialCoordinateFormat(inputString) {
 
 	var coordinateConversion = new CoordinateConversion();
 
-	if (inputString.match(dmsPattern)) {  
+	if (inputString.match(dmsPattern)) {
 		var latitude = coordinateConversion.dmsToDd(RegExp.$1, RegExp.$2, RegExp.$3, RegExp.$4);
 		var longitude = coordinateConversion.dmsToDd(RegExp.$5, RegExp.$6, RegExp.$7, RegExp.$8);
 
@@ -26,7 +26,7 @@ function convertGeospatialCoordinateFormat(inputString) {
 		return convertGeospatialCoordinateFormat(location);
 	}
 	else { return false; }
-};
+}
 
 function convertRadiusToBbox(x, y, radius) {
 	/* radius * 1 nautical mile / 1852 meters * 1 minute latitude / 1 nautical mile * 1 deg latitude / 60 minute latitude */
@@ -42,8 +42,8 @@ function disableMenuButtons() {
 	for (var i = 1; i < menuButtons.length; i++) { $(menuButtons[i]).hide(); }
 }
 
-function displayLoadingDialog(message) { 
-	$("#loadingDialog").modal("show"); 
+function displayLoadingDialog(message) {
+	$("#loadingDialog").modal("show");
 	$("#loadingDialogMessageDiv").html(message);
 }
 
@@ -54,15 +54,15 @@ function enableMenuButtons() {
 
 function enableKeyboardShortcuts() {
 	$(document).on(
-		"keydown", 
+		"keydown",
 		function(event) {
 			// only if a modal is not open
 			if (!$(".modal-backdrop").is(":visible")) {
 				var keyCode = event.keyCode;
-			
+
 				switch(keyCode) {
 					// left arrow key
-					case 37: changeFrame("rewind"); break; 
+					case 37: changeFrame("rewind"); break;
 					// right arrow key
 					case 39: changeFrame("fastForward"); break;
 					// delete key
@@ -75,11 +75,11 @@ function enableKeyboardShortcuts() {
 
 function hideLoadingDialog() { $("#loadingDialog").modal("hide"); }
 
-function initializeLoadingDialog() { 
-	$("#loadingDialog").modal({ 
+function initializeLoadingDialog() {
+	$("#loadingDialog").modal({
 		keyboard: false,
 		show: false
-	}); 
+	});
 }
 
 function toggleButton(button, desiredStatus) {
@@ -92,6 +92,6 @@ function toggleButton(button, desiredStatus) {
 	}
 	else {
 		button.removeClass("btn-success");
-		button.addClass("btn-danger");	
+		button.addClass("btn-danger");
 	}
 }
