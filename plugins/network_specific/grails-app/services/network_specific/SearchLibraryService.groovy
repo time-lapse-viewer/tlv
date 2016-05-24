@@ -7,6 +7,7 @@ import grails.transaction.Transactional
 @Transactional
 class SearchLibraryService {
 
+	def coordinateConversionService
 	def grailsApplication
 	def httpDownloadService
 	def mathConversionService
@@ -16,25 +17,32 @@ class SearchLibraryService {
 
 
 	def serviceMethod(params) {
-		def resultsMap = [
-			layers: [],
-			location: params.location.collect({ it as Double })
-		]
+		def location = coordinateConversionService.serviceMethod(params.location)
+		if (!location.error) {
+			params.location = [location.longitude, location.latitude]
 
-		params.libraries.each() { 
-			if (it == "digitalGlobe") { resultsMap.layers += searchDigitalGlobeService.searchLibrary(params) }
-			else if (it == "omar") { resultsMap.layers += searchOmarService.searchLibrary(params) }
-			else if (it == "planetLabs") { resultsMap.layers += searchPlanetLabsService.searchLibrary(params) }
+			def results = [
+				layers: [],
+				location: [location.longitude, location.latitude]
+			]
+
+			params.libraries.each() { 
+				if (it == "digitalGlobe") { results.layers += searchDigitalGlobeService.searchLibrary(params) }
+				else if (it == "omar") { results.layers += searchOmarService.searchLibrary(params) }
+				else if (it == "planetLabs") { results.layers += searchPlanetLabsService.searchLibrary(params) }
+			}
+
+
+			if (results.layers.size() > params.maxResults) {
+				def howManyToDrop = results.layers.size() - params.maxResults
+				results.layers = results.layers.reverse().drop(howManyToDrop).reverse()
+			}
+
+			results.layers.sort({ it.acquisitionDate })
+
+
+			return results
 		}
-
-
-		if (resultsMap.layers.size() > params.maxResults) {
-			def howManyToDrop = resultsMap.layers.size() - params.maxResults
-			resultsMap.layers = resultsMap.layers.reverse().drop(howManyToDrop).reverse()
-		}
-
-		resultsMap.layers.sort({ it.acquisitionDate })
-
-		return resultsMap
+		else { return location }
 	}	
 }
