@@ -15,10 +15,16 @@ function beginSearch() {
 			},
 			success: function(data) {
 				hideLoadingDialog();
-				$.each(data, function(i, x) { tlv[i] = x; });
+				if (!data.error) {
+					if (data.length > 0) { 
+						$.each(data, function(i, x) { tlv[i] = x; });
 
-				tlv.bbox = calculateInitialViewBbox();
-				setupTimeLapse(); 
+						tlv.bbox = calculateInitialViewBbox();
+						setupTimeLapse(); 
+					}
+					else { alert("Sorry, we couldn't find anything that matched your search criteria. Maybe ease up on those search constraints a bit?"); }
+				}
+				else { alert(data.error); }
 			},
 			url: tlv.contextPath + "/search/searchLibrary"
 		});	
@@ -153,10 +159,7 @@ function getSearchParams() {
 	searchObject.libraries = libraries;
 
 	var locationString = $("#searchLocationInput").val();
-	if (locationString == "") { locationString = tlv.defaultLocation; }
-	var location = convertGeospatialCoordinateFormat(locationString);
-	if (!location) { return false; }
-	else { searchObject.location = location; }
+	searchObject.location = locationString == "" ? tlv.defaultLocation : locationString; 
 
 	var maxCloudCover = $("#searchMaxCloudCoverInput").val();
 	searchObject.maxCloudCover = maxCloudCover;
