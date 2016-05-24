@@ -1,13 +1,5 @@
-/*
-body { overflow: hidden; }
-*/
 .navbar { margin-bottom: 0px; }
-/*
+
 .slider-selection, .slider-track-high { background: #303c3a; }
 
-.table {
-	background-color: transparent;
-	color: inherit;
-}
-*/
 .table th, .table td { border-top: none !important; }
