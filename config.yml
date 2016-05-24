@@ -1,4 +1,6 @@
-defaultLocation: "37.45, -122.12"
+defaultLocation: "48.8584, 2.2945"
+
+googleApiKey: "api-key-from-google" // for geocoding
 
 libraries:
     digitalGlobe:
