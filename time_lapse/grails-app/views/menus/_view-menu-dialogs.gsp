@@ -7,7 +7,7 @@
 					<tr>
 						<td align = "right">Swipe:</td>
 						<td>
-							<button class = "btn btn-danger btn-xs" id = "swipeButton" onclick = "swipeToggleButtonClick()">OFF</button>
+							<button class = "btn btn-danger btn-xs" data-dismiss = "modal" id = "swipeButton" onclick = swipeToggleButtonClick()>OFF</button>
 						</td>
 					</tr>
 				</table>
