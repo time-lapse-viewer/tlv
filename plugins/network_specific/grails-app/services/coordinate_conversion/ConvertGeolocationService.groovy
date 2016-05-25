@@ -12,7 +12,7 @@ class ConvertGeolocationService {
 
 
 	def serviceMethod(locationString) {
-		def url = "https://maps.googleapis.com/maps/api/geocode/json?address=${locationString}&key=${grailsApplication.config.googleApiKey}"
+		def url = "https://maps.googleapis.com/maps/api/geocode/json?address=${URLEncoder.encode(locationString)}&key=${grailsApplication.config.googleApiKey}"
 		def location = httpDownloadService.serviceMethod([url: url])
 		if (location) {
 			def center = location.results[0]?.geometry.location ?: null
