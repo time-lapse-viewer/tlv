@@ -6,7 +6,7 @@ function clientFileDownload(filename, blob) {
 		$("body").append(link);
 		link.click();
 	}
-	else { alert("This browser doesn't support client-side downloading, :("); }
+	else { displayErrorDialog("This browser doesn't support client-side downloading, :("); }
 	link.remove();
 }
 
@@ -27,7 +27,7 @@ function exportLink() {
 	$.ajax({
 		data: "tlvInfo=" + JSON.stringify(tlvInfo),
 		dataType: "text",
-		failure: function() { alert("Uh oh, something went wrong when trying to export your link!"); },
+		failure: function() { displayErrorDialog("Uh oh, something went wrong when trying to export your link!"); },
 		success: function(data) {
 			$("#exportLinkHref").attr("href", location.origin + tlv.contextPath + "/home?tlv=" + data);
         		$("#exportLinkDialog").modal("show");

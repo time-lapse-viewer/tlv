@@ -22,9 +22,9 @@ function beginSearch() {
 						tlv.bbox = calculateInitialViewBbox();
 						setupTimeLapse(); 
 					}
-					else { alert("Sorry, we couldn't find anything that matched your search criteria. Maybe ease up on those search constraints a bit?"); }
+					else { displayErrorDialog("Sorry, we couldn't find anything that matched your search criteria. Maybe ease up on those search constraints a bit?"); }
 				}
-				else { alert(data.error); }
+				else { displayErrorDialog(data.error); }
 			},
 			url: tlv.contextPath + "/search/searchLibrary"
 		});	
@@ -152,7 +152,7 @@ function getSearchParams() {
 
 	var libraries = getSelectedLibraries();
 	if (libraries.length == 0) { 
-		alert("Please select a library, thanks."); 
+		displayErrorDialog("Please select a library, thanks."); 
 		$("#searchDialog").modal("show");
 		return; 
 	}
@@ -172,7 +172,7 @@ function getSearchParams() {
 
 	var sensors = getSelectedSensors();
 	if (sensors.length == 0) { 
-		alert("Please select a sensor, thanks."); 
+		displayErrorDialog("Please select a sensor, thanks."); 
 		$("#searchDialog").modal("show");
 		return; 
 	}
@@ -413,7 +413,7 @@ pageLoad = function() {
 	setupSearchMenuDialog();
 }
 
-function searchError() { alert("Uh oh, something went wrong with your search!"); }
+function searchError() { displayErrorDialog("Uh oh, something went wrong with your search!"); }
 
 function setupSearchMenuDialog() {
 	// start with the end date since the start date's default is based on the end date

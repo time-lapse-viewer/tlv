@@ -42,6 +42,12 @@ function disableMenuButtons() {
 	for (var i = 1; i < menuButtons.length; i++) { $(menuButtons[i]).hide(); }
 }
 
+function displayErrorDialog(message) {
+	var messageDiv = $("#errorDialog").children()[1];
+	$(messageDiv).html(message);
+	$("#errorDialog").show();
+}
+
 function displayLoadingDialog(message) {
 	$("#loadingDialog").modal("show");
 	$("#loadingDialogMessageDiv").html(message);
@@ -72,6 +78,8 @@ function enableKeyboardShortcuts() {
 		}
 	);
 }
+
+function hideErrorDialog() { $("#errorDialog").hide(); }
 
 function hideLoadingDialog() { $("#loadingDialog").modal("hide"); }
 

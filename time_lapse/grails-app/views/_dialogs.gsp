@@ -1,3 +1,10 @@
+<div class = "alert alert-danger" id = "errorDialog" role = "alert">
+	<button aria-label = "Close" class = "close" onclick = hideErrorDialog() type = "button">
+		<span aria-hidden = "true">&times;</span>
+	</button>
+	<div>Cheese</div>
+</div>
+
 <div class = "modal" id = "loadingDialog">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
