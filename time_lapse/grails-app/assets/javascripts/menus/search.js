@@ -16,7 +16,7 @@ function beginSearch() {
 			success: function(data) {
 				hideLoadingDialog();
 				if (!data.error) {
-					if (data.length > 0) { 
+					if (data.layers.length > 0) { 
 						$.each(data, function(i, x) { tlv[i] = x; });
 
 						tlv.bbox = calculateInitialViewBbox();
