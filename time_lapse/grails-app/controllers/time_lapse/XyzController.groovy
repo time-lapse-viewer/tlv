@@ -3,11 +3,12 @@ package time_lapse
 
 class XyzController {
 
+	def logsService
 	def xyzConversionService
 
 
 	def index() {
-		//logService.recordChipRequest(params, request)
+		logsService.recordXyzRequest(params, request)
 		def imageBytes = xyzConversionService.serviceMethod(params)
 
 
