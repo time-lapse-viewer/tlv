@@ -367,6 +367,9 @@ function setupMap() {
 			$("#contextMenuDialog").modal("show");
 		}
 	);
+
+	$(".ol-zoom-in").click(function() { $(this).blur(); });
+	$(".ol-zoom-out").click(function() { $(this).blur(); });
 }
 
 function setupTimeLapse() {
