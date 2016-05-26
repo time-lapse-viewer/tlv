@@ -8,7 +8,15 @@ import grails.transaction.Transactional
 class LogsService {
 		
 
-	def getIpAddress(request) { return request.getHeader("client-ip") ?: 0 }
+	def getIpAddress(request) { 
+		["client-ip", "X-Cluster-Client-IP", "X-Forwarded-For"].each() {
+			def ip = request.getHeader(it)
+			if (ip) { return ip }
+		}
+
+
+		return "N/A"
+	}
 
 	def recordWmsRequest(params, request) {
 		new WmsRequest(
