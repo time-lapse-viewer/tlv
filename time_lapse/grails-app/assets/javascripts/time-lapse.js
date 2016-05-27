@@ -116,10 +116,18 @@ function createContextMenuContent(coordinate) {
 	var dms = coordConvert.ddToDms(latitude, "lat") + " " + coordConvert.ddToDms(longitude, "lon");
 	var mgrs = coordConvert.ddToMgrs(latitude, longitude);
 
-	$("#contextMenuDialog .modal-body").html("<div align = 'center' class = 'row'>You clicked here:</div>");
-	$("#contextMenuDialog .modal-body").append("<div align = 'center' class = 'row'>" + dd + " // " + dms + " // " + mgrs + "</div>");
-}
+	$("#mouseClickDiv").html("<div align = 'center' class = 'row'>" + dd + " // " + dms + " // " + mgrs + "</div>");
 
+
+	$("#imageMetadataDiv").html("");
+	$.each(
+		tlv.layers[tlv.currentLayer].metadata,
+		function(i, x) {
+			var key = i.capitalize().replace(/([A-Z])/g, " $1");
+			$("#imageMetadataDiv").append("<b>" + key + "</b>: " + x + "<br>");
+		}
+	);
+}
 
 function createMapControls() {
 	tlv.mapControls = [
