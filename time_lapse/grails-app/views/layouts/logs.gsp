@@ -7,7 +7,8 @@
 		
 		<title><g:layoutTitle/></title>
 
-		<asset:stylesheet src= "logs.css"/>
+		<asset:stylesheet src= "logs-bundle.css"/>
+		<asset:javascript src = "logs-bundle.js"/>
 		<g:layoutHead/>
 	</head>
 	<body>
