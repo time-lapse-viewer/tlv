@@ -9,7 +9,7 @@ class LogsService {
 		
 
 	def getIpAddress(request) { 
-		["client-ip", "X-Cluster-Client-IP", "X-Forwarded-For"].each() {
+		["client-ip", "x-cluster-client-ip", "x-forwarded-for"].each() {
 			def ip = request.getHeader(it)
 			if (ip) { return ip }
 		}
