@@ -197,8 +197,8 @@ function enableMapRotation() {
 
 function geoJump() {
 	var location = $("#geoJumpLocationInput").val();
-	var point = convertGeospatialCoordinateFormat(location);
-	tlv.map.getView().setCenter(point);
+	var point = convertGeospatialCoordinateFormat(location, function(point) { tlv.map.getView().setCenter(point); });
+	if (point) { tlv.map.getView().setCenter(point); }
 }
 
 function getLayerIdentifier(source) {
