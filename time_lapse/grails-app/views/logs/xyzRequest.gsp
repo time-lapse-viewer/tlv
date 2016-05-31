@@ -7,7 +7,13 @@
 	</head>
 	<body>
 		<div id="list-xyzRequest" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1>
+				<g:message code="default.list.label" args="[entityName]"/>
+				<button class = "btn btn-primary" onclick = exportLogsTable() title = "Export Table">
+					<span class = "glyphicon glyphicon-download-alt"></span>
+				</button>
+			</h1>
+
 			<f:table collection="${xyzRequestList}" />
 
 			<div class="pagination">
