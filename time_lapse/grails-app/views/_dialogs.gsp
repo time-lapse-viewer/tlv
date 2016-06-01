@@ -5,7 +5,7 @@
 	<div>Cheese</div>
 </div>
 
-<div class = "modal" id = "loadingDialog">
+<div class = "modal" id = "loadingDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
 			<div class = "modal-header"><h4>Please wait...</h4></div>

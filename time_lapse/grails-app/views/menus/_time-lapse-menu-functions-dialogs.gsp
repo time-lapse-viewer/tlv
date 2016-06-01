@@ -1,4 +1,4 @@
-<div class = "modal" id = "geoJumpDialog">
+<div class = "modal" id = "geoJumpDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
  		<div class = "modal-content">
 			<div class = "modal-header"><h4>Geo-Jump</h4></div>

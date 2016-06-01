@@ -1,4 +1,4 @@
-<div class = "modal" id = "summaryTableDialog">
+<div class = "modal" id = "summaryTableDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
  		<div class = "modal-content">
 			<div class = "modal-header"><h4>Summary Table</h4></div>
@@ -34,7 +34,7 @@
 	);
 </g:javascript>
 
-<div class = "modal" id = "contextMenuDialog">
+<div class = "modal" id = "contextMenuDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
 			<div class = "modal-header"><h4>Context Menu</h4></div>

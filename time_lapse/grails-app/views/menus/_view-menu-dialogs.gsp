@@ -1,4 +1,4 @@
-<div class = "modal" id = "viewDialog">
+<div class = "modal" id = "viewDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
 			<div class = "modal-header"><h4>View</h4></div>

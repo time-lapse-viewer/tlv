@@ -1,4 +1,4 @@
-<div class = "modal" id = "exportLinkDialog">
+<div class = "modal" id = "exportLinkDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
 			<div class = "modal-body">

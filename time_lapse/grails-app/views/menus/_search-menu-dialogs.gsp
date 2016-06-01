@@ -1,4 +1,4 @@
-<div class = "modal" id = "searchBookmarkDialog">
+<div class = "modal" id = "searchBookmarkDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog">
  		<div class = "modal-content">
 			<div class = "modal-body">
@@ -12,7 +12,7 @@
 </div>
 
 
-<div class = "modal" id = "searchDialog">
+<div class = "modal" id = "searchDialog" role = "dialog" tabindex = "-1">
 	<div class = "modal-dialog modal-lg">
 		<div class = "modal-content">
 			<div class = "modal-header"><h4>Search Parameters</h4></div>
