@@ -4,6 +4,12 @@ package time_lapse
 class LogsController {
 
 
+	def imagerySearch() {
+		if (params.max?.isNumber()) { params.max = params.max.toInteger() > 100 ? 100 : params.max }
+		else { params.max = 10 }	
+		respond ImagerySearch.list(params), model:[imagerySearchCount: ImagerySearch.count()]
+	}
+
 	def wmsRequest() {
 		if (params.max?.isNumber()) { params.max = params.max.toInteger() > 100 ? 100 : params.max }
 		else { params.max = 10 }
