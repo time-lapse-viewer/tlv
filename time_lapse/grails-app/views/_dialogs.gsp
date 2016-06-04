@@ -24,5 +24,5 @@
 
 <g:render template = "/menus/layers-menu-dialogs"/>
 <g:render template = "/menus/search-menu-dialogs"/>
-<g:render template = "/menus/time-lapse-menu-functions-dialogs"/>
+<g:render template = "/menus/time-lapse-menu-dialogs"/>
 <g:render template = "/menus/view-menu-dialogs"/>

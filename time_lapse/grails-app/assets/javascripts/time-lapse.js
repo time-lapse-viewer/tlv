@@ -101,7 +101,7 @@ function changeFrame(param) {
 	tlv.map.renderSync();
 
 	if (tlv.layers[tlv.currentLayer].layerIsLoaded == 0) { tlv.loadingSpinner.stop(); }
-	else { 
+	else {
 		if (!tlv.loadingSpinner.el) { tlv.loadingSpinner.spin($("#map")[0]); }
 	}
 
@@ -130,9 +130,13 @@ function createContextMenuContent(coordinate) {
 }
 
 function createMapControls() {
+	var span = document.createElement("span");
+	span.className = "glyphicon glyphicon-fullscreen";
+	var fullScreenControl = new ol.control.FullScreen({ label: span });
+
 	tlv.mapControls = [
 		createMousePositionControl(),
-		new ol.control.FullScreen()
+		fullScreenControl
 	];
 }
 
@@ -445,8 +449,8 @@ function theLayerHasStartedLoading(layerSource) {
 		function(i, x) {
 			var id = getLayerIdentifier(x.mapLayer.getSource());
 			if (thisLayerId == id) { x.layerIsLoaded -= 1; }
-			
-			if (x.mapLayer.getVisible()) { 
+
+			if (x.mapLayer.getVisible()) {
 				// only start the spinner if it's not already spinning
 				if (!tlv.loadingSpinner.el) { tlv.loadingSpinner.spin($("#map")[0]); }
 			}

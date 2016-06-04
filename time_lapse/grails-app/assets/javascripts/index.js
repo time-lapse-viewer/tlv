@@ -38,6 +38,9 @@ function convertRadiusToBbox(x, y, radius) {
 }
 
 function disableMenuButtons() {
+	var menuButtons = $(".navbar-header")[0].children;
+	for (var i = 1; i < menuButtons.length - 1; i++) { $(menuButtons[i]).hide(); }
+
 	var menuButtons = $(".navbar-nav")[0].children;
 	for (var i = 1; i < menuButtons.length; i++) { $(menuButtons[i]).hide(); }
 }
@@ -54,6 +57,9 @@ function displayLoadingDialog(message) {
 }
 
 function enableMenuButtons() {
+	var menuButtons = $(".navbar-header")[0].children;
+	for (var i = 1; i < menuButtons.length - 1; i++) { $(menuButtons[i]).show(); }
+
 	var menuButtons = $(".navbar-nav")[0].children;
 	for (var i = 1; i < menuButtons.length; i++) { $(menuButtons[i]).show(); }
 }

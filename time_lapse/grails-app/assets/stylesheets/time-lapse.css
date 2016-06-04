@@ -19,3 +19,9 @@
         top: 60px;
         visibility: visible;
 }
+
+
+/* mobile device support */
+.ol-touch .ol-rotate { top: 80px; }
+
+.ol-touch .ol-full-screen { top: 120px; }

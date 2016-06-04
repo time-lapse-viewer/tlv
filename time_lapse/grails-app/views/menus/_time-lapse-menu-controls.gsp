@@ -1,15 +1,16 @@
-<li>
-	<a href = javascript:void(0) onclick = 'changeFrame("rewind"); $(this).blur();' title = "Rewind">
-		<span class = "glyphicon glyphicon-step-backward"></span>
-	</a>
-</li>
-<li>
-	<a href = javascript:void(0) onclick = 'playStopTimeLapse($(this).children()[0]); $(this).blur();' title = "Play/Stop">
-		<span class = "glyphicon glyphicon-play"></span>
-	</a>
-</li>
-<li>
-	<a href = javascript:void(0) onclick = 'changeFrame("fastForward"); $(this).blur();' title = "Fast Forward">
-		<span class = "glyphicon glyphicon-step-forward"></span>
-	</a>
-</li>
+<button class = "btn btn-default navbar-btn" onclick = 'changeFrame("rewind"); $(this).blur();' title = "Rewind" type = "button">
+	<span class = "glyphicon glyphicon-step-backward"></span>
+</button>
+
+<button class = "btn btn-default navbar-btn" onclick = 'playStopTimeLapse($(this).children()[0]); $(this).blur();' title = "Play/Stop" type = "button">
+	<span class = "glyphicon glyphicon-play"></span>
+</button>
+
+<button class = "btn btn-default navbar-btn" onclick = 'changeFrame("fastForward"); $(this).blur();' title = "Fast Forward" type = "button">
+	<span class = "glyphicon glyphicon-step-forward"></span>
+</button>
+
+<button class = "btn btn-default navbar-btn" onclick = 'buildSummaryTable();$("#summaryTableDialog").modal("show");' title = "Summary Table" type = "button">
+	<span id = "tlvLayerCountSpan">0/0</span>
+	<span class = "glyphicon glyphicon-list-alt"></span>
+</button>
