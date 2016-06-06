@@ -85,6 +85,25 @@ function enableKeyboardShortcuts() {
 	);
 }
 
+function getGpsLocation(callback) {
+	if (navigator.geolocation) {
+		displayLoadingDialog("Don't worry, we'll find you... hopefully. #optimism");
+		navigator.geolocation.getCurrentPosition(
+			// success
+			function(position) {
+				hideLoadingDialog();
+				callback(position);
+			},
+			// error
+			function(error) {
+				displayErrorDialog("Well, we tried to determine your location... and failed: " + error.message);
+				hideLoadingDialog();
+			}
+		);
+	}
+	else { displayErrorDialog("Sorry, you're device doesn't support geolocation. :("); }
+}
+
 function hideErrorDialog() { $("#errorDialog").hide(); }
 
 function hideLoadingDialog() { $("#loadingDialog").modal("hide"); }

@@ -6,7 +6,7 @@ function beginSearch() {
 		$.ajax({
 			data: "searchParams=" + JSON.stringify(searchParams),
 			dataType: "json",
-			error: function(jqXhr, textStatus, errorThrown) { 
+			error: function(jqXhr, textStatus, errorThrown) {
 				hideLoadingDialog();
 				searchError();
 				console.dir(jqXhr);
@@ -16,18 +16,18 @@ function beginSearch() {
 			success: function(data) {
 				hideLoadingDialog();
 				if (!data.error) {
-					if (data.layers.length > 0) { 
+					if (data.layers.length > 0) {
 						$.each(data, function(i, x) { tlv[i] = x; });
 
 						tlv.bbox = calculateInitialViewBbox();
-						setupTimeLapse(); 
+						setupTimeLapse();
 					}
 					else { displayErrorDialog("Sorry, we couldn't find anything that matched your search criteria. Maybe ease up on those search constraints a bit?"); }
 				}
 				else { displayErrorDialog(data.error); }
 			},
 			url: tlv.contextPath + "/search/searchLibrary"
-		});	
+		});
 	}
 	else { hideLoadingDialog(); }
 }
@@ -35,7 +35,7 @@ function beginSearch() {
 function bookmarkSearchParams() {
 	var url = location.origin + tlv.contextPath + "?";
 
-	var searchParams = getSearchParams();	
+	var searchParams = getSearchParams();
 	if (searchParams) {
 		var bookmarkParams = [];
 		$.each(
@@ -57,8 +57,8 @@ function disableAllSensorCheckboxes() {
 		tlv.availableResources.sensors,
 		function(i, x) {
 			var checkbox = $("#searchSensor" + x.name.capitalize() + "Checkbox");
-			if (checkbox.is(":checked")) { checkbox.trigger("click"); } 
-			
+			if (checkbox.is(":checked")) { checkbox.trigger("click"); }
+
 			var label = $("#searchSensor" + x.name.capitalize() + "Label");
 			label.attr("disabled", true);
 			label.fadeTo("fast", 0.5);
@@ -113,7 +113,7 @@ function enableTailoredGeointCheckbox(tailoredGeointName) {
 function getDate(date) {
 	var year = date.getFullYear();
 
-	var month = date.getMonth() + 1; 
+	var month = date.getMonth() + 1;
 	month = month < 10 ? "0" + month : month;
 
 	var day = date.getDate();
@@ -139,6 +139,15 @@ function getEndDate() {
 	return getDate(date);
 }
 
+function getLocationGps() {
+	var callback = function(position) {
+		var coordinates = [position.coords.longitude, position.coords.latitude];
+		$("#searchLocationInput").val(coordinates.reverse().join(","));
+	}
+
+	getGpsLocation(callback);
+}
+
 function getSearchParams() {
 	var searchObject = {};
 
@@ -151,15 +160,15 @@ function getSearchParams() {
 	searchObject.endSecond = endDate.second;
 
 	var libraries = getSelectedLibraries();
-	if (libraries.length == 0) { 
-		displayErrorDialog("Please select a library, thanks."); 
+	if (libraries.length == 0) {
+		displayErrorDialog("Please select a library, thanks.");
 		$("#searchDialog").modal("show");
-		return; 
+		return;
 	}
 	searchObject.libraries = libraries;
 
 	var locationString = $("#searchLocationInput").val();
-	searchObject.location = locationString == "" ? tlv.defaultLocation : locationString; 
+	searchObject.location = locationString == "" ? tlv.defaultLocation : locationString;
 
 	var maxCloudCover = $("#searchMaxCloudCoverInput").val();
 	searchObject.maxCloudCover = maxCloudCover;
@@ -171,10 +180,10 @@ function getSearchParams() {
 	searchObject.minNiirs = parseFloat(minNiirs);
 
 	var sensors = getSelectedSensors();
-	if (sensors.length == 0) { 
-		displayErrorDialog("Please select a sensor, thanks."); 
+	if (sensors.length == 0) {
+		displayErrorDialog("Please select a sensor, thanks.");
 		$("#searchDialog").modal("show");
-		return; 
+		return;
 	}
 	searchObject.sensors = sensors;
 
@@ -182,14 +191,14 @@ function getSearchParams() {
 	searchObject.startYear = startDate.year;
 	searchObject.startMonth = startDate.month;
 	searchObject.startDay = startDate.day;
-	searchObject.startHour = startDate.hour;	
+	searchObject.startHour = startDate.hour;
 	searchObject.startMinute = startDate.minute;
 	searchObject.startSecond = startDate.second;
 
 	var tailoredGeoint = getSelectedTailoredGeoint();
 	searchObject.tailoredGeoint = tailoredGeoint;
 
-	
+
 	return searchObject;
 }
 
@@ -210,7 +219,7 @@ function getSelectedLibraries() {
 function getSelectedSensors() {
 	var sensors = [];
 	if ($("#searchSensorAllCheckbox").is(":checked")) { sensors.push("all"); }
-	else { 
+	else {
 		$.each(
 			tlv.availableResources.sensors,
 			function(i, x) {
@@ -227,7 +236,7 @@ function getSelectedSensors() {
 function getSelectedTailoredGeoint() {
 	var tailoredGeoint = [];
 	if ($("#searchTailoredGeointAllCheckbox").is(":checked")) { tailoredGeoint.push("all"); }
-	else { 
+	else {
 		$.each(
 			tlv.availableResources.tailoredGeoint,
 			function(i, x) {
@@ -244,14 +253,14 @@ function getSelectedTailoredGeoint() {
 
 function getStartDate() {
 	var date = $("#searchStartDateTimePicker").data("DateTimePicker").date().toDate();
-        
+
 
 	return getDate(date);
 }
 
 function initializeEndDateTimePicker() {
 	var endDateTimePicker = $("#searchEndDateTimePicker");
-	endDateTimePicker.datetimepicker({ 
+	endDateTimePicker.datetimepicker({
 		format: "MM/DD/YYYY HH:mm:ss",
 		keyBinds: null
 	});
@@ -313,15 +322,15 @@ function initializeSensorCheckboxes() {
 			}
 		);
 	}
-	else { 
-		$("#searchSensorAllCheckbox").trigger("click"); 
+	else {
+		$("#searchSensorAllCheckbox").trigger("click");
 		disableAllSensorCheckboxes();
 	}
 }
 
 function initializeStartDateTimePicker() {
 	var startDateTimePicker = $("#searchStartDateTimePicker");
-	startDateTimePicker.datetimepicker({ 
+	startDateTimePicker.datetimepicker({
 		format: "MM/DD/YYYY HH:mm:ss",
 		keyBinds: null
 	});
