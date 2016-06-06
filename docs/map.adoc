@@ -14,24 +14,6 @@ TIP: Cut down on the carpal tunnel by using the left and right arrow keys on the
 Get a metadata summary of the images that are in the stack. You can also use the arrows to move images up and down within the stack to make any kind of wacky ordering you want. 
 
 
-=== icon:globe[] icon:sort-desc[]
-
-==== Delete Frame
-Kick that image to the curb and remove it from the stack.
-
-TIP: Get rid of things even faster by using the delete button on the keyboard.
-
-==== Enable Rotation
-When rotation is enabled (anti-nausea medicine sold separately), panning is disabled and vice versa.
-
-==== Geo-Jump
-Go to any place on the map that your heart desires.
-
-==== Reverse Order
-The default order of the image stack is chronological. But, if you prefer the other way, here's where to do it. 
-
-TIP: If you prefer chronological order all the time, you can use `chronological=false` in the URL.
-
 === Mouse Coordinates
 The current coordinate of the mouse is displayed in the lower-left corner of the map. You can click the box to cycle through the endless format possibilities. And by "endless", we mean, three - DD, DMS and MGRS.
 
