@@ -45,6 +45,14 @@ function disableMenuButtons() {
 	for (var i = 1; i < menuButtons.length; i++) { $(menuButtons[i]).hide(); }
 }
 
+function displayDialog(dialog) {
+	var dialogBody = $("#" + dialog + " .modal-body");
+	var maxDialogBodyHeight = $(window).height() * 0.7;
+	var dialogBodyIsTooTall = dialogBody.height() > maxDialogBodyHeight;
+	dialogBody.css("max-height", dialogBodyIsTooTall ? maxDialogBodyHeight : "");
+	dialogBody.css("overflow-y", dialogBodyIsTooTall ? "auto" : "");
+}
+
 function displayErrorDialog(message) {
 	var messageDiv = $("#errorDialog").children()[1];
 	$(messageDiv).html(message);
@@ -102,6 +110,12 @@ function getGpsLocation(callback) {
 		);
 	}
 	else { displayErrorDialog("Sorry, you're device doesn't support geolocation. :("); }
+}
+
+function hideDialog(dialog) {
+	var dialogBody = $("#" + dialog + " .modal-body");
+	dialogBody.css("max-height", "");
+	dialogBody.css("overflow-y", "");
 }
 
 function hideErrorDialog() { $("#errorDialog").hide(); }

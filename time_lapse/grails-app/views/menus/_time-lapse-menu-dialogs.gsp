@@ -15,3 +15,8 @@
 		</div>
 	</div>
 </div>
+
+<g:javascript>
+	$("#geoJumpDialog").on("hidden.bs.modal", function (event) { hideDialog("geoJumpDialog"); });
+	$("#geoJumpDialog").on("shown.bs.modal", function (event) { displayDialog("geoJumpDialog"); });
+</g:javascript>

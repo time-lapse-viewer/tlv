@@ -13,25 +13,8 @@
 </div>
 
 <g:javascript>
-	$("#summaryTableDialog").on(
-		"shown.bs.modal",
-		function (event) {
-			var dialogBody = $("#summaryTableDialog .modal-body");
-			dialogBody.css("max-height", "");
-			dialogBody.css("overflow-y", "");
-		}
-	);
-
-	$("#summaryTableDialog").on(
-		"shown.bs.modal", 
-		function (event) {
-			var dialogBody = $("#summaryTableDialog .modal-body");
-			var maxDialogBodyHeight = $(window).height() * 0.7;
-			var dialogBodyIsTooTall = dialogBody.height() > maxDialogBodyHeight;
-			dialogBody.css("max-height", dialogBodyIsTooTall ? maxDialogBodyHeight : "");
-			dialogBody.css("overflow-y", dialogBodyIsTooTall ? "auto" : "");
-		}
-	);
+	$("#summaryTableDialog").on("hidden.bs.modal", function (event) { hideDialog("summaryTableDialog"); });
+	$("#summaryTableDialog").on("shown.bs.modal", function (event) { displayDialog("summaryTableDialog"); });
 </g:javascript>
 
 <div class = "modal" id = "contextMenuDialog" role = "dialog" tabindex = "-1">
@@ -53,23 +36,6 @@
 </div>
 
 <g:javascript>
-	$("#contextMenuDialog").on(
-		"hidden.bs.modal",
-		function (event) {
-			var dialogBody = $("#contextMenuDialog .modal-body");
-			dialogBody.css("max-height", "");
-			dialogBody.css("overflow-y", "");
-		}
-	);
-
-	$("#contextMenuDialog").on(
-		"shown.bs.modal",
-		function (event) {
-			var dialogBody = $("#contextMenuDialog .modal-body");
-			var maxDialogBodyHeight = $(window).height() * 0.7;
-			var dialogBodyIsTooTall = dialogBody.height() > maxDialogBodyHeight;
-			dialogBody.css("max-height", dialogBodyIsTooTall ? maxDialogBodyHeight : "");
-			dialogBody.css("overflow-y", dialogBodyIsTooTall ? "auto" : "");
-		}
-	);
+	$("#contextMenuDialog").on("hidden.bs.modal", function (event) { hideDialog("contectMenuDialog"); });
+	$("#contextMenuDialog").on("shown.bs.modal", function (event) { displayDialog("contectMenuDialog"); });
 </g:javascript>

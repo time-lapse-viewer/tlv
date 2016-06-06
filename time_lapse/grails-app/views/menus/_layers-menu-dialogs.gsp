@@ -22,8 +22,13 @@
 				</table>
 			</div>
 			<div class = "modal-footer">
-        <button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
-      </div>
+				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>
+			</div>
 		</div>
 	</div>
 </div>
+
+<g:javascript>
+	$("#layersDialog").on("hidden.bs.modal", function (event) { hideDialog("layersDialog"); });
+	$("#layersDialog").on("shown.bs.modal", function (event) { displayDialog("layersDialog"); });
+</g:javascript>
