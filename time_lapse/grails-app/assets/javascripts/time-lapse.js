@@ -108,6 +108,14 @@ function changeFrame(param) {
 	updateScreenText();
 }
 
+function compassRotate(event) {
+	if (event.gamma) {
+		var degrees = event.gamma * 180 / Math.PI;
+		$(".security-classification").html(degrees);
+	}
+	else{ displayErrorDialog("Sorry, we couldn't get a good reading. :("); }
+}
+
 function createContextMenuContent(coordinate) {
 	var coordConvert = new CoordinateConversion();
 	var latitude = coordinate[1];
@@ -176,27 +184,34 @@ function deleteFrame() {
 	changeFrame("fastForward");
 }
 
+function disableCompassMapRotation() {
+	window.removeEventListener("deviceorientation", compassRotate, false);
+}
+
+function disableManualMapRotation() {
+	tlv.mapInteractions.dragRotate.setActive(false);
+	tlv.mapInteractions.pinchRotate.setActive(false);
+
+	tlv.mapInteractions.dragPan.setActive(true);
+}
+
 function disableMapRotation() {
-	tlv.map.removeInteraction(tlv.mapInteractions.dragRotate);
-	tlv.map.addInteraction(tlv.mapInteractions.dragPan);
+	disableCompassMapRotation();
+	disableManualMapRotation();
 }
 
-function enableDisableMapRotation(button) {
-	var text = button.innerHTML;
-	if (text.contains("Enable")) {
-		enableMapRotation();
-		text = text.replace("Enable", "Disable");
+function enableCompassMapRotation() {
+	if (window.DeviceOrientationEvent) {
+		window.addEventListener("deviceorientation", compassRotate, false);
 	}
-	else {
-		disableMapRotation();
-		text = text.replace("Disable", "Enable");
-	}
-	button.innerHTML = text;
+	else { displayErrorAlert("Sorry, your device doesn't support device orientation. :("); }
 }
 
-function enableMapRotation() {
-	tlv.map.removeInteraction(tlv.mapInteractions.dragPan);
-	tlv.map.addInteraction(tlv.mapInteractions.dragRotate);
+function enableManualMapRotation() {
+	tlv.mapInteractions.dragPan.setActive(false);
+
+	tlv.mapInteractions.dragRotate.setActive(true);
+	tlv.mapInteractions.pinchRotate.setActive(true);
 }
 
 function geoJump() {
@@ -350,7 +365,8 @@ function setupMap() {
 		controls: ol.control.defaults().extend(tlv.mapControls),
 		interactions: ol.interaction.defaults({
 			altShiftDragRotate: false,
-			dragPan: false
+			dragPan: false,
+			pinchRotate: false
 		}).extend([
 			new ol.interaction.DragAndDrop({
 				formatConstructors: [
@@ -391,11 +407,13 @@ function setupTimeLapse() {
 	tlv.mapInteractions = {
 		altDragRotate: new ol.interaction.DragRotate({ condition: ol.events.condition.altKeyOnly }),
 		dragPan: new ol.interaction.DragPan({ condition: ol.events.condition.noModifierKeys }),
-		dragRotate: new ol.interaction.DragRotate({ condition: ol.events.condition.always })
+		dragRotate: new ol.interaction.DragRotate({ condition: ol.events.condition.always }),
+		pinchRotate: new ol.interaction.PinchRotate({ condition: ol.events.condition.always })
 	};
-	tlv.map.addInteraction(tlv.mapInteractions.altDragRotate);
-	tlv.map.addInteraction(tlv.mapInteractions.dragPan);
-
+	$.each(tlv.mapInteractions, function(i, x) { tlv.map.addInteraction(x); });
+	tlv.mapInteractions.dragRotate.setActive(false);
+	tlv.mapInteractions.pinchRotate.setActive(false);
+	
 	addBaseLayersToTheMap();
 
 	if (tlv.chronological == "false") { tlv.layers.reverse(); }
