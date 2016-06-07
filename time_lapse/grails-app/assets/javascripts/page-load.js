@@ -1,3 +1,15 @@
+function activateSubMenus() {
+	$("ul.dropdown-menu [data-toggle=dropdown]").on(
+		"click", 
+		function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			$(this).parent().siblings().removeClass('open');
+			$(this).parent().toggleClass('open');
+		}
+	);
+}
+
 function initializeLoadingSpinner() {
 	var options = {
 		  className: "spinner"	// The CSS class to assign to the spinner
@@ -33,6 +45,8 @@ function pageLoad() {
 	enableKeyboardShortcuts();
 
 	initializeLoadingSpinner();
+
+	activateSubMenus();
 }
 
 $(document).ready(function() { pageLoad(); });
