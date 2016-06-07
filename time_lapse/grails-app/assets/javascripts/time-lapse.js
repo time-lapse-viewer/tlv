@@ -109,10 +109,7 @@ function changeFrame(param) {
 }
 
 function compassRotate(event) {
-	if (event.gamma) {
-		var degrees = event.gamma * 180 / Math.PI;
-		$(".security-classification").html(degrees);
-	}
+	if (event.gamma) { tlv.map.getView().rotate(event.gamma); }
 	else{ displayErrorDialog("Sorry, we couldn't get a good reading. :("); }
 }
 
@@ -184,9 +181,7 @@ function deleteFrame() {
 	changeFrame("fastForward");
 }
 
-function disableCompassMapRotation() {
-	window.removeEventListener("deviceorientation", compassRotate, false);
-}
+function disableCompassMapRotation() { window.removeEventListener("deviceorientation", compassRotate, false); }
 
 function disableManualMapRotation() {
 	tlv.mapInteractions.dragRotate.setActive(false);
@@ -201,10 +196,8 @@ function disableMapRotation() {
 }
 
 function enableCompassMapRotation() {
-	if (window.DeviceOrientationEvent) {
-		window.addEventListener("deviceorientation", compassRotate, false);
-	}
-	else { displayErrorAlert("Sorry, your device doesn't support device orientation. :("); }
+	if (window.DeviceOrientationEvent) { window.addEventListener("deviceorientation", compassRotate, false); }
+	else { displayErrorDialog("Sorry, your device doesn't support device orientation. :("); }
 }
 
 function enableManualMapRotation() {
