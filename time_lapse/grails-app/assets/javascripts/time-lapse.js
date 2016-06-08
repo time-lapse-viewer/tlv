@@ -109,7 +109,7 @@ function changeFrame(param) {
 }
 
 function compassRotate(event) {
-	if (event.gamma) { tlv.map.getView().rotate(event.gamma); }
+	if (event.alpha) { tlv.map.getView().rotate(event.alpha * Math.PI / 180); }
 	else{ displayErrorDialog("Sorry, we couldn't get a good reading. :("); }
 }
 

@@ -1,7 +1,10 @@
 var convertGeospatialCoordinateFormatPlugin = convertGeospatialCoordinateFormat;
 convertGeospatialCoordinateFormat = function(inputString, callbackFunction) {
 	var location = convertGeospatialCoordinateFormatPlugin(inputString);
-	if (!location) {
+	
+	if (location) { return location; }
+	// if there's no callback function, don't bother
+	else if (callbackFunction) {
 		displayLoadingDialog("We're checking our maps for that location... BRB!");
 
 		$.ajax({
@@ -16,7 +19,8 @@ convertGeospatialCoordinateFormat = function(inputString, callbackFunction) {
 			success: function(data) {
 				hideLoadingDialog();
 				if (data.error) { displayErrorDialog(data.error); }
-				else {
+				else {	
+					console.dir(callbackFunction);
 					var point = [data.longitude, data.latitude];
 					callbackFunction(point);
 				}
@@ -24,4 +28,5 @@ convertGeospatialCoordinateFormat = function(inputString, callbackFunction) {
 			url: tlv.contextPath + "/coordinateConversion"
 		});
 	}
+	else { return false; }
 }

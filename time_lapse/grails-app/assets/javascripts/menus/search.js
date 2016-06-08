@@ -1,8 +1,8 @@
 function beginSearch() {
-	displayLoadingDialog("We are searching the libraries for imagery... fingers crossed!");
-
 	var searchParams = getSearchParams();
-	if (searchParams) {
+	if (searchParams.error) { displayErrorDialog(searchParams.error); }
+	else {
+		displayLoadingDialog("We are searching the libraries for imagery... fingers crossed!");
 		$.ajax({
 			data: "searchParams=" + JSON.stringify(searchParams),
 			dataType: "json",
@@ -29,7 +29,6 @@ function beginSearch() {
 			url: tlv.contextPath + "/search/searchLibrary"
 		});
 	}
-	else { hideLoadingDialog(); }
 }
 
 function bookmarkSearchParams() {
@@ -139,6 +138,14 @@ function getEndDate() {
 	return getDate(date);
 }
 
+function getLocation() {
+	var locationString = $("#searchLocationInput").val() != "" ? $("#searchLocationInput").val() : tlv.defaultLocation;
+	var location = convertGeospatialCoordinateFormat(locationString);
+	
+
+	return location; 
+}
+
 function getLocationGps() {
 	var callback = function(position) {
 		var coordinates = [position.coords.longitude, position.coords.latitude];
@@ -161,14 +168,14 @@ function getSearchParams() {
 
 	var libraries = getSelectedLibraries();
 	if (libraries.length == 0) {
-		displayErrorDialog("Please select a library, thanks.");
 		$("#searchDialog").modal("show");
-		return;
+		return { error: "Please select a library, thanks." };
 	}
 	searchObject.libraries = libraries;
 
-	var locationString = $("#searchLocationInput").val();
-	searchObject.location = locationString == "" ? tlv.defaultLocation : locationString;
+	var location = getLocation();
+	if (!location) { return { error: "Sorry, we couldn't interpret that location. :(" }; }
+	else { searchObject.location = location; }
 
 	var maxCloudCover = $("#searchMaxCloudCoverInput").val();
 	searchObject.maxCloudCover = maxCloudCover;
@@ -181,9 +188,8 @@ function getSearchParams() {
 
 	var sensors = getSelectedSensors();
 	if (sensors.length == 0) {
-		displayErrorDialog("Please select a sensor, thanks.");
 		$("#searchDialog").modal("show");
-		return;
+		return { error: "Please select a sensor, thanks." };
 	}
 	searchObject.sensors = sensors;
 
