@@ -20,7 +20,6 @@ convertGeospatialCoordinateFormat = function(inputString, callbackFunction) {
 				hideLoadingDialog();
 				if (data.error) { displayErrorDialog(data.error); }
 				else {	
-					console.dir(callbackFunction);
 					var point = [data.longitude, data.latitude];
 					callbackFunction(point);
 				}
