@@ -4,16 +4,6 @@
 The following section describes all the functionality that is available as it relates to the map itself and the image stack.
 
 
-=== icon:step-backward[] &nbsp;&nbsp; icon:play[] &nbsp;&nbsp; icon:step-forward[]
-If you have ever rented a movie before, these controls should be familiar.
-
-TIP: Cut down on the carpal tunnel by using the left and right arrow keys on the keyboard.
-
-
-=== 0/0 icon:list-alt[]
-Get a metadata summary of the images that are in the stack. You can also use the arrows to move images up and down within the stack to make any kind of wacky ordering you want. 
-
-
 === Mouse Coordinates
 The current coordinate of the mouse is displayed in the lower-left corner of the map. You can click the box to cycle through the endless format possibilities. And by "endless", we mean, three - DD, DMS and MGRS.
 
