@@ -348,6 +348,21 @@ function playTimeLapse() {
 	tlv.timeLapseAdvance = setTimeout("playTimeLapse()", 1000);
 }
 
+function reverseOrder() {
+	tlv.layers.reverse(); 
+	changeFrame('rewind'); 
+	changeFrame('fastForward');
+}
+
+function rotationToggle() {
+	var state = $("#rotationSelect").val();
+	switch (state) {
+		case "none": disableMapRotation(); break; 
+		case "manual": enableManualMapRotation(); break;
+		case "compass": enableCompassMapRotation(); break;
+	}
+}
+
 function setupMap() {
 	// if a map already exists, reset it and start from scratch
 	if (tlv.map) { tlv.map.setTarget(null); }
