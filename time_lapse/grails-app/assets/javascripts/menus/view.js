@@ -88,11 +88,9 @@ function removeSwipeListenerFromMap() {
 	tlv.layers[tlv.currentLayer].mapLayer.setVisible(true);
 }
 
-function swipeToggleButtonClick(desiredState) {
-	var button = $("#swipeButton");
-	toggleButton(button, desiredState);
-
-	if (button.html() == "ON") { turnOnSwipe(); }
+function swipeToggle() {
+	var state = $("#swipeSelect").val();
+	if (state == "on") { turnOnSwipe(); }
 	else { turnOffSwipe(); }
 }
 

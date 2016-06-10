@@ -3,23 +3,23 @@
 		<div class = "modal-content">
 			<div class = "modal-header"><h4>Layers</h4></div>
 			<div class = "modal-body">
-				<table class = "table" style = "width: auto">
-					<tr>
-						<td align = "right">Cross-Hair:</td>
-						<td>
-							<button class = "btn btn-danger btn-xs" id = "layersCrossHairButton" onclick = "crossHairToggleButtonClick()">OFF</button>
-						</td>
-					</tr>
-					<tr>
-						<td align = "right">Search Origin:</td>
-						<td>
-							<button class = "btn btn-danger btn-xs" id = "layersSearchOriginButton" onclick = "searchOriginToggleButtonClick()">OFF</button>
-						</td>
-					</tr>
+				<div class = "form-group">
+                                        <label>Cross-Hair</label>
+					<select class = "form-control" id = "layersCrossHairSelect" onchange = crossHairLayerToggle()>
+						<option value = "off">OFF</option>
+						<option value = "on">ON</option>
+					</select>
+		
+					<label>Search Origin</label>
+					<select class = "form-control" id = "layersSearchOriginSelect" onchange = searchOriginLayerToggle()>
+						<option value = "off">OFF</option>
+						<option value = "on">ON</option>
+					</select>
+				
 					<g:if test = "${grailsApplication.config.networkSpecific.layers.enabled}">
 						<g:render plugin = "networkSpecific" template = "/plugin_menus/layers-menu-dialogs"/>
 					</g:if>
-				</table>
+				</div>
 			</div>
 			<div class = "modal-footer">
 				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>

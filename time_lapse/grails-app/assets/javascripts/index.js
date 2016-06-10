@@ -128,17 +128,3 @@ function initializeLoadingDialog() {
 		show: false
 	});
 }
-
-function toggleButton(button, desiredStatus) {
-	if (desiredStatus) { button.html(desiredStatus); }
-	else { button.html(button.html() == "ON" ? "OFF" : "ON"); }
-
-	if (button.html() == "ON") {
-		button.removeClass("btn-danger");
-		button.addClass("btn-success");
-	}
-	else {
-		button.removeClass("btn-success");
-		button.addClass("btn-danger");
-	}
-}

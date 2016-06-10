@@ -11,18 +11,17 @@ function addLayerToTheMap(layer) {
 		VERSION: "1.1.1"
 	};
 
-	var image = new ol.layer.Image({
+	var image = new ol.layer.Tile({
 		opacity: layer.opacity || 1,
-		source: new ol.source.ImageWMS({
+		source: new ol.source.TileWMS({
 			params: params,
-			ratio: 1,
 			url: tlv.contextPath + "/wms"
 		}),
 		visible: true
 	});
 
-	image.getSource().on("imageloadstart", function(event) { theLayerHasStartedLoading(this); });
-	image.getSource().on("imageloadend", function(event) { theLayerHasFinishedLoading(this); });;
+	image.getSource().on("tileloadstart", function(event) { theLayerHasStartedLoading(this); });
+	image.getSource().on("tileloadend", function(event) { theLayerHasFinishedLoading(this); });;
 
 	layer.mapLayer = image;
 	layer.layerIsLoaded = 0;
@@ -429,9 +428,6 @@ function setupTimeLapse() {
 	enableMenuButtons();
 
 	updateScreenText();
-
-	// cycle through the stack to start downloading each frame
-	$.each(tlv.layers, function(i, x) { changeFrame("fastForward"); });
 }
 
 function stopTimeLapse() { clearTimeout(tlv.timeLapseAdvance); }

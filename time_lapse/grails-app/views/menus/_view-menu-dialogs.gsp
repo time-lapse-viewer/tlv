@@ -3,14 +3,19 @@
 		<div class = "modal-content">
 			<div class = "modal-header"><h4>View</h4></div>
 			<div class = "modal-body">
-				<table class = "table" style = "width: auto">
-					<tr>
-						<td align = "right">Swipe:</td>
-						<td>
-							<button class = "btn btn-danger btn-xs" data-dismiss = "modal" id = "swipeButton" onclick = swipeToggleButtonClick()>OFF</button>
-						</td>
-					</tr>
-				</table>
+				<div class = "form-group">
+<%--					<label>Dimensions:</label>
+					<select class = "form-control">
+						<option value = 2>2</option>
+						<option value = 3>3</option>
+					</select>
+--%>
+					<label>Swipe</label>
+					<select class = "form-control" id = "swipeSelect" onchange = swipeToggle()>
+						<option value = "off">OFF</option>
+						<option value = "on">ON</option>
+					</select>
+				</div>
 			</div>
 			<div class = "modal-footer">
 				<button type = "button" class = "btn btn-default" data-dismiss = "modal">Close</button>

@@ -1,18 +1,6 @@
-if (typeof addLayersToProxyMap == "function") {
-	var addLayersToProxyMapLayers = addLayersToProxyMap;
-	addLayersToProxyMap = function() {
-		addLayersToProxyMapLayers();
-	
-		if ($("#layersCrossHairButton").html() == "ON") { tlv.proxyMap.addLayer(tlv.crossHairLayer); }
-		if ($("#layersSearchOriginButton").html() == "ON") { tlv.proxyMap.addLayer(tlv.searchOriginLayer); }
-	}
-}
-
-function crossHairToggleButtonClick(desiredState) {
-	var button = $("#layersCrossHairButton");
-	toggleButton(button, desiredState);
-
-	if (button.html() == "ON") { displayCrossHairLayer(); }
+function crossHairLayerToggle() {
+	var state = $("#layersCrossHairSelect").val();
+	if (state == "on") { displayCrossHairLayer(); }
 	else { hideCrossHairLayer(); }
 }
 
@@ -96,12 +84,10 @@ function refreshCrossHairLayer() {
 	source.addFeatures([horizontalLineFeature, verticalLineFeature]);
 }
 
-function searchOriginToggleButtonClick(desiredState) {
-	var button = $("#layersSearchOriginButton");
-	toggleButton(button, desiredState);
-
-	if (button.html() == "ON") { displaySearchOriginLayer(); }
-	else { hideSearchOriginLayer(); }
+function searchOriginLayerToggle() {
+	var state = $("#layersSearchOriginSelect").val();
+	if (state == "on") { displaySearchOriginLayer(); }
+	else { hideSearchOriginLayer(); }	
 }
 
 var theMapHasMovedLayers = theMapHasMoved;
