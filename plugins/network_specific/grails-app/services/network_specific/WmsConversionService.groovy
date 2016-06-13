@@ -15,14 +15,14 @@ class WmsConversionService {
 	def serviceMethod(params) {
 		params.remove("action")
 		params.remove("controller")
-		params.remove("format")
+		if (params.FORMAT) { params.remove("format") }
+		else if (!params.format) { params.format = "image/png" }
 
 
-		def library = params.LIBRARY
+		def library = params.LIBRARY ?: params.library
 		// remove params that are not used by any WMS schema
-		params.remove("LIBRARY")
-		params.remove("IMAGE_ID")
-
+		params.remove("LIBRARY"); params.remove("library")
+		params.remove("IMAGE_ID"); params.remove("image_id")
 
 		switch (library) {
 			case "digitalGlobe":

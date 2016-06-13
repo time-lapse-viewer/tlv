@@ -16,7 +16,7 @@ class WmsConversionDigitalGlobeService {
 
 		def viewUrl = library.viewUrl + "?"
 		params.CONNECTID = library.connectId
-		params.COVERAGE_CQL_FILTER = "featureId='${params.LAYERS}'"
+		params.COVERAGE_CQL_FILTER = "featureId='${params.LAYERS ?: params.layers}'"
 		params.LAYERS = "DigitalGlobe:Imagery"
 
 		params.each() { viewUrl += "${it}&" }

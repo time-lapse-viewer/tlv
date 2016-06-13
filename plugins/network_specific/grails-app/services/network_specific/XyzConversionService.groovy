@@ -12,7 +12,7 @@ class XyzConversionService {
 
 
 	def serviceMethod(params) {
-		def library = params.LIBRARY
+		def library = params.LIBRARY ?: params.library
 
 		
 		switch (library) {
