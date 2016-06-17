@@ -1,9 +1,11 @@
 var convertGeospatialCoordinateFormatPlugin = convertGeospatialCoordinateFormat;
 convertGeospatialCoordinateFormat = function(inputString, callbackFunction) {
 	var location = convertGeospatialCoordinateFormatPlugin(inputString);
-	
-	if (location) { return location; }
-	// if there's no callback function, don't bother
+
+	if (location) {
+		if (callbackFunction) { callbackFunction(location); }
+		else { return location; }
+	}
 	else if (callbackFunction) {
 		displayLoadingDialog("We're checking our maps for that location... BRB!");
 
@@ -19,7 +21,7 @@ convertGeospatialCoordinateFormat = function(inputString, callbackFunction) {
 			success: function(data) {
 				hideLoadingDialog();
 				if (data.error) { displayErrorDialog(data.error); }
-				else {	
+				else {
 					var point = [data.longitude, data.latitude];
 					callbackFunction(point);
 				}

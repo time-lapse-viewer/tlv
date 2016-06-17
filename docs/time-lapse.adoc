@@ -9,26 +9,19 @@ Kick that image to the curb and remove it from the stack.
 
 TIP: Get rid of things even faster by using the delete button on the keyboard.
 
-=== Rotation
-When rotation is enabled (anti-nausea medicine sold separately), panning is disabled and vice versa.
-
-==== None
-This disables all types of rotation and puts back the regular panning mode.
-
-TIP: You can ALWAYS use Alt + Drag at anytime to rotate the map.  
-
-==== Manual
-Just click and drag to rotate the map around its center. 
-
-NOTE: On mobile devices, this enables double-touch rotation. 
-
-==== Compass
-TLV will attempt to use your device's internal compass and rotate the map in real-time to align itself with said compass. 
-
 === Geo-Jump
 Go to any place on the map that your heart desires.
 
+=== Rotation
+When rotation is enabled (anti-nausea medicine sold separately), panning is disabled and vice versa.
+
+==== Manual
+You are responsible for your own rotation (and pitch, tilt, etc. if you're in 3D).
+
+==== Auto
+TLV will attempt to use your device's internal sensors to orient the imagery in real-time to align itself with your device's view. 
+
 === Reverse Order
-The default order of the image stack is chronological. But, if you prefer the other way, here's where to do it. 
+The default order of the image stack is chronological. But, if you prefer the other way, here's where to do it.
 
 TIP: If you prefer chronological order all the time, you can use `chronological=false` in the URL.

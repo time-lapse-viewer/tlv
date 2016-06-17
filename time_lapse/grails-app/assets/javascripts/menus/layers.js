@@ -11,7 +11,7 @@ function displayCrossHairLayer() {
 			 width: 2
 		});
 		var style = new ol.style.Style({ stroke: stroke });
-		
+
 		tlv.crossHairLayer = new ol.layer.Vector({
 			source: new ol.source.Vector(),
 			style: style
@@ -24,7 +24,7 @@ function displayCrossHairLayer() {
 
 function displaySearchOriginLayer() {
 	if (!tlv.searchOriginLayer) {
-		var point = new ol.geom.Point(tlv.location);
+		var point = new ol.geom.Point(tlv.location).transform("EPSG:4326", "EPSG:3857");
 		var feature = new ol.Feature(point);
 
 		var fill = new ol.style.Fill({ color: "rgba(255, 255, 0, 1)"});
@@ -34,6 +34,7 @@ function displaySearchOriginLayer() {
 		});
 		var text = new ol.style.Text({
 			fill: fill,
+			font: "10px sans-serif",
 			offsetY: 13,
 			text: "Search Origin"
 		});
@@ -45,7 +46,7 @@ function displaySearchOriginLayer() {
 		tlv.searchOriginLayer = new ol.layer.Vector({
 			source: new ol.source.Vector({ features: [feature] }),
 			style: style
-		});
+		}); 
 		tlv.map.addLayer(tlv.searchOriginLayer);
 	}
 	else { tlv.searchOriginLayer.setVisible(true); }
@@ -55,13 +56,13 @@ function hideCrossHairLayer() { tlv.crossHairLayer.setVisible(false); }
 
 function hideSearchOriginLayer() { tlv.searchOriginLayer.setVisible(false); }
 
-function refreshCrossHairLayer() { 
+function refreshCrossHairLayer() {
 	var mapCenter = tlv.map.getView().getCenter();
 
 	var centerPixel = tlv.map.getPixelFromCoordinate(mapCenter);
 	var deltaXPixel = [centerPixel[0] + 10, centerPixel[1]];
 	var deltaYPixel = [centerPixel[0], centerPixel[1] + 10];
-	
+
 	var deltaXDegrees = tlv.map.getCoordinateFromPixel(deltaXPixel)[0] - mapCenter[0];
 	var deltaYDegrees = tlv.map.getCoordinateFromPixel(deltaYPixel)[1] - mapCenter[1];
 
@@ -78,7 +79,7 @@ function refreshCrossHairLayer() {
 	];
 	var verticalLineGeometry = new ol.geom.LineString(verticalLinePoints);
 	var verticalLineFeature = new ol.Feature(verticalLineGeometry);
-	
+
 	var source = tlv.crossHairLayer.getSource();
         $.each(source.getFeatures(), function(i, x) { source.removeFeature(x); });
 	source.addFeatures([horizontalLineFeature, verticalLineFeature]);
@@ -87,15 +88,7 @@ function refreshCrossHairLayer() {
 function searchOriginLayerToggle() {
 	var state = $("#layersSearchOriginSelect").val();
 	if (state == "on") { displaySearchOriginLayer(); }
-	else { hideSearchOriginLayer(); }	
-}
-
-var theMapHasMovedLayers = theMapHasMoved;
-theMapHasMoved = function() {
-	theMapHasMovedLayers();
-
-	var crossHairButton = $("#layersCrossHairButton");
-	if (crossHairButton.html() == "ON") { refreshCrossHairLayer(); }
+	else { hideSearchOriginLayer(); }
 }
 
 var setupTimeLapseLayers = setupTimeLapse;
@@ -103,8 +96,15 @@ setupTimeLapse = function() {
 	setupTimeLapseLayers();
 
 	tlv.crossHairLayer = null;
-	if (tlv.crossHairLayerEnabled == "true" || $("#layersCrossHairButton").html() == "ON") { crossHairToggleButtonClick("ON"); }
+	if (tlv.crossHairLayerEnabled == "true" || $("#layersCrossHairSelect").val() == "on") { crossHairLayerToggle(); }
 
 	tlv.searchOriginLayer = null;
-	if (tlv.searchOriginLayerEnabled == "true" || $("#layersSearchOriginButton").html() == "ON") { searchOriginToggleButtonClick("ON"); }
-}	
+	if (tlv.searchOriginLayerEnabled == "true" || $("#layersSearchOriginSelect").val() == "on") { searchOriginLayerToggle(); }
+}
+
+var theMapHasMovedLayers = theMapHasMoved;
+theMapHasMoved = function() {
+	theMapHasMovedLayers();
+
+	if ($("#layersCrossHairSelect").val() == "on") { refreshCrossHairLayer(); }
+}

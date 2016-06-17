@@ -4,6 +4,9 @@
 The following section describes all the functionality that is available as it relates to the view menu.
 
 
+=== Dimensions
+If your browser supports it, TLV will give you a 3D view of your images!
+
 === Swipe
 Become the next Picasso by digitally painting (i.e swiping) adjacent images onto one another.
 

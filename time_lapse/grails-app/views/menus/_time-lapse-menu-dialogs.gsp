@@ -7,21 +7,20 @@
 					<label>Delete Frame</label>
 					<button class = "btn btn-primary form-control" onclick = "deleteFrame(); $('#timeLapseDialog').modal('hide')">Delete</button>
 
-					<label>Rotation</label>
-					<select class = "form-control" id = "rotationSelect" onchange = "rotationToggle(); $('#timeLapseDialog').modal('hide')">
-						<option value = "none">None</option>
-						<option value = "manual">Manual</option>
-						<option value = "compass">Compass</option>
-					</select>
-					
 					<label>Geo-Jump</label>
 					<div class = "input-group">
 						<input class = "form-control" id = "geoJumpLocationInput" placeholder = "e.g. ${grailsApplication.config.defaultLocation}" type = "text">
 						<span class = "input-group-btn">
-							<button class = "btn btn-primary"  onclick = "geoJump(); $('#timeLapseDialog').modal('hide')" type = "button">Go!</button>
+							<button class = "btn btn-primary"  onclick = "geoJump($('#geoJumpLocationInput').val()); $('#timeLapseDialog').modal('hide')" type = "button">Go!</button>
 						</span>
 					</div>
-				
+
+					<label>Orientation</label>
+					<select class = "form-control" id = "orientationSelect" onchange = "orientationToggle(); $('#timeLapseDialog').modal('hide')">
+						<option value = "manual">Manual</option>
+						<option value = "auto">Auto (Device)</option>
+					</select>
+
 					<label>Reverse Order</label>
 					<button class = "btn btn-primary form-control" onclick = "reverseOrder(); $('#timeLapseDialog').modal('hide')">Reverse Order</button>
 				</div>
@@ -32,7 +31,6 @@
 		</div>
 	</div>
 </div>
-
 
 <g:javascript>
 	$("#timeLapseDialog").on("hidden.bs.modal", function (event) { hideDialog("timeLapseDialog"); });

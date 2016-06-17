@@ -1,4 +1,4 @@
-function convertGeospatialCoordinateFormat(inputString) {
+function convertGeospatialCoordinateFormat(inputString, callbackFunction) {
 	var ddPattern = /(\-?\d{1,2}[.]?\d*)[\s+|,?]\s*(\-?\d{1,3}[.]?\d*)/;
 	var dmsPattern = /(\d{2})[^\d]*(\d{2})[^\d]*(\d{2}[.]?\d*)([n|N|s|S])[^\w]*(\d{3})[^\d]*(\d{2})[^d]*(\d{2}[.]?\d*)([e|E|w|W])/;
 	var mgrsPattern = /(\d{1,2})([a-zA-Z])[^\w]*([a-zA-Z])([a-zA-Z])[^\w]*(\d{5})[^\w]*(\d{5})/;
@@ -10,22 +10,27 @@ function convertGeospatialCoordinateFormat(inputString) {
 		var longitude = coordinateConversion.dmsToDd(RegExp.$5, RegExp.$6, RegExp.$7, RegExp.$8);
 
 
-		return [longitude, latitude];
+		if (callbackFunction) { callbackFunction([longitude, latitude]); }
+		else { return [longitude, latitude]; }
 	}
 	else if (inputString.match(ddPattern)) {
 		var latitude = RegExp.$1;
 		var longitude = RegExp.$2;
 
 
-		return [longitude, latitude];
+		if (callbackFunction) { callbackFunction([longitude, latitude]); }
+		else { return [longitude, latitude]; }
 	}
 	else if (inputString.match(mgrsPattern)) {
 		var location = coordinateConversion.mgrsToDd(RegExp.$1, RegExp.$2, RegExp.$3, RegExp.$4, RegExp.$5, RegExp.$6);
 
 
-		return convertGeospatialCoordinateFormat(location);
+		convertGeospatialCoordinateFormat(location, callbackFunction);
 	}
-	else { return false; }
+	else {
+		if (callbackFunction) { callbackFunction(false); }
+		else { return false; }
+	}
 }
 
 function convertRadiusToBbox(x, y, radius) {
@@ -93,14 +98,14 @@ function enableKeyboardShortcuts() {
 	);
 }
 
-function getGpsLocation(callback) {
+function getGpsLocation(callbackFunction) {
 	if (navigator.geolocation) {
 		displayLoadingDialog("Don't worry, we'll find you... hopefully. #optimism");
 		navigator.geolocation.getCurrentPosition(
 			// success
 			function(position) {
 				hideLoadingDialog();
-				callback(position);
+				callbackFunction(position);
 			},
 			// error
 			function(error) {

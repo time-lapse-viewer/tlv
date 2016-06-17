@@ -1,3 +1,8 @@
+function addDimension() {
+	if (checkWebGlCompatability()) { tlv.globe.setEnabled(true); }
+	else { $("#dimensionsSelect").val(2); }
+}
+
 function addSwipeListenerToMap() {
 	var firstLayer, secondLayer = null;
 	if (!firstLayer) { firstLayer = tlv.currentLayer; }
@@ -13,7 +18,7 @@ function addSwipeListenerToMap() {
 
 var changeFrameView = changeFrame;
 	changeFrame = function(params) {
-	if ($("#swipeButton").html() == "ON") {
+	if ($("#swipeSelect").val() == "on") {
 		turnOffSwipe();
 		changeFrameView(params);
 		turnOnSwipe();
@@ -50,6 +55,12 @@ function createSwipeControls() {
 	return [leftSwipeTextControl, rightSwipeTextControl, sliderControl];
 }
 
+function dimensionToggle() {
+	var state = $("#dimensionsSelect").val();
+	if (state == 2) { removeDimension(); }
+	else { addDimension(); }
+}
+
 function initializeSwipeSlider() {
 	var swipeSlider = $("#swipeSliderInput");
 	swipeSlider.slider({
@@ -74,6 +85,8 @@ var precomposeSwipe = function(event) {
 }
 
 var postcomposeSwipe = function(event) { event.context.restore(); }
+
+function removeDimension() { tlv.globe.setEnabled(false); }
 
 function removeSwipeListenerFromMap() {
 	$.each(
@@ -132,7 +145,7 @@ var updateScreenTextView = updateScreenText;
 updateScreenText = function() {
 	updateScreenTextView();
 
-	if ($("#swipeButton").html() == "ON") {
+	if ($("#swipeSelect").val() == "on") {
 		$("#acquisitionDateDiv").html("&nbsp;");
 		$("#imageIdDiv").html("&nbsp;");
 

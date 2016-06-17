@@ -3,7 +3,8 @@
 //= require moment-2.10.6.js
 //= require bootstrap-datetimepicker-4.15.35
 //= require bootstrap-slider
-//= require ol-3.15.1
+//= require cesium/Cesium
+//= require ol3-cesium-1.16
 //= require spin
 //= require coordinate-conversion
 
@@ -13,10 +14,15 @@
 //= require index-plugin
 //= require menus/search
 //= require time-lapse
-//= require time-lapse-plugin
+//= require time-lapse-map
+//= require time-lapse-map-plugin
+//= require time-lapse-globe
+//= require time-lapse-globe-plugin
 //= require menus/layers
 //= require menus/layers-plugin
 //= require menus/search
 //= require menus/search-plugin
 //= require menus/export
+//= require menus/export-map
+//= require menus/export-globe
 //= require menus/view

@@ -4,14 +4,14 @@
 			<div class = "modal-header"><h4>View</h4></div>
 			<div class = "modal-body">
 				<div class = "form-group">
-<%--					<label>Dimensions:</label>
-					<select class = "form-control">
-						<option value = 2>2</option>
-						<option value = 3>3</option>
+					<label>Dimensions:</label>
+					<select class = "form-control" id = "dimensionsSelect" onchange = "dimensionToggle(); $('#viewDialog').modal('hide');">
+						<option value = 2>2D</option>
+						<option value = 3>3D</option>
 					</select>
---%>
+
 					<label>Swipe</label>
-					<select class = "form-control" id = "swipeSelect" onchange = swipeToggle()>
+					<select class = "form-control" id = "swipeSelect" onchange = "swipeToggle(); $('#viewDialog').modal('hide');">
 						<option value = "off">OFF</option>
 						<option value = "on">ON</option>
 					</select>
