@@ -24,6 +24,11 @@ The table below shows a list of parameters that can be added to the URL (in a "G
 | false
 | true
 
+| _dimensions_
+| Switch the default view (i.e. map or globe)
+| 2
+| 3
+
 | _endDay_
 | Automatically set the search end day.
 | endDay=13
