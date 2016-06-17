@@ -27,7 +27,7 @@
 					<div class = "input-group">
   						<input class = "form-control" id = "searchLocationInput" placeholder = "e.g. ${grailsApplication.config.defaultLocation}" type = "text">
 						<span class = "input-group-btn">
-							<button class = "btn btn-primary"  onclick = getLocationGps() type = "button"><span class = "glyphicon glyphicon-screenshot"></span></button>
+							<button class = "btn btn-primary"  onclick = getLocationGps() title = "Use your GPS location" type = "button"><span class = "glyphicon glyphicon-screenshot"></span></button>
 						</span>
 					</div>
 
