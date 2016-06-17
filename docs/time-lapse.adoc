@@ -12,8 +12,7 @@ TIP: Get rid of things even faster by using the delete button on the keyboard.
 === Geo-Jump
 Go to any place on the map that your heart desires.
 
-=== Rotation
-When rotation is enabled (anti-nausea medicine sold separately), panning is disabled and vice versa.
+=== Orientation
 
 ==== Manual
 You are responsible for your own rotation (and pitch, tilt, etc. if you're in 3D).

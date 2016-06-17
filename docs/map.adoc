@@ -8,3 +8,6 @@ The following section describes all the functionality that is available as it re
 The current coordinate of the mouse is displayed in the lower-left corner of the map. You can click the box to cycle through the endless format possibilities. And by "endless", we mean, three - DD, DMS and MGRS.
 
 TIP: Right-click anywhere on the map to get a dialog box of that coordinate in all three formats. Really helpful for copy and pasty things... that's right, pasty, I know what I typed. 
+
+=== Rotation
+In 2D mode you can rotate the map by holding Shift + Alt while clicking and dragging. In 3D mode, you can hold Alt while clicking and dragging to pitch the globe.
