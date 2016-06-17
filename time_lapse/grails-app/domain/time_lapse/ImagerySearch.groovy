@@ -13,7 +13,6 @@ class ImagerySearch {
 	Double minNiirs
 	String sensors
 	Date startDate	
-	String tailoredGeoint
 
 
 	static constraints = {
@@ -24,8 +23,6 @@ class ImagerySearch {
 		endDate()
 		sensors()
 		ipAddress()
-
-		tailoredGeoint(display: false, nullable: true)
 	}
 
 	static mapping = {

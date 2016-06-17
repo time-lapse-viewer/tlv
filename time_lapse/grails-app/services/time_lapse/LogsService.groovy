@@ -35,8 +35,7 @@ class LogsService {
 			maxResults: params.maxResults,
 			minNiirs: params.minNiirs,
 			sensors: params.sensors.join(","),
-			startDate: startDate,
-			tailoredGeoint: params.tailoredGeoint.join(",")
+			startDate: startDate
 		).save()
 	}
 

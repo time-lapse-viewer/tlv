@@ -62,21 +62,6 @@
 						</div>
 					</div>
 
-					<label>Tailored GEOINT</label>
-					<div class = "input-group">
-						<div class = "btn-group" data-toggle = "buttons">
-							<label class = "btn btn-primary" id = "searchTailoredGeointAllLabel" onchange = librarySensorCheck()>
-								<input id = "searchTailoredGeointAllCheckbox" type = "checkbox">ALL
-							</label>
-							<g:each in = "${params.availableResources.tailoredGeoint}">
-								<label class = "btn btn-primary" id = "searchTailoredGeoint${it.name.capitalize()}Label" title = "${it.description}">
-									<input id = "searchTailoredGeoint${it.name.capitalize()}Checkbox" type = "checkbox">
-									${it.name.toUpperCase()}
-								</label>
-							</g:each>
-						</div>
-					</div>
-
 					<label>Min. NIIRS</label>
 					<input class = "form-control" id = "searchMinNiirsInput" max = "9" min = "0" step = "0.1" type = "number">
 
