@@ -9,6 +9,11 @@ function convertGeospatialCoordinateFormat(inputString, callbackFunction) {
 		var latitude = coordinateConversion.dmsToDd(RegExp.$1, RegExp.$2, RegExp.$3, RegExp.$4);
 		var longitude = coordinateConversion.dmsToDd(RegExp.$5, RegExp.$6, RegExp.$7, RegExp.$8);
 
+		if (latitude && longitude) {
+			latitude = parseFloat(latitude);
+			longitude = parseFloat(longitude);
+		}
+
 
 		if (callbackFunction) { callbackFunction([longitude, latitude]); }
 		else { return [longitude, latitude]; }
@@ -16,6 +21,11 @@ function convertGeospatialCoordinateFormat(inputString, callbackFunction) {
 	else if (inputString.match(ddPattern)) {
 		var latitude = RegExp.$1;
 		var longitude = RegExp.$2;
+
+		if (latitude && longitude) {
+			latitude = parseFloat(latitude);
+			longitude = parseFloat(longitude);
+		}
 
 
 		if (callbackFunction) { callbackFunction([longitude, latitude]); }
