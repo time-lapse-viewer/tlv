@@ -1,6 +1,5 @@
 var addLayerToTheMapPlugin = addLayerToTheMap;
 addLayerToTheMap = function(layer) {
-	console.dir(layer);
 	switch (layer.library) {
 		case "landsat":
 		case "planetLabs":
