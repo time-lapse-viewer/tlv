@@ -79,6 +79,11 @@ function displayLoadingDialog(message) {
 	$("#loadingDialogMessageDiv").html(message);
 }
 
+function displayLoadingSpinner() {
+	// only start the spinner if it's not already spinning
+	if (!tlv.loadingSpinner.el) { tlv.loadingSpinner.spin($("#map")[0]); }
+}
+
 function enableMenuButtons() {
 	var menuButtons = $(".navbar-header")[0].children;
 	for (var i = 1; i < menuButtons.length - 1; i++) { $(menuButtons[i]).show(); }
@@ -136,6 +141,8 @@ function hideDialog(dialog) {
 function hideErrorDialog() { $("#errorDialog").hide(); }
 
 function hideLoadingDialog() { $("#loadingDialog").modal("hide"); }
+
+function hideLoadingSpinner() { tlv.loadingSpinner.stop(); }
 
 function initializeLoadingDialog() {
 	$("#loadingDialog").modal({

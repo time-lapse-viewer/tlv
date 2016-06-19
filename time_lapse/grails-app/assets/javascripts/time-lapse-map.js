@@ -157,7 +157,7 @@ function theLayerHasFinishedLoading(layerSource) {
 		}
 	);
 
-	if (allVisibleLayersHaveFinishedLoading) { tlv.loadingSpinner.stop(); }
+	if (allVisibleLayersHaveFinishedLoading) { hideLoadingSpinner(); }
 }
 
 function theLayerHasStartedLoading(layerSource) {
@@ -168,10 +168,7 @@ function theLayerHasStartedLoading(layerSource) {
 			var id = getLayerIdentifier(x.mapLayer.getSource());
 			if (thisLayerId == id) { x.layerIsLoaded -= 1; }
 
-			if (x.mapLayer.getVisible()) {
-				// only start the spinner if it's not already spinning
-				if (!tlv.loadingSpinner.el) { tlv.loadingSpinner.spin($("#map")[0]); }
-			}
+			if (x.mapLayer.getVisible()) { hideLoadingSpinner(); }
 		}
 	);
 }

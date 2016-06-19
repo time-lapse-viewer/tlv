@@ -30,8 +30,17 @@ function setupGlobe() {
     		}
   		}
 	});
+
+	var globe = tlv.globe.getCesiumScene().globe;
 	// make the globe background color the same as the body background
-	tlv.globe.getCesiumScene().globe.baseColor = new Cesium.Color(0.153, 0.169, 0.188, 1);
+	globe.baseColor = new Cesium.Color(0.153, 0.169, 0.188, 1);
+	// add a tile loading function to tell when the glove had finished loading
+	globe.tileLoadProgressEvent.addEventListener(
+		function(event) {
+			if (event == 0) { hideLoadingSpinner(); }
+			else { displayLoadingSpinner(); }
+		}
+	);
 
 	if (tlv.dimensions == "3") {
 		$("#dimensionsSelect").val(3);
