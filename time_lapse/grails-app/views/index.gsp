@@ -23,9 +23,8 @@
 			<g:render template = "/time-lapse"/>
 
 			<g:render template = "/dialogs"/>
-
-			<asset:deferredScripts/>
 		</div>
+
+		<asset:deferredScripts/>
 	</body>
 </html>
-
