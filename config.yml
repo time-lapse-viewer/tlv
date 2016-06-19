@@ -11,6 +11,18 @@ libraries:
         queryUrl: "http://evwhs.digitalglobe.com/catalogservice/wfsaccess"
         username: "digital-globe-username"
         viewUrl: "http://evwhs.digitalglobe.com/mapservice/wmsaccess"
+    landsat:
+        apiKey: "api-key-from-landsat"
+        label: "LANDSAT"
+        password: "landsat-password"
+        queryUrl: "https://api.planet.com"
+        sensors: []
+        username: "landsat-username"
+        viewUrls:
+            - "https://tiles0.planet.com/v0/scenes/landsat"
+            - "https://tiles1.planet.com/v0/scenes/landsat"
+            - "https://tiles2.planet.com/v0/scenes/landsat"
+            - "https://tiles3.planet.com/v0/scenes/landsat"    
     omar:
         label: "OMAR"
         sensors:
@@ -32,6 +44,18 @@ libraries:
             - "https://tiles1.planet.com/v0/scenes/ortho"
             - "https://tiles2.planet.com/v0/scenes/ortho"
             - "https://tiles3.planet.com/v0/scenes/ortho"
+    rapidEye:
+        apiKey: "api-key-from-rapid-eye"
+        label: "RAPIDi"
+        password: "rapid-eye-password"
+        queryUrl: "https://api.planet.com"
+        sensors: []
+        username: "rapid-eye-username"
+        viewUrls:
+            - "https://tiles0.planet.com/v0/scenes/rapideye"
+            - "https://tiles1.planet.com/v0/scenes/rapideye"
+            - "https://tiles2.planet.com/v0/scenes/rapideye"
+            - "https://tiles3.planet.com/v0/scenes/rapideye"
 
 networkSpecific:
     layers:

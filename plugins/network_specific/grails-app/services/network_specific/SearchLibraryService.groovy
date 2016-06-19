@@ -11,8 +11,10 @@ class SearchLibraryService {
 	def httpDownloadService
 	def mathConversionService
 	def searchDigitalGlobeService
-	def searchPlanetLabsService
+	def searchLandsatService
 	def searchOmarService
+	def searchPlanetLabsService
+	def searchRapidEyeService
 
 
 	def serviceMethod(params) {
@@ -21,10 +23,24 @@ class SearchLibraryService {
 			location: params.location.collect({ it as Double })
 		]
 
-		params.libraries.each() { 
-			if (it == "digitalGlobe") { results.layers += searchDigitalGlobeService.searchLibrary(params) }
-			else if (it == "omar") { results.layers += searchOmarService.searchLibrary(params) }
-			else if (it == "planetLabs") { results.layers += searchPlanetLabsService.searchLibrary(params) }
+		params.libraries.each() {
+			switch (it) {
+				case "digitalGlobe":
+ 					results.layers += searchDigitalGlobeService.searchLibrary(params)
+					break
+				case "landsat":
+					results.layers += searchLandsatService.searchLibrary(params)
+					break
+				case "omar":
+					results.layers += searchOmarService.searchLibrary(params)
+					break
+				case "planetLabs":
+					results.layers += searchPlanetLabsService.searchLibrary(params)
+					break
+				case "rapidEye":
+					results.layers += searchRapidEyeService.searchLibrary(params)
+					break
+			}
 		}
 
 
@@ -37,5 +53,5 @@ class SearchLibraryService {
 
 
 		return results
-	}	
+	}
 }
