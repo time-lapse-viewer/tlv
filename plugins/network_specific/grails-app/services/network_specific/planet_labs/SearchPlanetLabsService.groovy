@@ -43,7 +43,7 @@ class SearchPlanetLabsService {
 
 
 		return metadata
-        }
+    }
 
 	def processResults(features) {
 		def images = []
@@ -81,10 +81,10 @@ class SearchPlanetLabsService {
 		def location = params.location.collect({ it as Double })
 		def bbox = [location[0] - deltaDeg, location[1] - deltaDeg, location[0] + deltaDeg, location[1] + deltaDeg]
 		def polygon = [
-			[bbox[0], bbox[1]], 
-			[bbox[2], bbox[1]], 
-			[bbox[2], bbox[3]], 
-			[bbox[0], bbox[3]], 
+			[bbox[0], bbox[1]],
+			[bbox[2], bbox[1]],
+			[bbox[2], bbox[3]],
+			[bbox[0], bbox[3]],
 			[bbox[0], bbox[1]]
 		]
 		def geojson = JsonOutput.toJson([
