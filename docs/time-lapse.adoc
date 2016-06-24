@@ -18,7 +18,7 @@ Go to any place on the map that your heart desires.
 You are responsible for your own rotation (and pitch, tilt, etc. if you're in 3D).
 
 ==== Auto
-TLV will attempt to use your device's internal sensors to orient the imagery in real-time to align itself with your device's view. 
+TLV will attempt to use your device's internal sensors to orient the imagery in real-time to align itself with your device's "view". 
 
 === Reverse Order
 The default order of the image stack is chronological. But, if you prefer the other way, here's where to do it.
