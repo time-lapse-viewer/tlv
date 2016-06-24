@@ -30,6 +30,8 @@ function setupGlobe() {
     		}
   		}
 	});
+	// only render the globe when necessary
+	tlv.globe.enableAutoRenderLoop();
 
 	var globe = tlv.globe.getCesiumScene().globe;
 	// make the globe background color the same as the body background
