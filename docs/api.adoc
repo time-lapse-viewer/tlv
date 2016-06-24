@@ -26,6 +26,7 @@ The table below shows a list of parameters that can be added to the URL (in a "G
 
 | _dimensions_
 | Switch the default view (i.e. map or globe)
+| dimensions=3
 | 2
 | 3
 
