@@ -46,7 +46,7 @@ function displaySearchOriginLayer() {
 		tlv.searchOriginLayer = new ol.layer.Vector({
 			source: new ol.source.Vector({ features: [feature] }),
 			style: style
-		}); 
+		});
 		tlv.map.addLayer(tlv.searchOriginLayer);
 	}
 	else { tlv.searchOriginLayer.setVisible(true); }
@@ -96,10 +96,18 @@ setupTimeLapse = function() {
 	setupTimeLapseLayers();
 
 	tlv.crossHairLayer = null;
-	if (tlv.crossHairLayerEnabled == "true" || $("#layersCrossHairSelect").val() == "on") { crossHairLayerToggle(); }
+	var crossHairLayerSelect = $("#layersCrossHairSelect");
+	if (tlv.crossHairLayerEnabled == "true" || crossHairLayerSelect.val() == "on") {
+		crossHairLayerSelect.val("on");
+		crossHairLayerToggle();
+	}
 
 	tlv.searchOriginLayer = null;
-	if (tlv.searchOriginLayerEnabled == "true" || $("#layersSearchOriginSelect").val() == "on") { searchOriginLayerToggle(); }
+	var searchOriginLayerSelect = $("#layersSearchOriginSelect");
+	if (tlv.searchOriginLayerEnabled == "true" || searchOriginLayerSelect.val() == "on") {
+		searchOriginLayerSelect.val("on");
+		searchOriginLayerToggle();
+	}
 }
 
 var theMapHasMovedLayers = theMapHasMoved;
