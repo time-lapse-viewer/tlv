@@ -19,6 +19,7 @@
 			<div class = "collapse navbar-collapse" id = "navigationMenuList">
 				<ul class = "nav navbar-nav">
 					<g:render template = "/menus/search-menu"/>
+					<g:render template = "/menus/annotations-menu"/>
 					<g:render template = "/menus/export-menu"/>
 					<g:render template = "/menus/layers-menu"/>
 					<g:render template = "/menus/time-lapse-menu"/>
