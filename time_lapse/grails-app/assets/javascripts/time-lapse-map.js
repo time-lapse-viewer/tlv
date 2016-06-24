@@ -104,7 +104,7 @@ function setupMap() {
 	createMapControls();
 	tlv.map = new ol.Map({
 		controls: ol.control.defaults().extend(tlv.mapControls),
-		interactions: ol.interaction.defaults().extend([
+		interactions: ol.interaction.defaults({ doubleClickZoom: false }).extend([
 			new ol.interaction.DragAndDrop({
 				formatConstructors: [
 					ol.format.GPX,
