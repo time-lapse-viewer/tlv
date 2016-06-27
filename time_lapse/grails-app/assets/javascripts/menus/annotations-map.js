@@ -2,7 +2,24 @@ var anAnnotationHasBeenAddedMap = anAnnotationHasBeenAdded;
 anAnnotationHasBeenAdded = function(event) {
 	anAnnotationHasBeenAddedMap(event);
 
-	removeDrawInteraction();
+	removeInteraction(tlv.drawInteraction);
+	removeInteraction(tlv.modifyFeaturesInteraction);
+	removeInteraction(tlv.selectFeaturesInteraction);
+}
+
+var changeFrameAnnotations = changeFrame;
+changeFrame = function(param) {
+	var annotationsLayer = tlv.layers[tlv.currentLayer].annotationsLayer;
+	if (annotationsLayer) { annotationsLayer.setVisible(false); }
+
+	changeFrameAnnotations(param);
+
+	var annotationsLayer = tlv.layers[tlv.currentLayer].annotationsLayer;
+	if (annotationsLayer) { annotationsLayer.setVisible(true); }
+
+	removeInteraction(tlv.drawInteraction);
+	removeInteraction(tlv.modifyFeaturesInteraction);
+	removeInteraction(tlv.selectFeaturesInteraction);
 }
 
 function createAnnotationsLayer() {
@@ -30,36 +47,52 @@ function createAnnotationsLayer() {
 	tlv.map.addLayer(layer.annotationsLayer);
 }
 
+function deleteAnnotationsMap() {
+	var layer = tlv.layers[tlv.currentLayer].annotationsLayer;
+	if (layer) {
+		tlv.selectFeaturesInteraction = new ol.interaction.Select({ layers: [layer] });
+		tlv.selectFeaturesInteraction.on(
+			"select",
+			function(event) {
+				var feature = event.selected[0];
+				layer.getSource().removeFeature(feature);
+				removeInteraction(tlv.selectFeaturesInteraction);
+			}
+		);
+		tlv.map.addInteraction(tlv.selectFeaturesInteraction);
+	}
+}
+
 function drawCircle() {
-	tlv.draw = new ol.interaction.Draw({
+	tlv.drawInteraction = new ol.interaction.Draw({
         source: tlv.layers[tlv.currentLayer].annotationsLayer.getSource(),
 		type: "Circle"
 	});
 }
 
 function drawLineString() {
-	tlv.draw = new ol.interaction.Draw({
+	tlv.drawInteraction = new ol.interaction.Draw({
         source: tlv.layers[tlv.currentLayer].annotationsLayer.getSource(),
 		type: "LineString"
 	});
 }
 
 function drawPoint() {
-	tlv.draw = new ol.interaction.Draw({
+	tlv.drawInteraction = new ol.interaction.Draw({
         source: tlv.layers[tlv.currentLayer].annotationsLayer.getSource(),
 		type: "Point"
 	});
 }
 
 function drawPolygon() {
-	tlv.draw = new ol.interaction.Draw({
+	tlv.drawInteraction = new ol.interaction.Draw({
         source: tlv.layers[tlv.currentLayer].annotationsLayer.getSource(),
 		type: "Polygon"
 	});
 }
 
 function drawRectangle() {
-	tlv.draw = new ol.interaction.Draw({
+	tlv.drawInteraction = new ol.interaction.Draw({
 		geometryFunction: function(coordinates, geometry) {
 			if (!geometry) { geometry = new ol.geom.Polygon(null); }
 			var start = coordinates[0];
@@ -82,7 +115,7 @@ function drawRectangle() {
 }
 
 function drawSquare() {
-	tlv.draw = new ol.interaction.Draw({
+	tlv.drawInteraction = new ol.interaction.Draw({
 		geometryFunction: ol.interaction.Draw.createRegularPolygon(4),
         source: tlv.layers[tlv.currentLayer].annotationsLayer.getSource(),
 		type: "Circle"
@@ -102,7 +135,29 @@ function drawAnnotationMap(type) {
 		case "rectangle": drawRectangle(); break;
 		case "square": drawSquare(); break;
 	}
-	tlv.map.addInteraction(tlv.draw);
+	tlv.map.addInteraction(tlv.drawInteraction);
 }
 
-function removeDrawInteraction() { tlv.map.removeInteraction(tlv.draw); }
+function modifyAnnotationMap() {
+	var layer = tlv.layers[tlv.currentLayer].annotationsLayer;
+	if (layer) {
+		var features = new ol.Collection(layer.getSource().getFeatures());
+		if (features) {
+			tlv.modifyFeaturesInteraction = new ol.interaction.Modify({
+        		deleteCondition: function(event) {
+          			return ol.events.condition.shiftKeyOnly(event) && ol.events.condition.singleClick(event);
+        		},
+				features: features
+			});
+    		tlv.map.addInteraction(tlv.modifyFeaturesInteraction);
+		}
+	}
+}
+
+function removeInteraction(interaction) {
+	// make sure there is an interaction to remove first
+	if (interaction) {
+		tlv.map.removeInteraction(interaction);
+		interaction = null;
+	}
+}

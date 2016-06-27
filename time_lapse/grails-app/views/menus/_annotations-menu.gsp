@@ -9,5 +9,8 @@
 		<li><a href = javascript:void(0) onclick = "drawAnnotation('polygon'); $('.navbar-collapse').collapse('hide');">Polygon</a></li>
 		<li><a href = javascript:void(0) onclick = "drawAnnotation('rectangle'); $('.navbar-collapse').collapse('hide');">Rectangle</a></li>
 		<li><a href = javascript:void(0) onclick = "drawAnnotation('square'); $('.navbar-collapse').collapse('hide');">Square</a></li>
+		<li class = "divider" role = "seperator"</li>
+		<li><a href = javascript:void(0) onclick = "modifyAnnotation(); $('.navbar-collapse').collapse('hide');">Modify</a></li>
+		<li><a href = javascript:void(0) onclick = "deleteAnnotations(); $('.navbar-collapse').collapse('hide');">Delete</a></li>		
 	</ul>
 </li>
