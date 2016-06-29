@@ -12,12 +12,12 @@ function addLayerToTheMap(layer) {
 	};
 
 	var mapLayer = new ol.layer.Tile({
-		opacity: layer.opacity || 1,
+		opacity: 0,
 		source: new ol.source.TileWMS({
 			params: params,
 			url: tlv.contextPath + "/wms"
 		}),
-		visible: false
+		visible: true
 	});
 
 	mapLayer.getSource().on("tileloadstart", function(event) { theLayerHasStartedLoading(this); });

@@ -57,6 +57,7 @@ function calculateInitialViewBbox() {
 
 function changeFrame(param) {
 	var layer = tlv.layers[tlv.currentLayer];
+	layer.mapLayer.setOpacity(0);
 	layer.mapLayer.setVisible(layer.keepVisible);
 
 	if (param === "fastForward") { tlv.currentLayer = getNextFrameIndex(); }
@@ -64,6 +65,7 @@ function changeFrame(param) {
 	else if (typeof param === "number") { tlv.currentLayer = param; }
 
 	tlv.layers[tlv.currentLayer].mapLayer.setVisible(true);
+	tlv.layers[tlv.currentLayer].mapLayer.setOpacity(1);
 
 	tlv.map.renderSync();
 
@@ -286,6 +288,7 @@ function setupTimeLapse() {
 	tlv.map.on("moveend", theMapHasMoved);
 
 	tlv.layers[0].mapLayer.setVisible(true);
+	tlv.layers[0].mapLayer.setOpacity(1);
 
 	enableMenuButtons();
 

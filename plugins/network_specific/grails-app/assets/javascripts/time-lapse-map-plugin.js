@@ -5,7 +5,7 @@ addLayerToTheMap = function(layer) {
 		case "planetLabs":
 		case "rapidEye":
 			var image = new ol.layer.Tile({
-				opacity: layer.opacity || 1,
+				opacity: 0,
 				source: new ol.source.XYZ({
 					url: tlv.contextPath + "/xyz" +
 						"?IDENTIFIER=" + new Date().getTime() +
@@ -14,7 +14,7 @@ addLayerToTheMap = function(layer) {
 						"&LIBRARY=" + layer.library +
 						"&X={x}&Y={y}&Z={z}"
 				}),
-				visible: false
+				visible: true
 			});
 
 			image.getSource().on("tileloadstart", function(event) { theLayerHasStartedLoading(this); });
