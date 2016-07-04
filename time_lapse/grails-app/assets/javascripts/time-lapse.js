@@ -69,7 +69,7 @@ function changeFrame(param) {
 
 	tlv.map.renderSync();
 
-	if (tlv.layers[tlv.currentLayer].layerIsLoaded == 0) { tlv.loadingSpinner.stop(); }
+	if (tlv.layers[tlv.currentLayer].layerLoaded) { tlv.loadingSpinner.stop(); }
 	else {
 		if (!tlv.loadingSpinner.el) { tlv.loadingSpinner.spin($("#map")[0]); }
 	}

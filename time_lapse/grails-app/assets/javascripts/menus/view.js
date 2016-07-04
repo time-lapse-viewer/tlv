@@ -9,7 +9,9 @@ function addSwipeListenerToMap() {
 	if (!secondLayer) { secondLayer = tlv.currentLayer >= tlv.layers.length - 1 ? 0 : tlv.currentLayer + 1; }
 
 	tlv.layers[firstLayer].mapLayer.setVisible(true);
+	tlv.layers[firstLayer].mapLayer.setOpacity(1);
 	tlv.layers[secondLayer].mapLayer.setVisible(true);
+	tlv.layers[secondLayer].mapLayer.setOpacity(1);
 
 	tlv.swipeLayers = [firstLayer, secondLayer].sort();
 	tlv.layers[tlv.swipeLayers[1]].mapLayer.on("precompose", precomposeSwipe);

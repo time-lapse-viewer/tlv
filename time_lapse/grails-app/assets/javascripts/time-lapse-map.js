@@ -3,7 +3,7 @@ function addBaseLayersToTheMap() { tlv.baseLayers = {}; }
 function addLayerToTheMap(layer) {
 	var params = {
 		FORMAT: "image/png",
-		IDENTIFIER: new Date().getTime(),
+		IDENTIFIER: Math.floor(Math.random() * 1000000),
 		IMAGE_ID: layer.imageId,
 		LAYERS: layer.indexId,
 		LIBRARY: layer.library,
@@ -17,13 +17,14 @@ function addLayerToTheMap(layer) {
 			params: params,
 			url: tlv.contextPath + "/wms"
 		}),
-		visible: true
+		visible: false
 	});
 
 	mapLayer.getSource().on("tileloadstart", function(event) { theLayerHasStartedLoading(this); });
 	mapLayer.getSource().on("tileloadend", function(event) { theLayerHasFinishedLoading(this); });;
 
-	layer.layerIsLoaded = 0;
+	layer.layerLoaded = false;
+	layer.tilesLoading = 0;
 	layer.mapLayer = mapLayer;
 	tlv.map.addLayer(layer.mapLayer);
 }
@@ -97,6 +98,25 @@ function getLayerIdentifier(source) {
 	else { return source.getUrls()[0]; }
 }
 
+function preloadAnotherLayer(index) {
+	var layer = tlv.layers[index];
+	// if the loayer is already loaded, find a layer that isn't loaded and load that one
+	if (layer.layerLoaded) {
+		$.each(
+			tlv.layers,
+			function(i, x) {
+				if (!x.layerLoaded) {
+					preloadAnotherLayer(i);
+
+
+					return false;
+				}
+			}
+		);
+	}
+	else { layer.mapLayer.setVisible(true); }
+}
+
 function setupMap() {
 	// if a map already exists, reset it and start from scratch
 	if (tlv.map) { tlv.map.setTarget(null); }
@@ -132,6 +152,8 @@ function setupMap() {
 		}
 	);
 
+	tlv.map.on("moveend", theMapHasMoved);
+
 	$(".ol-zoom-in").click(function() { $(this).blur(); });
 	$(".ol-zoom-out").click(function() { $(this).blur(); });
 }
@@ -144,20 +166,31 @@ function syncMapPositionWithGlobe() {
 }
 
 function theLayerHasFinishedLoading(layerSource) {
-	var thisLayerId = getLayerIdentifier(layerSource);
+	setTimeout(function() {
+		var thisLayerId = getLayerIdentifier(layerSource);
+		var thisLayer;
 
-	var allVisibleLayersHaveFinishedLoading = true;
-	$.each(
-		tlv.layers,
-		function(i, x) {
-			var id = getLayerIdentifier(x.mapLayer.getSource());
-			if (thisLayerId == id) { x.layerIsLoaded += 1; }
+		var allVisibleLayersHaveFinishedLoading = true;
+		$.each(
+			tlv.layers,
+			function(i, x) {
+				var id = getLayerIdentifier(x.mapLayer.getSource());
+				if (thisLayerId == id) {
+					thisLayer = x;
+					x.tilesLoading -= 1;
+					if (x.tilesLoading == 0) {
+						x.layerLoaded = true;
+						if (x.mapLayer.getOpacity() == 0) { x.mapLayer.setVisible(false); }
+					}
+				}
+				if (x.tilesLoading != 0 && x.mapLayer.getVisible() && x.mapLayer.getOpacity() != 0) { allVisibleLayersHaveFinishedLoading = false; }
+			}
+		);
 
-			if (x.layerIsLoaded != 0 && x.mapLayer.getVisible()) { allVisibleLayersHaveFinishedLoading = false; }
-		}
-	);
+		if (allVisibleLayersHaveFinishedLoading) { hideLoadingSpinner(); }
 
-	if (allVisibleLayersHaveFinishedLoading) { hideLoadingSpinner(); }
+		if (thisLayer.layerLoaded && allVisibleLayersHaveFinishedLoading) { preloadAnotherLayer(getNextFrameIndex()); }
+	}, 500);
 }
 
 function theLayerHasStartedLoading(layerSource) {
@@ -166,14 +199,16 @@ function theLayerHasStartedLoading(layerSource) {
 		tlv.layers,
 		function(i, x) {
 			var id = getLayerIdentifier(x.mapLayer.getSource());
-			if (thisLayerId == id) { x.layerIsLoaded -= 1; }
+			if (thisLayerId == id) {
+				x.tilesLoading += 1;
 
-			if (x.mapLayer.getVisible()) { hideLoadingSpinner(); }
+				if (x.mapLayer.getVisible() && x.mapLayer.getOpacity() != 0) { displayLoadingSpinner(); }
+			}
 		}
 	);
 }
 
-function theMapHasMoved() { /* place holder to be overriden by other functions */ }
+function theMapHasMoved(event) { $.each(tlv.layers, function(i, x) { x.layerLoaded = false; }); }
 
 function updateMapSize() {
 	if (tlv.map) {

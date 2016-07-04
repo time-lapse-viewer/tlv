@@ -8,20 +8,21 @@ addLayerToTheMap = function(layer) {
 				opacity: 0,
 				source: new ol.source.XYZ({
 					url: tlv.contextPath + "/xyz" +
-						"?IDENTIFIER=" + new Date().getTime() +
+						"?IDENTIFIER=" + Math.floor(Math.random() * 1000000) +
 						"&IMAGE_ID=" + layer.imageId +
 						"&LAYERS=" + layer.indexId +
 						"&LIBRARY=" + layer.library +
 						"&X={x}&Y={y}&Z={z}"
 				}),
-				visible: true
+				visible: false
 			});
 
 			image.getSource().on("tileloadstart", function(event) { theLayerHasStartedLoading(this); });
 			image.getSource().on("tileloadend", function(event) { theLayerHasFinishedLoading(this); });;
 
 			layer.mapLayer = image;
-			layer.layerIsLoaded = 0;
+			layer.layerLoaded = false;
+			layer.tileLoading = 0;
 
 			tlv.map.addLayer(layer.mapLayer);
 			break;
