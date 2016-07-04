@@ -10,7 +10,7 @@ function drawAnnotation(type) {
 	else { drawAnnotationMap(type); }
 }
 
-function modifyAnnotation() {
+function modifyAnnotations() {
 	if (getCurrentDimension() == 3) { displayErrorDialog("Annotations can only be modified in 2D. :("); }
-	else { modifyAnnotationMap(); }
+	else { modifyAnnotationsMap(); }
 }
