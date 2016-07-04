@@ -69,11 +69,8 @@ function changeFrame(param) {
 
 	tlv.map.renderSync();
 
-	if (tlv.layers[tlv.currentLayer].layerLoaded) { tlv.loadingSpinner.stop(); }
-	else {
-		if (!tlv.loadingSpinner.el) { tlv.loadingSpinner.spin($("#map")[0]); }
-	}
 	updateScreenText();
+	updateTileLoadingProgressBar();
 }
 
 function deleteFrame() {

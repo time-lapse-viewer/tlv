@@ -5,7 +5,6 @@
 //= require bootstrap-slider
 //= require cesium/Cesium
 //= require ol3-cesium-1.16
-//= require spin
 //= require coordinate-conversion
 
 //= require prototype

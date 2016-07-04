@@ -39,8 +39,18 @@ function setupGlobe() {
 	// add a tile loading function to tell when the glove had finished loading
 	globe.tileLoadProgressEvent.addEventListener(
 		function(event) {
-			if (event == 0) { hideLoadingSpinner(); }
-			else { displayLoadingSpinner(); }
+			var layer = tlv.layers[tlv.currentLayer];
+
+			if (layer.layerLoaded) {
+				layer.layerLoaded = false;
+				layer.tilesLoaded = 0;
+				layer.tilesLoading = 0;
+			}
+
+			if (event == 0) { layer.layerLoaded = true; }
+			else if (event > layer.tilesLoading) { layer.tilesLoading = event; }
+			layer.tilesLoaded = layer.tilesLoading - event;
+			updateTileLoadingProgressBar();
 		}
 	);
 

@@ -96,11 +96,13 @@ function removeSwipeListenerFromMap() {
 		function(i, x) {
 			x.mapLayer.un("precompose", precomposeSwipe);
 			x.mapLayer.un("postcompose", postcomposeSwipe);
+			x.mapLayer.setOpacity(0);
 			x.mapLayer.setVisible(false);
 		}
 	);
 
 	tlv.layers[tlv.currentLayer].mapLayer.setVisible(true);
+	tlv.layers[tlv.currentLayer].mapLayer.setOpacity(1);
 }
 
 function swipeToggle() {

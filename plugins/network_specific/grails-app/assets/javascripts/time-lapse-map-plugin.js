@@ -4,7 +4,7 @@ addLayerToTheMap = function(layer) {
 		case "landsat":
 		case "planetLabs":
 		case "rapidEye":
-			var image = new ol.layer.Tile({
+			var mapLayer = new ol.layer.Tile({
 				opacity: 0,
 				source: new ol.source.XYZ({
 					url: tlv.contextPath + "/xyz" +
@@ -17,12 +17,13 @@ addLayerToTheMap = function(layer) {
 				visible: false
 			});
 
-			image.getSource().on("tileloadstart", function(event) { theLayerHasStartedLoading(this); });
-			image.getSource().on("tileloadend", function(event) { theLayerHasFinishedLoading(this); });;
+			mapLayer.getSource().on("tileloadstart", function(event) { theTileHasStartedLoading(this); });
+			mapLayer.getSource().on("tileloadend", function(event) { theTileHasFinishedLoading(this); });;
 
-			layer.mapLayer = image;
+			layer.mapLayer = mapLayer;
 			layer.layerLoaded = false;
-			layer.tileLoading = 0;
+			layer.tilesLoaded = 0;
+			layer.tilesLoading = 0;
 
 			tlv.map.addLayer(layer.mapLayer);
 			break;

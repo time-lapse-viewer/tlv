@@ -20,10 +20,11 @@ function addLayerToTheMap(layer) {
 		visible: false
 	});
 
-	mapLayer.getSource().on("tileloadstart", function(event) { theLayerHasStartedLoading(this); });
-	mapLayer.getSource().on("tileloadend", function(event) { theLayerHasFinishedLoading(this); });;
+	mapLayer.getSource().on("tileloadstart", function(event) { theTileHasStartedLoading(this); });
+	mapLayer.getSource().on("tileloadend", function(event) { theTileHasFinishedLoading(this); });;
 
 	layer.layerLoaded = false;
+	layer.tilesLoaded = 0;
 	layer.tilesLoading = 0;
 	layer.mapLayer = mapLayer;
 	tlv.map.addLayer(layer.mapLayer);
@@ -165,7 +166,9 @@ function syncMapPositionWithGlobe() {
 	tlv.map.getView().setCenter([longitude, latitude]);
 }
 
-function theLayerHasFinishedLoading(layerSource) {
+function theMapHasMoved(event) {}
+
+function theTileHasFinishedLoading(layerSource) {
 	setTimeout(function() {
 		var thisLayerId = getLayerIdentifier(layerSource);
 		var thisLayer;
@@ -177,38 +180,44 @@ function theLayerHasFinishedLoading(layerSource) {
 				var id = getLayerIdentifier(x.mapLayer.getSource());
 				if (thisLayerId == id) {
 					thisLayer = x;
-					x.tilesLoading -= 1;
-					if (x.tilesLoading == 0) {
+					x.tilesLoaded += 1;
+					if (x.tilesLoading == x.tilesLoaded) {
 						x.layerLoaded = true;
 						if (x.mapLayer.getOpacity() == 0) { x.mapLayer.setVisible(false); }
 					}
 				}
-				if (x.tilesLoading != 0 && x.mapLayer.getVisible() && x.mapLayer.getOpacity() != 0) { allVisibleLayersHaveFinishedLoading = false; }
+				if (!x.layerLoaded && x.mapLayer.getVisible() && x.mapLayer.getOpacity() != 0) {
+					updateTileLoadingProgressBar();
+ 					allVisibleLayersHaveFinishedLoading = false;
+				}
 			}
 		);
 
-		if (allVisibleLayersHaveFinishedLoading) { hideLoadingSpinner(); }
+		if (allVisibleLayersHaveFinishedLoading) { updateTileLoadingProgressBar(); }
 
 		if (thisLayer.layerLoaded && allVisibleLayersHaveFinishedLoading) { preloadAnotherLayer(getNextFrameIndex()); }
-	}, 500);
+	}, 100);
 }
 
-function theLayerHasStartedLoading(layerSource) {
+function theTileHasStartedLoading(layerSource) {
 	var thisLayerId = getLayerIdentifier(layerSource);
 	$.each(
 		tlv.layers,
 		function(i, x) {
 			var id = getLayerIdentifier(x.mapLayer.getSource());
 			if (thisLayerId == id) {
+				if (x.layerLoaded) {
+					x.layerLoaded = false;
+					x.tilesLoaded = 0;
+					x.tilesLoading = 0;
+				}
 				x.tilesLoading += 1;
 
-				if (x.mapLayer.getVisible() && x.mapLayer.getOpacity() != 0) { displayLoadingSpinner(); }
+				if (x.mapLayer.getVisible() && x.mapLayer.getOpacity() != 0) { updateTileLoadingProgressBar(); }
 			}
 		}
 	);
 }
-
-function theMapHasMoved(event) { $.each(tlv.layers, function(i, x) { x.layerLoaded = false; }); }
 
 function updateMapSize() {
 	if (tlv.map) {
@@ -220,4 +229,23 @@ function updateMapSize() {
 		$("#map").height(mapHeight);
 		tlv.map.updateSize();
 	}
+}
+
+function updateTileLoadingProgressBar() {
+	var tilesLoaded = tilesLoading = 0;
+	$.each(
+		tlv.layers,
+		function(i, x) {
+			if (x.mapLayer.getVisible() && x.mapLayer.getOpacity() != 0) {
+				tilesLoaded += x.tilesLoaded;
+				tilesLoading += x.tilesLoading;
+			}
+		}
+	);
+
+	var width = (tilesLoaded / tilesLoading * 100).toFixed(1);
+	var progressBar = $("#tileLoadProgressBar");
+	progressBar.css("width", width + "%");
+	if (width < 100) { progressBar.css("visibility", "visible"); }
+	else { setTimeout(function() { progressBar.css("visibility", "hidden"); }, 250) }
 }
