@@ -50,6 +50,7 @@ class SearchLandsatService {
 			image.imageId = metadata.id
 			image.library = "landsat"
 			image.metadata = metadata
+			image.type = "xyz"
 			images.push(image)
 		}
 
@@ -89,38 +90,7 @@ class SearchLandsatService {
 			properties: [],
 			type: "Feature"
 		])
-
 		queryUrl += "&intersects=${URLEncoder.encode(geojson)}"
-
-		// cloud cover
-//		filter += "(cloud_cover < ${params.maxCloudCover} OR cloud_cover IS NULL)"
-
-//		filter += " AND "
-
-		// dwithin
-//		def deltaDegrees = mathConversionService.convertRadiusToDeltaDegrees(params)
-//		filter += "DWITHIN(ground_geom,POINT(${params.location.join(" ")}),${deltaDegrees},meters)"
-
-//		filter += " AND "
-
-		// niirs
-//		filter += "(niirs < ${params.minNiirs} OR niirs IS NULL)"
-
-		// sensors
-//		if (params.sensors.find { it == "all" } != "all") {
-//			filter += " AND "
-
-			// only search for sensors that are available in the library
-//			def availableSensors = libraryObject.sensors
-//			def sensorFilters = []
-//			params.sensors.each() {
-//				def sensor = it
-//				if (sensor == availableSensors.find({ it.name == sensor }).name) { sensorFilters.push("sensor_id ILIKE '%${sensor}%'") }
-//			}
-//			sensorFilters.push("sensor_id IS NULL")
-//			filter += "(${sensorFilters.join(" OR ")})"
-//		}
-
 
 		queryUrl += "&order_by=acquired%20desc"
 println queryUrl

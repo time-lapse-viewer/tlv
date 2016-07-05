@@ -1,33 +1,50 @@
 function addBaseLayersToTheMap() { tlv.baseLayers = {}; }
 
 function addLayerToTheMap(layer) {
-	var params = {
-		FORMAT: "image/png",
-		IDENTIFIER: Math.floor(Math.random() * 1000000),
-		IMAGE_ID: layer.imageId,
-		LAYERS: layer.indexId,
-		LIBRARY: layer.library,
-		TRANSPARENT: true,
-		VERSION: "1.1.1"
-	};
+	var source;
+	switch (layer.type) {
+		case "wms":
+			var params = {
+				FORMAT: "image/png",
+				IDENTIFIER: Math.floor(Math.random() * 1000000),
+				IMAGE_ID: layer.imageId,
+				LAYERS: layer.indexId,
+				LIBRARY: layer.library,
+				TRANSPARENT: true,
+				VERSION: "1.1.1"
+			};
 
-	var mapLayer = new ol.layer.Tile({
-		opacity: 0,
-		source: new ol.source.TileWMS({
-			params: params,
-			url: tlv.contextPath + "/wms"
-		}),
-		visible: false
-	});
+			source = new ol.source.TileWMS({
+				params: params,
+				url: tlv.contextPath + "/wms"
+			});
+			break;
+		case "xyz":
+			source = new ol.source.XYZ({
+				url: tlv.contextPath + "/xyz" +
+					"?IDENTIFIER=" + Math.floor(Math.random() * 1000000) +
+					"&IMAGE_ID=" + layer.imageId +
+					"&LAYERS=" + layer.indexId +
+					"&LIBRARY=" + layer.library +
+					"&X={x}&Y={y}&Z={z}"
+			});
+		}
 
-	mapLayer.getSource().on("tileloadstart", function(event) { theTileHasStartedLoading(this); });
-	mapLayer.getSource().on("tileloadend", function(event) { theTileHasFinishedLoading(this); });;
+		source.on("tileloadstart", function(event) { theTileHasStartedLoading(this); });
+		source.on("tileloadend", function(event) { theTileHasFinishedLoading(this); });
 
-	layer.layerLoaded = false;
-	layer.tilesLoaded = 0;
-	layer.tilesLoading = 0;
-	layer.mapLayer = mapLayer;
-	tlv.map.addLayer(layer.mapLayer);
+		layer.mapLayer = new ol.layer.Tile({
+			opacity: 0,
+			source: source,
+			visible: false
+		});
+
+		layer.layerLoaded = false;
+		layer.tilesLoaded = 0;
+		layer.tilesLoading = 0;
+
+		tlv.map.addLayer(layer.mapLayer);
+	}
 }
 
 function compassRotate(event) {

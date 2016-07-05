@@ -75,6 +75,7 @@ class SearchOmarService {
 			image.imageId = metadata.imageId ?: (metadata.title ?: metadata.filename)
 			image.library = "omar"
 			image.metadata = metadata
+			image.type = "wms"
 			images.push(image)
 		}
 
@@ -124,7 +125,6 @@ class SearchOmarService {
 			sensorFilters.push("sensor_id IS NULL")
 			filter += "(${sensorFilters.join(" OR ")})"
 		}
-
 
 		queryUrl += "?filter=" + URLEncoder.encode(filter)
 

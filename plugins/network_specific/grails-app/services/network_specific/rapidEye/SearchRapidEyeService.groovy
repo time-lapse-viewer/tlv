@@ -54,6 +54,7 @@ class SearchRapidEyeService {
 			image.imageId = metadata.id
 			image.library = "rapidEye"
 			image.metadata = metadata
+			image.type = "xyz"
 			images.push(image)
 		}
 

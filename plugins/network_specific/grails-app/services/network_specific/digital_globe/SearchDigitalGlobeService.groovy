@@ -87,6 +87,7 @@ class SearchDigitalGlobeService {
 			image.imageId = metadata.featureId
 			image.library = "digitalGlobe"
 			image.metadata = metadata
+			image.type = "wms"
 			images.push(image)
 		}
 
@@ -120,29 +121,8 @@ class SearchDigitalGlobeService {
 
 		cqlFilter += " AND "
 
-		// dwithin
-//		def deltaDegrees = mathConversionService.convertRadiusToDeltaDegrees(params)
-//		filter += "DWITHIN(ground_geom,POINT(${params.location.join(" ")}),${deltaDegrees},meters)"
-
-//		filter += " AND "
-
 		// niirs
 		cqlFilter += "(niirs > ${params.minNiirs})"
-
-		// sensors
-//		if (params.sensors.find { it == "all" } != "all") {
-//			filter += " AND "
-
-			// only search for sensors that are available in the library
-//			def availableSensors = libraryObject.sensors
-//			def sensorFilters = []
-//			params.sensors.each() {
-//				def sensor = it
-//				if (sensor == availableSensors.find({ it.name == sensor }).name) { sensorFilters.push("sensor_id ILIKE '%${sensor}%'") }
-//			}
-//			sensorFilters.push("sensor_id IS NULL")
-//			filter += "(${sensorFilters.join(" OR ")})"
-//		}
 
 		queryUrl += "?connectid=${library.connectId}"
 		queryUrl += "&cql_filter=" + URLEncoder.encode(cqlFilter)

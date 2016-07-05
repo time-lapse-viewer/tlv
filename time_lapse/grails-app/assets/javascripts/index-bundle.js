@@ -14,7 +14,6 @@
 //= require menus/search
 //= require time-lapse
 //= require time-lapse-map
-//= require time-lapse-map-plugin
 //= require time-lapse-globe
 //= require time-lapse-globe-plugin
 //= require menus/annotations
