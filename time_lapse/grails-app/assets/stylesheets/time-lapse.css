@@ -27,11 +27,11 @@
 .ol-touch .ol-full-screen { top: 120px; }
 
 #tileLoadProgressBar {
-	background: rgba(255, 255, 255, 0.5);
+	background: rgba(255, 255, 255, 1);
 	height: 1px;
 	left: 0;
 	position: relative;
-    top: 0;
+	top: 0;
 	visibility: hidden;
-    width: 0;
+	width: 0;
 }
