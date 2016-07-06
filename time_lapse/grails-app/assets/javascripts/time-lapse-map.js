@@ -28,23 +28,23 @@ function addLayerToTheMap(layer) {
 					"&LIBRARY=" + layer.library +
 					"&X={x}&Y={y}&Z={z}"
 			});
-		}
-
-		source.on("tileloadstart", function(event) { theTileHasStartedLoading(this); });
-		source.on("tileloadend", function(event) { theTileHasFinishedLoading(this); });
-
-		layer.mapLayer = new ol.layer.Tile({
-			opacity: 0,
-			source: source,
-			visible: false
-		});
-
-		layer.layerLoaded = false;
-		layer.tilesLoaded = 0;
-		layer.tilesLoading = 0;
-
-		tlv.map.addLayer(layer.mapLayer);
+			break;
 	}
+
+	source.on("tileloadstart", function(event) { theTileHasStartedLoading(this); });
+	source.on("tileloadend", function(event) { theTileHasFinishedLoading(this); });
+
+	layer.mapLayer = new ol.layer.Tile({
+		opacity: 0,
+		source: source,
+		visible: false
+	});
+
+	layer.layerLoaded = false;
+	layer.tilesLoaded = 0;
+	layer.tilesLoading = 0;
+
+	tlv.map.addLayer(layer.mapLayer);
 }
 
 function compassRotate(event) {
