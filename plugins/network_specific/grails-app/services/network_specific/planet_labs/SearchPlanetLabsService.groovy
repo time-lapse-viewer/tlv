@@ -56,6 +56,7 @@ class SearchPlanetLabsService {
 			image.imageId = metadata.id
 			image.library = "planetLabs"
 			image.metadata = metadata
+			image.type = "xyz"
 			images.push(image)
 		}
 
