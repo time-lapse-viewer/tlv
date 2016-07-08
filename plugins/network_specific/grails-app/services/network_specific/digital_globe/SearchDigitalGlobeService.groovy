@@ -9,6 +9,7 @@ class SearchDigitalGlobeService {
 
 	def grailsApplication
 	def httpDownloadService
+	def library
 	def mathConversionService
 
 
@@ -85,9 +86,9 @@ class SearchDigitalGlobeService {
 			image.acquisitionDate = metadata.acquisitionDate
 			image.indexId = metadata.featureId
 			image.imageId = metadata.featureId
-			image.library = "digitalGlobe"
+			image.library = library.name
 			image.metadata = metadata
-			image.type = "wms"
+			image.type = library.layerType
 			images.push(image)
 		}
 
@@ -96,7 +97,7 @@ class SearchDigitalGlobeService {
 	}
 
 	def searchLibrary(params) {
-		def library = grailsApplication.config.libraries.digitalGlobe
+		library = grailsApplication.config.libraries.digitalGlobe
 
 		def queryUrl = library.queryUrl
 

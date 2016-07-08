@@ -10,6 +10,7 @@ class SearchPlanetLabsService {
 
 	def grailsApplication
 	def httpDownloadService
+	def library
 	def mathConversionService
 
 
@@ -54,9 +55,9 @@ class SearchPlanetLabsService {
 			image.acquisitionDate = metadata.acquired ? Date.parse("yyyy-MM-dd'T'HH:mm:ss", metadata.acquired).format("yyyy-MM-dd HH:mm:ss") : null
 			image.indexId = metadata.id
 			image.imageId = metadata.id
-			image.library = "planetLabs"
+			image.library = library.name
 			image.metadata = metadata
-			image.type = "xyz"
+			image.type = library.layerType
 			images.push(image)
 		}
 
@@ -65,7 +66,7 @@ class SearchPlanetLabsService {
 	}
 
 	def searchLibrary(params) {
-		def library = grailsApplication.config.libraries.planetLabs
+		library = grailsApplication.config.libraries.planetLabs
 
 		def queryUrl = library.queryUrl
 		queryUrl += "/v0/scenes/ortho"

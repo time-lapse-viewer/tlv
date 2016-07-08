@@ -10,6 +10,7 @@ class SearchLandsatService {
 
 	def grailsApplication
 	def httpDownloadService
+	def library
 	def mathConversionService
 
 
@@ -48,9 +49,9 @@ class SearchLandsatService {
 			image.acquisitionDate = metadata.acquired ? Date.parse("yyyy-MM-dd'T'HH:mm:ss", metadata.acquired).format("yyyy-MM-dd HH:mm:ss") : null
 			image.indexId = metadata.id
 			image.imageId = metadata.id
-			image.library = "landsat"
+			image.library = library.name
 			image.metadata = metadata
-			image.type = "xyz"
+			image.type = library.layerType
 			images.push(image)
 		}
 
@@ -59,7 +60,7 @@ class SearchLandsatService {
 	}
 
 	def searchLibrary(params) {
-		def library = grailsApplication.config.libraries.landsat
+		library = grailsApplication.config.libraries.landsat
 
 		def queryUrl = library.queryUrl
 		queryUrl += "/v0/scenes/landsat"

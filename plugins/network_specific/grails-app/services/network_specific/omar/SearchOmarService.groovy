@@ -9,6 +9,7 @@ class SearchOmarService {
 
 	def grailsApplication
 	def httpDownloadService
+	def library
 	def mathConversionService
 
 
@@ -73,9 +74,9 @@ class SearchOmarService {
 			image.acquisitionDate = metadata.acquisitionDate
 			image.indexId = metadata.indexId
 			image.imageId = metadata.imageId ?: (metadata.title ?: metadata.filename)
-			image.library = "omar"
+			image.library = library.name
 			image.metadata = metadata
-			image.type = "wms"
+			image.type = library.layerType
 			images.push(image)
 		}
 
@@ -84,9 +85,9 @@ class SearchOmarService {
 	}
 
 	def searchLibrary(params) {
-		def libraryObject = grailsApplication.config.libraries.omar
+		library = grailsApplication.config.libraries.omar
 
-		def queryUrl = libraryObject.queryUrl
+		def queryUrl = library.queryUrl
 
 		def filter = ""
 
@@ -116,7 +117,7 @@ class SearchOmarService {
 			filter += " AND "
 
 			// only search for sensors that are available in the library
-			def availableSensors = libraryObject.sensors
+			def availableSensors = library.sensors
 			def sensorFilters = []
 			params.sensors.each() {
 				def sensor = it

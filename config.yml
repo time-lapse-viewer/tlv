@@ -6,6 +6,8 @@ libraries:
     digitalGlobe:
         connectId: "connect-id-from-digital-globe"
         label: "DG"
+        layerType: "wms"
+        name: "digitalGlobe"
         password: "digital-globe-password"
         sensors: []
         queryUrl: "http://evwhs.digitalglobe.com/catalogservice/wfsaccess"
@@ -14,6 +16,8 @@ libraries:
     landsat:
         apiKey: "api-key-from-landsat"
         label: "LANDSAT"
+        layerType: "xyz"
+        name: "landsat"
         password: "landsat-password"
         queryUrl: "https://api.planet.com"
         sensors: []
@@ -22,9 +26,11 @@ libraries:
             - "https://tiles0.planet.com/v0/scenes/landsat"
             - "https://tiles1.planet.com/v0/scenes/landsat"
             - "https://tiles2.planet.com/v0/scenes/landsat"
-            - "https://tiles3.planet.com/v0/scenes/landsat"    
+            - "https://tiles3.planet.com/v0/scenes/landsat"
     omar:
         label: "OMAR"
+        layerType: "wms"
+        name: "omar"
         sensors:
             - description: "Commercial: Multispectral"
               name: "msi"
@@ -35,6 +41,8 @@ libraries:
     planetLabs:
         apiKey: "api-key-from-planet-labs"
         label: "PLANET"
+        layerType: "xyz"
+        name: "planetLabs"
         password: "planet-labs-password"
         queryUrl: "https://api.planet.com"
         sensors: []
@@ -47,6 +55,8 @@ libraries:
     rapidEye:
         apiKey: "api-key-from-rapid-eye"
         label: "RAPIDi"
+        layerType: "xyz"
+        name: "rapidEye"
         password: "rapid-eye-password"
         queryUrl: "https://api.planet.com"
         sensors: []
