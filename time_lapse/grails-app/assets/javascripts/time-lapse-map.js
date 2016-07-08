@@ -1,28 +1,27 @@
 function addBaseLayersToTheMap() { tlv.baseLayers = {}; }
 
 function addLayerToTheMap(layer) {
+	var identifier = Math.floor(Math.random() * 1000000);
 	var source;
 	switch (layer.type) {
 		case "wms":
-			var params = {
-				FORMAT: "image/png",
-				IDENTIFIER: Math.floor(Math.random() * 1000000),
-				IMAGE_ID: layer.imageId,
-				LAYERS: layer.indexId,
-				LIBRARY: layer.library,
-				TRANSPARENT: true,
-				VERSION: "1.1.1"
-			};
-
 			source = new ol.source.TileWMS({
-				params: params,
+				params: {
+					FORMAT: "image/png",
+					IDENTIFIER: identifier,
+					IMAGE_ID: layer.imageId,
+					LAYERS: layer.indexId,
+					LIBRARY: layer.library,
+					TRANSPARENT: true,
+					VERSION: "1.1.1"
+				},
 				url: tlv.contextPath + "/wms"
 			});
 			break;
 		case "xyz":
 			source = new ol.source.XYZ({
 				url: tlv.contextPath + "/xyz" +
-					"?IDENTIFIER=" + Math.floor(Math.random() * 1000000) +
+					"?IDENTIFIER=" + identifier +
 					"&IMAGE_ID=" + layer.imageId +
 					"&LAYERS=" + layer.indexId +
 					"&LIBRARY=" + layer.library +
@@ -31,8 +30,8 @@ function addLayerToTheMap(layer) {
 			break;
 	}
 
-	source.on("tileloadstart", function(event) { theTileHasStartedLoading(this); });
-	source.on("tileloadend", function(event) { theTileHasFinishedLoading(this); });
+	source.on("tileloadstart", function(event) { theTileHasStartedLoadingMap(this); });
+	source.on("tileloadend", function(event) { theTileHasFinishedLoadingMap(this); });
 
 	layer.mapLayer = new ol.layer.Tile({
 		opacity: 0,
@@ -183,9 +182,18 @@ function syncMapPositionWithGlobe() {
 	tlv.map.getView().setCenter([longitude, latitude]);
 }
 
-function theMapHasMoved(event) {}
+function theMapHasMoved(event) {
+	$.each(
+		tlv.layers,
+		function(i, x) {
+			x.layerLoaded = false;
+			x.tilesLoaded = 0;
+			x.tilesLoading = 0;
+		}
+	);
+}
 
-function theTileHasFinishedLoading(layerSource) {
+function theTileHasFinishedLoadingMap(layerSource) {
 	setTimeout(function() {
 		var thisLayerId = getLayerIdentifier(layerSource);
 		var thisLayer;
@@ -216,18 +224,13 @@ function theTileHasFinishedLoading(layerSource) {
 	}, 100);
 }
 
-function theTileHasStartedLoading(layerSource) {
+function theTileHasStartedLoadingMap(layerSource) {
 	var thisLayerId = getLayerIdentifier(layerSource);
 	$.each(
 		tlv.layers,
 		function(i, x) {
 			var id = getLayerIdentifier(x.mapLayer.getSource());
 			if (thisLayerId == id) {
-				if (x.layerLoaded) {
-					x.layerLoaded = false;
-					x.tilesLoaded = 0;
-					x.tilesLoading = 0;
-				}
 				x.tilesLoading += 1;
 
 				if (x.mapLayer.getVisible() && x.mapLayer.getOpacity() != 0) { updateTileLoadingProgressBar(); }
