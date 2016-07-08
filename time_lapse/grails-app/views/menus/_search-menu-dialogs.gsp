@@ -80,8 +80,7 @@
 						<div class = "btn-group" data-toggle = "buttons">
 							<g:each in = "${params.availableResources.complete}">
 								<label class = "btn btn-primary" id = "searchLibrary${it.key.capitalize()}Label" onchange = librarySensorCheck()>
-									<input id = "searchLibrary${it.key.capitalize()}Checkbox" type = "checkbox">
-									${it.value.label.toUpperCase()}
+									<input id = "searchLibrary${it.key.capitalize()}Checkbox" type = "checkbox"> ${it.value.label}
 								</label>
 							</g:each>
 						</div>
