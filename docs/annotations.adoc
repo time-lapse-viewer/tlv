@@ -1,0 +1,26 @@
+== Annotations
+
+
+The following section describes all the functionality that is available as it relates to the annotations drop-down.
+
+
+=== Circle
+Click to begin a circle center and then click again to end it. 
+
+=== Line
+Click to begin a line and click again each time you want a new vertex. Double-click to end the line.
+
+=== Point
+Just click anywhere.
+
+=== Polygon
+Click to begin a polygon and click again each time you want a new vertex. Double-click to close the polygon.
+
+=== Rectangle
+Click to start a rectangle and then click again to close it.
+
+=== Square
+Click to start a square center and then click again to close it. 
+
+=== Modify
+Click on any annotation to modify its style.
