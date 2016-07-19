@@ -9,12 +9,15 @@ class WmsController {
 
 	def index() {
 		logsService.recordWmsRequest(params, request)
-		def imageBytes = wmsConversionService.serviceMethod(params)
+		def image = wmsConversionService.serviceMethod(params)
 
 
-		response.contentType = "image/png"
-		response.outputStream << imageBytes
-		response.outputStream.flush()
-		response.outputStream.close()
+		if (image.class.toString().contains("String")) { redirect(url: image) }
+		else {
+			response.contentType = "image/png"
+			response.outputStream << image
+			response.outputStream.flush()
+			response.outputStream.close()
+		}
 	}
 }
