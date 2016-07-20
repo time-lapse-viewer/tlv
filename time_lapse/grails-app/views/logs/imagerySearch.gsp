@@ -164,7 +164,6 @@
 					}
 				);
 
-				// add heatmap
 				var features = [];
 				$.each(
 					table.rows,
@@ -179,10 +178,36 @@
 						}
 					}
 				);
+				var source = new ol.source.Vector({ features: features });
+
+				// add heatmap
 				var heatmap = new ol.layer.Heatmap({
-					source: new ol.source.Vector({ features: features })
+					radius: 10,
+					source: source
 				});
 				map.addLayer(heatmap);
+
+				// add cluster layer
+				var clusterLayer = new ol.layer.Vector({
+					source: new ol.source.Cluster({
+						distance: 10,
+						source: source
+					}),
+					style: function(feature) {
+						return new ol.style.Style({
+							image: new ol.style.Circle({
+								fill: new ol.style.Fill({ color: "rgba(0, 0, 255, 0.5)" }),
+								radius: 10,
+								stroke: new ol.style.Stroke({ color: "rgba(0, 0, 0, 0)" })
+							}),
+							text: new ol.style.Text({
+								text: feature.get("features").length.toString(),
+								fill: new ol.style.Fill({ color: "rgba(255, 255, 255, 1)" })
+							})
+						});
+					}
+		        });
+				map.addLayer(clusterLayer);
 			}
 		</g:javascript>
 	</body>
