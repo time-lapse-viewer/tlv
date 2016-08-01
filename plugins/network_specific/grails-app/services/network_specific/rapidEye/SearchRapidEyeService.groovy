@@ -64,7 +64,7 @@ class SearchRapidEyeService {
 	}
 
 	def searchLibrary(params) {
-		library = grailsApplication.config.libraries.repidEye
+		library = grailsApplication.config.libraries.rapidEye
 
 		def queryUrl = library.queryUrl
 		queryUrl += "/v0/scenes/rapideye"
