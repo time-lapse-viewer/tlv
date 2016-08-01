@@ -14,14 +14,13 @@
 //= require time-lapse
 //= require time-lapse-map
 //= require time-lapse-globe
-//= require time-lapse-globe-plugin
 //= require menus/annotations
 //= require menus/annotations-map
 //= require menus/export
 //= require menus/export-map
 //= require menus/export-globe
 //= require menus/layers
-//= require menus/layers-plugin
 //= require menus/search
-//= require menus/search-plugin
 //= require menus/view
+
+//= require index-bundle-plugin
