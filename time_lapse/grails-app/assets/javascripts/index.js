@@ -61,11 +61,16 @@ function disableMenuButtons() {
 }
 
 function displayDialog(dialog) {
-	var dialogBody = $("#" + dialog + " .modal-body");
-	var maxDialogBodyHeight = $(window).height() * 0.7;
-	var dialogBodyIsTooTall = dialogBody.height() > maxDialogBodyHeight;
-	dialogBody.css("max-height", dialogBodyIsTooTall ? maxDialogBodyHeight : "");
-	dialogBody.css("overflow-y", dialogBodyIsTooTall ? "auto" : "");
+	var header = $("#" + dialog + " .modal-header");
+	var paddingHeight = header.offset().top;
+	var headerHeight = header.outerHeight();
+	var footerHeight = $("#" + dialog + " .modal-footer").outerHeight();
+
+	var body = $("#" + dialog + " .modal-body");
+	var maxBodyHeight = ($(window).height() - paddingHeight - headerHeight - footerHeight) * 0.9;
+	var bodyIsTooTall = body.outerHeight() > maxBodyHeight;
+	body.css("max-height", bodyIsTooTall ? maxBodyHeight : "");
+	body.css("overflow-y", bodyIsTooTall ? "auto" : "");
 }
 
 function displayErrorDialog(message) {
