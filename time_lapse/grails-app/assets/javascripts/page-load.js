@@ -4,6 +4,8 @@ function pageLoad() {
 	disableMenuButtons();
 
 	enableKeyboardShortcuts();
+
+	$(window).resize(function() { updateMapSize(); });
 }
 
 $(document).ready(function() { pageLoad(); });
