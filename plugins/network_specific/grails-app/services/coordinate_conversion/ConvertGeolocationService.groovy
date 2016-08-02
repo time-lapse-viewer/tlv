@@ -15,9 +15,9 @@ class ConvertGeolocationService {
 		def url = "https://maps.googleapis.com/maps/api/geocode/json?address=${URLEncoder.encode(locationString)}&key=${grailsApplication.config.googleApiKey}"
 		def location = httpDownloadService.serviceMethod([url: url])
 		if (location) {
-			def center = location.results[0]?.geometry.location ?: null
-			
-		
+			def center = location.results[0]?.geometry?.location ?: null
+
+
 			return center ? [latitude: center.lat, longitude: center.lng] : [error: "Placename not found."]
 		}
 		else { return [error: "There was a problem reaching the geocoder."] }
