@@ -245,7 +245,12 @@ function updateMapSize() {
 		var securityClassificationHeaderHeight = $(".security-classification").parent().height();
 		var navigationMenuHeight = $("#navigationMenu").parent().height();
 		var imageInfoHeight = $("#navigationMenu").parent().next().height();
-		var mapHeight = windowHeight - securityClassificationHeaderHeight - navigationMenuHeight - imageInfoHeight;
+		var tileLoadProgressBarHeight = $("#tileLoadProgressBar").height();
+		var mapHeight = windowHeight
+			- securityClassificationHeaderHeight
+			- navigationMenuHeight
+			- imageInfoHeight
+			- tileLoadProgressBarHeight;
 		$("#map").height(mapHeight);
 		tlv.map.updateSize();
 	}
@@ -265,7 +270,7 @@ function updateTileLoadingProgressBar() {
 
 	var width = (tilesLoaded / tilesLoading * 100).toFixed(1);
 	var progressBar = $("#tileLoadProgressBar");
-	progressBar.css("width", width + "%");
+	progressBar.css("width", (width >= 100 ? 100 : width) + "%");
 	if (width < 100) { progressBar.css("visibility", "visible"); }
 	else { setTimeout(function() { progressBar.css("visibility", "hidden"); }, 250) }
 }
