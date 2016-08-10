@@ -27,6 +27,17 @@ libraries:
             - "https://tiles1.planet.com/v0/scenes/landsat"
             - "https://tiles2.planet.com/v0/scenes/landsat"
             - "https://tiles3.planet.com/v0/scenes/landsat"
+    o2:
+        label: "O2"
+        layerType: "wms"
+        name: "o2"
+        sensors:
+            - description: "Commercial: Multispectral"
+              name: "msi"
+            - description: "Commercial: Panchromatic"
+              name: "vis"
+        queryUrl: "http://o2.ossim.org/o2/wfs/getFeature"
+        viewUrl: "http://o2.ossim.org/o2/wms/getMap"
     omar:
         label: "OMAR"
         layerType: "wms"

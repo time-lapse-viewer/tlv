@@ -9,6 +9,7 @@ class WmsConversionService {
 
 	def grailsApplication
 	def wmsConversionDigitalGlobeService
+	def wmsConversionO2Service
 	def wmsConversionOmarService
 
 
@@ -28,9 +29,12 @@ class WmsConversionService {
 			case "digitalGlobe":
 				return wmsConversionDigitalGlobeService.serviceMethod(params)
 				break
+			case "o2":
+				return wmsConversionO2Service.serviceMethod(params)
+				break
 			case "omar": 
 				return wmsConversionOmarService.serviceMethod(params)
 				break
-		}		
+		}
 	}
 }

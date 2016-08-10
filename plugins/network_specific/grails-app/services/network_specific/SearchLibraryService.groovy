@@ -12,6 +12,7 @@ class SearchLibraryService {
 	def mathConversionService
 	def searchDigitalGlobeService
 	def searchLandsatService
+	def searchO2Service
 	def searchOmarService
 	def searchPlanetLabsService
 	def searchRapidEyeService
@@ -30,6 +31,9 @@ class SearchLibraryService {
 					break
 				case "landsat":
 					results.layers += searchLandsatService.searchLibrary(params)
+					break
+				case "o2":
+					results.layers += searchO2Service.searchLibrary(params)	
 					break
 				case "omar":
 					results.layers += searchOmarService.searchLibrary(params)
