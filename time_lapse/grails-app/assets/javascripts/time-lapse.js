@@ -230,6 +230,12 @@ var pageLoadTimeLapse = pageLoad;
 pageLoad = function() {
 	pageLoadTimeLapse();
 
+	tlv.tooltipInfo = $("#tooltipInfo");
+	tlv.tooltipInfo.tooltip({
+		animation: false,
+		trigger: "manual"
+	});
+
 	if (tlv.layers) {
 		$("#searchDialog").modal("hide");
 		tlv.bbox = calculateInitialViewBbox();

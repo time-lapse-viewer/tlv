@@ -20,7 +20,6 @@
         visibility: visible;
 }
 
-
 /* mobile device support */
 .ol-touch .ol-rotate { top: 80px; }
 
@@ -34,4 +33,20 @@
 	top: 0;
 	visibility: hidden;
 	width: 0;
+}
+
+.tooltip.in { opacity: 1; }
+
+.tooltip.top .tooltip-arrow { border-top-color: white; }
+
+.tooltip-inner {
+	border: 2px solid white;
+	white-space: pre-wrap;
+}
+
+#tooltipInfo {
+	height: 1px;
+	position: absolute;
+	width: 1px;
+	z-index: 100;
 }
