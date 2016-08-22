@@ -2,7 +2,7 @@ package time_lapse
 
 
 import grails.transaction.Transactional
-import groovyx.net.http.ContentType
+import static groovyx.net.http.ContentType.*
 import groovyx.net.http.HTTPBuilder
 import static groovyx.net.http.Method.*
 import java.security.KeyStore
@@ -32,12 +32,13 @@ class HttpDownloadService {
 		}
 
 		try {
-			http.request(GET) { req ->
+			http.request(params.method ?: GET) { req ->
 				if (params.username && params.password) {
-					def auth = "${params.username}:${params.password}".getBytes().encodeBase64()
-					headers."Authorization" = "Basic ${auth}"
+					params.auth = "${params.username}:${params.password}".getBytes().encodeBase64()
 				}
+				if (params.auth) { headers."Authorization" = "${params.authType ?: "Basic"} ${params.auth}" }
 
+				if (params.body) { send URLENC, params.body }
 				response.failure = { response, reader ->
 println reader
 
@@ -54,9 +55,9 @@ println reader
 				}
 			}
 		}
-		catch (Exception e) { 
+		catch (Exception e) {
 			println e
-			return null 
+			return null
 		}
 	}
 }
