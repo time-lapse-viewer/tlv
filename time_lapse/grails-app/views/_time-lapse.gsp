@@ -4,5 +4,5 @@
 </div>
 <div class = "row">
 	<div id = "tileLoadProgressBar"></div>
-	<div class = "map" id = "map"></div>
+	<div class = "map" id = "map"><div id = "tooltipInfo"></div>
 </div>
