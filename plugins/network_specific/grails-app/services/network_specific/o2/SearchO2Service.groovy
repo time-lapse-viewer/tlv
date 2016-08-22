@@ -18,6 +18,7 @@ class SearchO2Service {
 			accessDate: xml.access_date?.text() ?: null,
 			acquisitionDate: xml.acquisition_date?.text() ?: null,
 			azimuthAngle: xml.azimuth_angle?.text().isNumber() ? xml.azimuth_angle.text() as Double : null,
+			beNumber: xml.be_number?.text() ?: null,
 			bitDepth: xml.bit_depth?.text() ?: null,
 			className: xml.class_name?.text() ?: null,
 			cloudCover: xml.cloud_cover?.text().isNumber() ? xml.cloud_cover.text() as Double : null,
@@ -40,6 +41,7 @@ class SearchO2Service {
 			indexId: xml.index_id?.text() ?: null,
 			ingestDate: xml.ingest_date?.text() ?: null,
 			isorce: xml.isorce?.text() ?: null,
+			leepForever: xml.keep_forever?.text() ?: null,
 			missionId: xml.mission_id?.text() ?: null,
 			niirs: xml.niirs?.text().isNumber() ? xml.niirs.text() as Double : null,
 			numberOfBands: xml.number_of_bands?.text().isNumber() ? xml.number_of_bands.text() as Integer : null,
@@ -47,6 +49,7 @@ class SearchO2Service {
 			organization: xml.organization?.text() ?: null,
 			productId: xml.productId?.text() ?: null,
 			receiveDate: xml.receive_date?.text() ?: null,
+			releaseId: xml.release_id?.text().isNumber() ? xml.release_id.text() as Double : null,
 			securityClassification: xml.security_classification?.text() ?: null,
 			securityCode: xml.security_code?.text() ?: null,
 			sensorId: xml.sensor_id?.text() ?: null,
@@ -55,7 +58,8 @@ class SearchO2Service {
 			targetId: xml.target_id?.text() ?: null,
 			title: xml.title?.text() ?: null,
 			wacCode: xml.wac_code?.text() ?: null,
-			width: xml.width?.text().isNumber() ? xml.width.text() as Integer : null
+			width: xml.width?.text().isNumber() ? xml.width.text() as Integer : null,
+			version: xml.version?.text() ?: null
 		]
 
 		def footprint = xml.ground_geom?.MultiPolygon?.polygonMember?.Polygon?.outerBoundaryIs?.LinearRing?.coordinates?.text()
