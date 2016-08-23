@@ -1,3 +1,5 @@
+function aFeatureHasBeenSelected(feature, event) {}
+
 function buildSummaryTable() {
 	var table = $("#timeLapseSummaryTable")[0];
 
@@ -289,6 +291,12 @@ function setupTimeLapse() {
 
 	// register map listeners
 	tlv.map.on("moveend", theMapHasMoved);
+	tlv.map.on("pointermove", function(event) {
+		var feature = tlv.map.forEachFeatureAtPixel(event.pixel, function(feature, layer) { return feature; });
+		if (feature) { aFeatureHasBeenSelected(feature, event); }
+		else { tlv.tooltipInfo.tooltip("hide"); }
+	});
+
 
 	tlv.layers[0].mapLayer.setVisible(true);
 	tlv.layers[0].mapLayer.setOpacity(1);
