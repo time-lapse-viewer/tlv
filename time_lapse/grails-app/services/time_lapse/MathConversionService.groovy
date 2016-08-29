@@ -4,7 +4,6 @@ package time_lapse
 import grails.transaction.Transactional
 
 
-@Transactional
 class MathConversionService {
 
 
