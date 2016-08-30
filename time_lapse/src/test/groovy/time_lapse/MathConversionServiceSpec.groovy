@@ -23,7 +23,7 @@ class MathConversionServiceSpec extends Specification {
 
 		expect:
 			degrees.toString().isNumber()
-			degrees < 0.0047246220
+			degrees > 0.0047246220
 			degrees < 0.0047246221
 			
 	}
