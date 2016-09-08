@@ -142,7 +142,7 @@ println queryUrl
 
 		def xml = httpDownloadService.serviceMethod([url: queryUrl])
 
-		def images = xml.featureMembers ? processResults(xml.featureMembers) : []
+		def images = xml?.featureMembers ? processResults(xml.featureMembers) : []
 
 
 		return images
