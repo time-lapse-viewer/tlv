@@ -1,16 +1,27 @@
-var addLayerToTheMapPlanet = addLayerToTheMap;
-addLayerToTheMap = function(layer) {
-	addLayerToTheMapPlanet(layer);
-
+var createImageLayerSourcePlanet = createImageLayerSource;
+createImageLayerSource = function(layer) {
 	switch (layer.library) {
 		case "landsat":
 		case "planetLabs":
 		case "rapidEye":
-			var source = layer.mapLayer.getSource();
-			var url = source.getUrls()[0];
-			url += "&API_KEY=" + tlv.planetCredentials.apiKey;
-			source.setUrl(url);
-		}
+			var urls = tlv.availableResources.complete[layer.library].viewUrls.slice(0);
+			$.each(
+				urls,
+				function(i, x) {
+					urls[i] += "/" + layer.indexId +
+						"/{z}/{x}/{y}.png" +
+						"?api_key=" + tlv.planetCredentials.apiKey +
+						"&INDENTIFIER=" + Math.floor(Math.random() * 1000000);
+				}
+			);
+
+
+			return new ol.source.XYZ({
+				crossOrigin: "anonymous",
+				urls: urls
+			});
+		default: return createImageLayerSourcePlanet(layer);
+	}
 }
 
 var beginSearchPlanet = beginSearch;

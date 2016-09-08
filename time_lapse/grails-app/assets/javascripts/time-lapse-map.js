@@ -1,35 +1,7 @@
 function addBaseLayersToTheMap() { tlv.baseLayers = {}; }
 
 function addLayerToTheMap(layer) {
-	var identifier = Math.floor(Math.random() * 1000000);
-	var source;
-	switch (layer.type) {
-		case "wms":
-			source = new ol.source.TileWMS({
-				params: {
-					FORMAT: "image/png",
-					IDENTIFIER: identifier,
-					IMAGE_ID: layer.imageId,
-					LAYERS: layer.indexId,
-					LIBRARY: layer.library,
-					TRANSPARENT: true,
-					VERSION: "1.1.1"
-				},
-				url: tlv.contextPath + "/wms"
-			});
-			break;
-		case "xyz":
-			source = new ol.source.XYZ({
-				url: tlv.contextPath + "/xyz" +
-					"?IDENTIFIER=" + identifier +
-					"&IMAGE_ID=" + layer.imageId +
-					"&LAYERS=" + layer.indexId +
-					"&LIBRARY=" + layer.library +
-					"&X={x}&Y={y}&Z={z}"
-			});
-			break;
-	}
-
+	var source = createImageLayerSource(layer);
 	source.on("tileloadstart", function(event) { theTileHasStartedLoadingMap(this); });
 	source.on("tileloadend", function(event) { theTileHasFinishedLoadingMap(this); });
 
@@ -72,6 +44,8 @@ function createContextMenuContent(coordinate) {
 		}
 	);
 }
+
+function createImageLayerSource(layer) {}
 
 function createMapControls() {
 	var span = document.createElement("span");
