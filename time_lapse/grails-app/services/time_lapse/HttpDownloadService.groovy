@@ -39,14 +39,15 @@ class HttpDownloadService {
 				if (params.auth) { headers."Authorization" = "${params.authType ?: "Basic"} ${params.auth}" }
 
 				if (params.body) { send URLENC, params.body }
-				response.failure = { response, reader ->
-println reader
+
+				response.failure = { resp, reader ->
+println "Failure: ${reader}"
 
 
 					return null
 				}
-				response.success = { response, reader ->
-					def contentType = response.allHeaders.find({ it.name =~ /(?i)Content-Type/})
+				response.success = { resp, reader ->
+					def contentType = resp.allHeaders.find({ it.name =~ /(?i)Content-Type/})
 					if (contentType) { contentType = contentType.value }
 
 
