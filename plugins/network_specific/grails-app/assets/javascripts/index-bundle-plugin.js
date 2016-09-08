@@ -3,4 +3,4 @@
 //= require menus/layers-plugin
 //= require menus/search-plugin
 
-//= require planet
+//= require_tree libraries
