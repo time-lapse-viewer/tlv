@@ -10,9 +10,9 @@ libraries:
         name: "digitalGlobe"
         password: "digital-globe-password"
         sensors: []
-        queryUrl: "http://evwhs.digitalglobe.com/catalogservice/wfsaccess"
+        queryUrl: "https://evwhs.digitalglobe.com/catalogservice/wfsaccess"
         username: "digital-globe-username"
-        viewUrl: "http://evwhs.digitalglobe.com/mapservice/wmsaccess"
+        viewUrl: "https://evwhs.digitalglobe.com/mapservice/wmsaccess"
     landsat:
         apiKey: "api-key-from-landsat"
         label: "LANDSAT"
@@ -36,8 +36,8 @@ libraries:
               name: "msi"
             - description: "Commercial: Panchromatic"
               name: "vis"
-        queryUrl: "http://o2.ossim.org/o2/wfs/getFeature"
-        viewUrl: "http://o2.ossim.org/o2/wms/getMap"
+        queryUrl: "https://o2.ossim.org/o2/wfs/getFeature"
+        viewUrl: "https://o2.ossim.org/o2/wms/getMap"
     omar:
         label: "OMAR"
         layerType: "wms"
