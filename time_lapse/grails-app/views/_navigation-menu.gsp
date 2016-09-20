@@ -26,7 +26,7 @@
 					<g:render template = "/menus/view-menu"/>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href = "/docs" target = "_blank")>Help</a></li>
+					<li><a href = "javascript:window.open(tlv.contextPath + '/docs')" target = "_blank")>Help</a></li>
 				</ul>
 			</div>
 		</div>
