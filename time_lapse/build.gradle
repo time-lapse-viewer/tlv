@@ -18,7 +18,7 @@ group "time_lapse"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
-apply plugin:"war"
+//apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.grails-gsp"
 apply plugin:"asset-pipeline"
@@ -76,6 +76,14 @@ task wrapper(type: Wrapper) {
 assets {
     minifyJs = true
     minifyCss = true
+
+    excludes = [
+        '**/*.css',
+        '**/*.js'
+    ]
+    includes = [
+        '**/index-bundle.*'   
+    ]
 }
 
 
