@@ -1,5 +1,3 @@
-CESIUM_BASE_URL = tlv.contextPath + "/assets/cesium";
-
 function changeFrameGlobe(param) {
 	var layer = tlv.layers[tlv.currentLayer];
 	layer.globeLayer.show = layer.keepVisible;
@@ -19,6 +17,13 @@ function checkWebGlCompatability() {
 		if (!context) { displayErrorDialog("Your browser supports WebGL but the initialization failed. :("); }
 		else { return true; }
 	}
+}
+
+var pageLoadTimeLapseGlobe = pageLoad;
+pageLoad = function() {
+	pageLoadTimeLapseGlobe();
+
+	CESIUM_BASE_URL = tlv.contextPath + "/assets/cesium";
 }
 
 function setupGlobe() {
