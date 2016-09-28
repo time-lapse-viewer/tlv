@@ -1,4 +1,4 @@
-CESIUM_BASE_URL = "/assets/cesium";
+CESIUM_BASE_URL = tlv.contextPath + "/assets/cesium";
 
 function changeFrameGlobe(param) {
 	var layer = tlv.layers[tlv.currentLayer];
