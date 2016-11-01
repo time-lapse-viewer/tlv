@@ -78,6 +78,7 @@ assets {
     ]
     includes = [
         '**/cesium/*/**',
+	'**/font-awesome-4.6.2.css',
         '**/index-bundle.*'
     ]
 }
