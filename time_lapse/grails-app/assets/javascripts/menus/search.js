@@ -137,6 +137,8 @@ function getSearchParams() {
 	searchObject.endMinute = endDate.minute;
 	searchObject.endSecond = endDate.second;
 
+	searchObject.filter = tlv.filter || null;
+	
 	var libraries = getSelectedLibraries();
 	if (libraries.length == 0) {
 		$("#searchDialog").modal("show");
