@@ -51,10 +51,15 @@ function buildSummaryTable() {
 }
 
 function calculateInitialViewBbox() {
-	var bbox = convertRadiusToBbox(tlv.location[0], tlv.location[1], 1000);
+        var bbox;
+        if (typeof tlv.bbox == "string") {
+                var array = tlv.bbox.split(",").map(Number);
+                bbox = { minLon: array[0], minLat: array[1], maxLon: array[2], maxLat: array[3] };
+        }
+        else { bbox = convertRadiusToBbox(tlv.location[0], tlv.location[1], 1000); }
 
 
-	return [bbox.minLon, bbox.minLat, bbox.maxLon, bbox.maxLat];
+        return [bbox.minLon, bbox.minLat, bbox.maxLon, bbox.maxLat];
 }
 
 function changeFrame(param) {
