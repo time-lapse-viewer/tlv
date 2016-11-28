@@ -4,6 +4,14 @@
 			<div class = "modal-header"><h4>Layers</h4></div>
 			<div class = "modal-body">
 				<div class = "form-group">
+					<label>Base Layer</label>
+					<select class = "form-control" id = "baseLayersSelect" onchange = changeBaseLayer(this.value)>
+						<option value = "">None</option>
+						<g:each in = "${grailsApplication.config.baseLayers}">
+							<option value = "${it.key}">${it.value.name}</option>
+						</g:each>
+					</select>
+
                                         <label>Cross-Hair</label>
 					<select class = "form-control" id = "layersCrossHairSelect" onchange = crossHairLayerToggle()>
 						<option value = "off">OFF</option>
@@ -15,10 +23,6 @@
 						<option value = "off">OFF</option>
 						<option value = "on">ON</option>
 					</select>
-				
-					<g:if test = "${grailsApplication.config.networkSpecific.layers.enabled}">
-						<g:render plugin = "networkSpecific" template = "/plugin_menus/layers-menu-dialogs"/>
-					</g:if>
 				</div>
 			</div>
 			<div class = "modal-footer">

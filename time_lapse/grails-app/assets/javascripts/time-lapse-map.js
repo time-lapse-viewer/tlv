@@ -1,4 +1,26 @@
-function addBaseLayersToTheMap() { tlv.baseLayers = {}; }
+function addBaseLayersToTheMap() {
+	tlv.baseLayers = {};
+	$.each(
+		tlv.availableResources.baseLayers,
+		function(i, x) {
+			switch(x.type) {
+				case "xyz":
+					tlv.baseLayers[i] = new ol.layer.Tile({
+						source: new ol.source.XYZ({
+							url: x.url
+						}),
+						visible: x.visible
+					});
+					break;
+			}
+
+			tlv.map.addLayer(tlv.baseLayers[i]);
+			if (x.visible) { $("#baseLayersSelect option[value='" + i + "']").prop("selected", true); }
+		}
+	);
+
+	if (tlv.baseLayer) { changeBaseLayer(tlv.baseLayer); }
+}
 
 function addLayerToTheMap(layer) {
 	var source = createImageLayerSource(layer);
@@ -16,6 +38,13 @@ function addLayerToTheMap(layer) {
 	layer.tilesLoading = 0;
 
 	tlv.map.addLayer(layer.mapLayer);
+}
+
+function changeBaseLayer(layerName) {
+	$.each(tlv.baseLayers, function(i, x) { x.setVisible(false); });
+	if (tlv.baseLayers[layerName]) {
+		tlv.baseLayers[layerName].setVisible(true);
+	}
 }
 
 function compassRotate(event) {
