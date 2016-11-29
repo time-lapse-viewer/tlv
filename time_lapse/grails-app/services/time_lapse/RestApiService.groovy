@@ -30,6 +30,7 @@ class RestApiService {
 		*/
 
 		params.availableResources = [:]
+		params.availableResources.baseLayers = grailsApplication.config.baseLayers
 		params.availableResources.complete = grailsApplication.config.libraries.clone()
 		params.availableResources.complete.each() {
 			def map = it.value.clone()
